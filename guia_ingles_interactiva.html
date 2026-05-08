@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglés TI — Guía de Estudio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0f;
+    --surface: #16161a;
+    --surface2: #1e1e24;
+    --border: #2a2a35;
+    --accent: #00ff88;
+    --accent2: #00bfff;
+    --accent3: #ff6b6b;
+    --accent4: #ffd93d;
+    --text: #e8e8f0;
+    --text-muted: #6b6b80;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+    --display: 'Syne', sans-serif;
+    --radius: 12px;
+    --mode: dark;
+  }
+  .light-mode {
+    --bg: #f0f0f7;
+    --surface: #ffffff;
+    --surface2: #e8e8f2;
+    --border: #d0d0e0;
+    --accent: #00994d;
+    --accent2: #0077cc;
+    --accent3: #cc3333;
+    --accent4: #cc9900;
+    --text: #1a1a2e;
+    --text-muted: #6b6b80;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    transition: background 0.4s, color 0.4s;
+  }
+
+  /* ---- HEADER ---- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    backdrop-filter: blur(12px);
+  }
+  .logo {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 2px;
+  }
+  .logo span { color: var(--text-muted); }
+  nav { display: flex; gap: 0.3rem; }
+  .nav-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover, .nav-btn.active {
+    background: var(--surface2);
+    color: var(--text);
+  }
+  .nav-btn.active { color: var(--accent); }
+  .toggle-mode {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 1rem;
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(0,255,136,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    margin-bottom: 1.2rem;
+    letter-spacing: 2px;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.1s forwards;
+  }
+  .hero h1 {
+    font-family: var(--display);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.2s forwards;
+  }
+  .hero h1 .hl { color: var(--accent); }
+  .hero p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    max-width: 520px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.3s forwards;
+  }
+  .stats-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.4s forwards;
+  }
+  .stat-chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  .stat-chip b { color: var(--accent); }
+
+  /* ---- SECTIONS ---- */
+  .section { display: none; padding: 2rem; max-width: 1100px; margin: 0 auto; }
+  .section.active { display: block; }
+
+  /* ---- GRAMMAR CARDS ---- */
+  .section-title {
+    font-family: var(--display);
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .section-sub {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+  }
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.2rem;
+  }
+  .topic-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .topic-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,255,136,0.08);
+  }
+  .topic-card-header {
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .topic-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .topic-card-header h3 {
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+  .topic-badge {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .badge-1 { background: rgba(0,191,255,0.15); color: var(--accent2); }
+  .badge-2 { background: rgba(0,255,136,0.15); color: var(--accent); }
+  .topic-card-body { padding: 1rem 1.2rem; }
+  .topic-card-body p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 0.8rem;
+  }
+
+  /* Formula box */
+  .formula {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    background: var(--surface2);
+    border-left: 3px solid var(--accent);
+    padding: 0.5rem 0.8rem;
+    border-radius: 0 6px 6px 0;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    word-break: break-word;
+  }
+
+  /* Examples */
+  .examples { display: flex; flex-direction: column; gap: 0.3rem; }
+  .ex-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+    font-size: 0.8rem;
+  }
+  .ex-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .ex-label.pos { background: rgba(0,255,136,0.15); color: var(--accent); }
+  .ex-label.neg { background: rgba(255,107,107,0.15); color: var(--accent3); }
+  .ex-label.q { background: rgba(0,191,255,0.15); color: var(--accent2); }
+  .ex-label.kw { background: rgba(255,217,61,0.15); color: var(--accent4); }
+  .ex-text { color: var(--text); line-height: 1.5; }
+
+  /* Table */
+  .ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    margin-top: 0.8rem;
+  }
+  .ref-table th {
+    background: var(--surface2);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .ref-table td {
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .ref-table tr:last-child td { border-bottom: none; }
+  .ref-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+  /* ---- FLASHCARDS ---- */
+  .flashcards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .flashcard {
+    height: 160px;
+    perspective: 800px;
+    cursor: pointer;
+  }
+  .fc-inner {
+    width: 100%; height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+  .flashcard.flipped .fc-inner { transform: rotateY(180deg); }
+  .fc-front, .fc-back {
+    position: absolute;
+    width: 100%; height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.2rem;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+  .fc-front {
+    background: var(--surface);
+  }
+  .fc-back {
+    background: var(--surface2);
+    transform: rotateY(180deg);
+    border-color: var(--accent);
+  }
+  .fc-category {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+  }
+  .fc-question {
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .fc-answer {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    line-height: 1.5;
+  }
+  .fc-hint {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    line-height: 1.4;
+  }
+  .fc-tap {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-top: 0.8rem;
+    font-family: var(--mono);
+  }
+  .fc-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .fc-filter-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .fc-filter-btn.active {
+    background: var(--accent);
+    color: #000;
+    border-color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ---- QUIZ ---- */
+  .quiz-wrapper { max-width: 680px; margin: 0 auto; }
+  .quiz-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  .quiz-progress-bar {
+    flex: 1;
+    height: 4px;
+    background: var(--surface2);
+    border-radius: 2px;
+    margin: 0 1rem;
+    overflow: hidden;
+  }
+  .quiz-progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+  .quiz-count {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  .quiz-score-badge {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    background: var(--surface2);
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    color: var(--accent4);
+  }
+  .quiz-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .quiz-category {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--accent2);
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+  }
+  .quiz-question {
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 0.7rem; }
+  .quiz-option {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.9rem 1.2rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    text-align: left;
+    color: var(--text);
+    font-family: var(--sans);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .quiz-option:hover:not(:disabled) {
+    border-color: var(--accent2);
+    background: rgba(0,191,255,0.05);
+  }
+  .quiz-option.correct {
+    border-color: var(--accent);
+    background: rgba(0,255,136,0.1);
+    color: var(--accent);
+  }
+  .quiz-option.wrong {
+    border-color: var(--accent3);
+    background: rgba(255,107,107,0.1);
+    color: var(--accent3);
+  }
+  .quiz-option:disabled { cursor: default; }
+  .opt-letter {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    width: 22px; height: 22px;
+    border-radius: 4px;
+    background: var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: var(--text-muted);
+  }
+  .quiz-feedback {
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    margin-top: 1rem;
+    display: none;
+    line-height: 1.5;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.correct { background: rgba(0,255,136,0.1); color: var(--accent); border: 1px solid rgba(0,255,136,0.3); }
+  .quiz-feedback.wrong { background: rgba(255,107,107,0.1); color: var(--accent3); border: 1px solid rgba(255,107,107,0.3); }
+  .quiz-next-btn {
+    width: 100%;
+    padding: 0.9rem;
+    background: var(--accent);
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: none;
+    transition: opacity 0.2s;
+    margin-top: 0.5rem;
+  }
+  .quiz-next-btn:hover { opacity: 0.85; }
+  .quiz-next-btn.show { display: block; }
+  .quiz-results {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .quiz-results .score-big {
+    font-family: var(--display);
+    font-size: 5rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .quiz-results p { color: var(--text-muted); margin-bottom: 1.5rem; }
+  .restart-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .restart-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ---- IRREGULAR VERBS TABLE ---- */
+  .verbs-search {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .verbs-search:focus { border-color: var(--accent); }
+  .verbs-table-wrap { overflow-x: auto; }
+
+  /* ---- ANIMATIONS ---- */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in {
+    opacity: 0;
+    animation: fadeUp 0.4s forwards;
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 600px) {
+    nav { display: none; }
+    .hero h1 { font-size: 2rem; }
+    .topics-grid { grid-template-columns: 1fr; }
+    .flashcards-grid { grid-template-columns: 1fr 1fr; }
+    header { padding: 0 1rem; }
+    .section { padding: 1.2rem; }
+  }
+
+  /* Mobile nav */
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 0.5rem;
+    justify-content: space-around;
+    z-index: 100;
+  }
+  @media (max-width: 600px) {
+    .mobile-nav { display: flex; }
+    body { padding-bottom: 60px; }
+  }
+  .mob-btn {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 0.2rem;
+    background: none; border: none;
+    color: var(--text-muted);
+    font-size: 0.6rem;
+    cursor: pointer;
+    padding: 0.3rem 0.5rem;
+    border-radius: 6px;
+    transition: color 0.2s;
+  }
+  .mob-btn.active { color: var(--accent); }
+  .mob-btn span:first-child { font-size: 1.2rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">ENG<span>/</span>TI <span>// CUC</span></div>
+  <nav>
+    <button class="nav-btn active" onclick="showSection('home')">Inicio</button>
+    <button class="nav-btn" onclick="showSection('grammar')">Gramática</button>
+    <button class="nav-btn" onclick="showSection('flashcards')">Flashcards</button>
+    <button class="nav-btn" onclick="showSection('quiz')">Quiz</button>
+    <button class="nav-btn" onclick="showSection('verbs')">Verbos</button>
+  </nav>
+  <button class="toggle-mode" onclick="toggleMode()" title="Cambiar modo">🌙</button>
+</header>
+
+<!-- HOME -->
+<div id="home" class="section active">
+  <div class="hero">
+    <div class="hero-tag">INGLÉS 1 & 2 → INGLÉS TÉCNICO TI</div>
+    <h1>Tu guía de<br><span class="hl">repaso completo</span></h1>
+    <p>Todo lo que necesitás repasar antes de entrar al Inglés Técnico. Gramática, vocabulario, flashcards y quizzes.</p>
+    <div class="stats-row">
+      <div class="stat-chip"><b>15</b> temas cubiertos</div>
+      <div class="stat-chip"><b>50+</b> flashcards</div>
+      <div class="stat-chip"><b>20</b> preguntas de quiz</div>
+      <div class="stat-chip"><b>60</b> verbos irregulares</div>
+    </div>
+  </div>
+</div>
+
+<!-- GRAMMAR -->
+<div id="grammar" class="section">
+  <div class="section-title">Gramática</div>
+  <div class="section-sub">Tocá cada tarjeta para ver la explicación completa</div>
+  <div class="topics-grid" id="topicsGrid"></div>
+</div>
+
+<!-- FLASHCARDS -->
+<div id="flashcards" class="section">
+  <div class="section-title">Flashcards</div>
+  <div class="section-sub">Tocá cada tarjeta para ver la respuesta</div>
+  <div class="fc-controls" id="fcControls"></div>
+  <div class="flashcards-grid" id="flashcardsGrid"></div>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="section">
+  <div class="section-title">Quiz</div>
+  <div class="section-sub">Poné a prueba lo que sabés</div>
+  <div class="quiz-wrapper">
+    <div class="quiz-header">
+      <span class="quiz-count" id="quizCount">1 / 20</span>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizProgress" style="width:5%"></div></div>
+      <span class="quiz-score-badge" id="quizScore">✓ 0</span>
+    </div>
+    <div id="quizContainer"></div>
+  </div>
+</div>
+
+<!-- IRREGULAR VERBS -->
+<div id="verbs" class="section">
+  <div class="section-title">Verbos Irregulares</div>
+  <div class="section-sub">Lista completa — buscá cualquier verbo</div>
+  <input class="verbs-search" type="text" placeholder="Buscar verbo... (ej: go, buy, eat)" oninput="filterVerbs(this.value)" id="verbSearch">
+  <div class="verbs-table-wrap">
+    <table class="ref-table" id="verbsTable">
+      <thead><tr><th>PRESENTE</th><th>PASADO</th><th>PRESENTE</th><th>PASADO</th></tr></thead>
+      <tbody id="verbsBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="mobile-nav">
+  <button class="mob-btn active" onclick="showSection('home')"><span>🏠</span><span>Inicio</span></button>
+  <button class="mob-btn" onclick="showSection('grammar')"><span>📚</span><span>Gramática</span></button>
+  <button class="mob-btn" onclick="showSection('flashcards')"><span>🃏</span><span>Cards</span></button>
+  <button class="mob-btn" onclick="showSection('quiz')"><span>⚡</span><span>Quiz</span></button>
+  <button class="mob-btn" onclick="showSection('verbs')"><span>📝</span><span>Verbos</span></button>
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const topics = [
+  {
+    icon: '👤', color: '#00bfff', course: 'Inglés 1',
+    title: 'Pronombres: Sujeto vs Objeto',
+    desc: 'Los pronombres sujeto hacen la acción. Los de objeto la reciben.',
+    formula: 'Subject + verb + Object pronoun',
+    examples: [
+      { type: 'pos', text: 'She called him yesterday.' },
+      { type: 'neg', text: 'He never listens to us.' },
+      { type: 'q', text: 'What time can I call you?' },
+      { type: 'kw', text: 'I/me · he/him · she/her · we/us · they/them' },
+    ],
+    table: {
+      headers: ['Sujeto', 'Objeto', 'Ejemplo'],
+      rows: [
+        ['I','me','Call me!'],['he','him','She loves him.'],['she','her','He called her.'],
+        ['we','us','They need us.'],['they','them','I told them.'],['you','you','I see you.'],
+      ]
+    }
+  },
+  {
+    icon: '📖', color: '#ffd93d', course: 'Inglés 1',
+    title: 'Artículos: A / AN / THE',
+    desc: 'A/AN = indefinido (cualquiera). THE = específico o único.',
+    formula: 'A + consonant | AN + vowel | THE + specific/unique',
+    examples: [
+      { type: 'pos', text: 'She is reading a book.' },
+      { type: 'pos', text: 'He found an umbrella.' },
+      { type: 'kw', text: 'THE sun / THE moon → únicos en el mundo' },
+      { type: 'neg', text: 'NO artículo: Books are expensive. / I love music.' },
+    ],
+    table: {
+      headers: ['Artículo', 'Uso', 'Ejemplo'],
+      rows: [
+        ['A','Antes de consonante','a book, a car'],
+        ['AN','Antes de vocal','an apple, an old car'],
+        ['THE','Específico/único','the sun, the book I told you'],
+        ['∅ (ninguno)','Plural general / abstracto','Books are fun. / I love music.'],
+      ]
+    }
+  },
+  {
+    icon: '🔢', color: '#ff6b6b', course: 'Inglés 1',
+    title: 'Plurales',
+    desc: 'Reglas para convertir sustantivos al plural.',
+    formula: 'noun + s / es / ies (según la terminación)',
+    examples: [
+      { type: 'pos', text: 'book → books / bus → buses' },
+      { type: 'pos', text: 'city → cities / leaf → leaves' },
+      { type: 'kw', text: 'Irregulares: man→men, child→children, foot→feet' },
+    ],
+    table: {
+      headers: ['Terminación','Regla','Ejemplo'],
+      rows: [
+        ['General','+ s','book→books'],
+        ['s,x,z,sh,ch','+ es','bus→buses, watch→watches'],
+        ['Consonante + y','y→ies','city→cities'],
+        ['f/fe','f→ves','leaf→leaves'],
+        ['Irregulares','Cambian','man→men, child→children'],
+      ]
+    }
+  },
+  {
+    icon: '⏱️', color: '#00ff88', course: 'Inglés 1 & 2',
+    title: 'Simple Present',
+    desc: 'Hábitos, rutinas y hechos generales. Con he/she/it el verbo lleva -s.',
+    formula: 'S + verb(s/es) | S + do/does + not + verb | Do/Does + S + verb?',
+    examples: [
+      { type: 'pos', text: 'She eats breakfast every day.' },
+      { type: 'neg', text: "She doesn't eat breakfast." },
+      { type: 'q', text: 'Does she eat breakfast?' },
+      { type: 'kw', text: 'always, usually, sometimes, never, every day, once a week' },
+    ],
+    table: {
+      headers: ['Tipo','Estructura','Ejemplo'],
+      rows: [
+        ['Afirmativo','S + verb(s/es)','She studies at night.'],
+        ['Negativo','S + don\'t/doesn\'t + verb','He doesn\'t like coffee.'],
+        ['Yes/No Q','Do/Does + S + verb?','Does she work here?'],
+        ['WH-Q','WH + do/does + S + verb?','Where does she live?'],
+      ]
+    }
+  },
+  {
+    icon: '🔄', color: '#00bfff', course: 'Inglés 1 & 2',
+    title: 'Present Continuous',
+    desc: 'Acciones que pasan AHORA o planes futuros cercanos.',
+    formula: 'S + am/is/are + verb-ing',
+    examples: [
+      { type: 'pos', text: 'She is studying English right now.' },
+      { type: 'neg', text: "She isn't studying English." },
+      { type: 'q', text: 'Is she studying English?' },
+      { type: 'kw', text: 'now, right now, at the moment, tonight, tomorrow' },
+    ],
+    table: {
+      headers: ['Verbo','Non-Progressive?','Alternativa'],
+      rows: [
+        ['know','✓ (NO -ing)','She knows the answer.'],
+        ['like/love','✓','He loves pizza.'],
+        ['want/need','✓','I need help.'],
+        ['have (posesión)','✓','She has a car.'],
+        ['see/hear','✓','I see you.'],
+      ]
+    }
+  },
+  {
+    icon: '🗣️', color: '#ffd93d', course: 'Inglés 1',
+    title: 'Imperatives',
+    desc: 'Instrucciones u órdenes. El sujeto "you" está implícito.',
+    formula: 'Verb (base) | Don\'t + verb',
+    examples: [
+      { type: 'pos', text: 'Open your book. / Sit down.' },
+      { type: 'neg', text: "Don't talk. / Don't be late." },
+    ],
+  },
+  {
+    icon: '📊', color: '#ff6b6b', course: 'Inglés 1',
+    title: 'Adverbs of Frequency',
+    desc: 'Van ANTES del verbo principal, pero DESPUÉS del verbo to be.',
+    formula: 'S + adverb + verb | S + to be + adverb',
+    examples: [
+      { type: 'pos', text: 'She always eats breakfast.' },
+      { type: 'pos', text: 'He is always happy.' },
+      { type: 'kw', text: 'always(100%) usually(90%) sometimes(50%) never(0%)' },
+    ],
+    table: {
+      headers: ['Adverbio','%','Ejemplo'],
+      rows: [
+        ['always','100%','She always studies.'],
+        ['usually','90-99%','I usually wake up early.'],
+        ['often','60-80%','They often play soccer.'],
+        ['sometimes','50%','We sometimes watch movies.'],
+        ['rarely','1-10%','She rarely eats meat.'],
+        ['never','0%','He never drinks coffee.'],
+      ]
+    }
+  },
+  {
+    icon: '❓', color: '#00ff88', course: 'Inglés 1 & 2',
+    title: 'WH-Questions',
+    desc: 'Para obtener información específica (no solo sí/no).',
+    formula: 'WH + do/does/did + S + verb?',
+    examples: [
+      { type: 'q', text: 'What do you eat for lunch?' },
+      { type: 'q', text: 'Where does she live?' },
+      { type: 'q', text: 'When did they arrive?' },
+      { type: 'kw', text: 'What · Who · Where · When · Why · How · How often · How many' },
+    ],
+    table: {
+      headers: ['WH','Pregunta sobre...','Ejemplo'],
+      rows: [
+        ['What','Cosa/acción','What do you eat?'],
+        ['Who','Persona','Who plays soccer?'],
+        ['Where','Lugar','Where does she live?'],
+        ['When','Tiempo','When did they arrive?'],
+        ['Why','Razón','Why are you late?'],
+        ['How','Manera','How do you go to work?'],
+        ['How often','Frecuencia','How often do you exercise?'],
+      ]
+    }
+  },
+  {
+    icon: '⏪', color: '#00bfff', course: 'Inglés 2',
+    title: 'Simple Past',
+    desc: 'Acciones completadas en el pasado. Regulares: +ed. Irregulares: cambia el verbo.',
+    formula: 'S + verb-ed/irregular | S + didn\'t + verb | Did + S + verb?',
+    examples: [
+      { type: 'pos', text: 'She walked to school yesterday.' },
+      { type: 'pos', text: 'He went to the gym last night.' },
+      { type: 'neg', text: "She didn't walk to school." },
+      { type: 'q', text: 'Did she walk? / Where did he go?' },
+      { type: 'kw', text: 'yesterday, last week/month, ago, in 2020' },
+    ],
+    table: {
+      headers: ['Pronunciación -ed','Regla','Ejemplos'],
+      rows: [
+        ['/d/','Verbo termina en sonido sonoro','played, called, loved'],
+        ['/t/','Verbo termina en sonido sordo','washed, cooked, liked'],
+        ['/ɪd/','Verbo termina en /t/ o /d/','started, needed, wanted'],
+      ]
+    }
+  },
+  {
+    icon: '📈', color: '#ffd93d', course: 'Inglés 2',
+    title: 'Comparatives',
+    desc: 'Comparar dos cosas. Se usa "than" después del adjetivo.',
+    formula: 'adj+er than | more + adj + than | as + adj + as',
+    examples: [
+      { type: 'pos', text: 'Tokyo is bigger than London.' },
+      { type: 'pos', text: 'That book is more interesting than this one.' },
+      { type: 'pos', text: 'English is as hard as Portuguese.' },
+      { type: 'kw', text: 'Irregulares: good→better, bad→worse, far→farther' },
+    ],
+    table: {
+      headers: ['Tipo','Regla','Ejemplo'],
+      rows: [
+        ['1 sílaba general','+ er + than','tall → taller than'],
+        ['1 sílaba en -e','+ r + than','nice → nicer than'],
+        ['CVC de 1 sílaba','Dobla + er','big → bigger than'],
+        ['2+ sílabas','more + adj + than','more comfortable than'],
+        ['Irregulares','Forma especial','good→better, bad→worse'],
+        ['Igualdad','as + adj + as','as tall as her'],
+      ]
+    }
+  },
+  {
+    icon: '🔮', color: '#ff6b6b', course: 'Inglés 2',
+    title: 'Be Going To',
+    desc: 'Planes futuros y predicciones con evidencia.',
+    formula: 'S + am/is/are + going to + verb',
+    examples: [
+      { type: 'pos', text: "I'm going to study tonight. (plan)" },
+      { type: 'pos', text: "Look at those clouds! It's going to rain. (predicción)" },
+      { type: 'neg', text: "She isn't going to eat fish." },
+      { type: 'q', text: 'Are you going to play soccer?' },
+      { type: 'kw', text: 'next, later, tomorrow, tonight' },
+    ],
+  },
+  {
+    icon: '📍', color: '#00ff88', course: 'Inglés 2',
+    title: 'There is / There are',
+    desc: 'Indicar la existencia de algo en un lugar.',
+    formula: 'There is + singular | There are + plural',
+    examples: [
+      { type: 'pos', text: 'There is a bank near here.' },
+      { type: 'pos', text: 'There are some cafes in town.' },
+      { type: 'neg', text: "There isn't a hospital. / There aren't any movies theaters." },
+      { type: 'q', text: 'Is there a school? / Are there any colleges?' },
+      { type: 'kw', text: 'some (afirm.) · any (neg./preg.) · a (singular)' },
+    ],
+  },
+];
+
+const flashcardsData = [
+  { cat: 'Pronombres', q: '¿Objeto pronoun de "I"?', a: 'me', hint: 'Call me! / She told me.' },
+  { cat: 'Pronombres', q: '¿Objeto pronoun de "he"?', a: 'him', hint: 'She loves him. / I told him.' },
+  { cat: 'Pronombres', q: '¿Objeto pronoun de "they"?', a: 'them', hint: 'I see them. / She told them.' },
+  { cat: 'Pronombres', q: '¿Objeto pronoun de "we"?', a: 'us', hint: 'They need us. / He helped us.' },
+  { cat: 'Artículos', q: '"___ sun sets in the west."', a: 'The', hint: 'El sol es único → THE' },
+  { cat: 'Artículos', q: '"She found ___ umbrella."', a: 'an', hint: 'Umbrella empieza con vocal → AN' },
+  { cat: 'Artículos', q: '"He is playing ___ guitar."', a: 'the', hint: 'Instrumento específico → THE' },
+  { cat: 'Artículos', q: '"I bought ___ new phone."', a: 'a', hint: 'Indefinido, consonante → A' },
+  { cat: 'Simple Present', q: '"She ___ (study) every night." 3ra persona', a: 'studies', hint: 'Consonante + y → ies' },
+  { cat: 'Simple Present', q: '"He ___ (not/like) coffee."', a: "doesn't like", hint: '3ra persona → doesn\'t' },
+  { cat: 'Simple Present', q: '"___ she work here?" Pregunta.', a: 'Does', hint: 'She → Does (3ra persona)' },
+  { cat: 'Frecuencia', q: 'Adverbio de frecuencia al 0%', a: 'never', hint: 'Never = jamás / nunca' },
+  { cat: 'Frecuencia', q: 'Adverbio de frecuencia al 100%', a: 'always', hint: 'Always = siempre' },
+  { cat: 'Frecuencia', q: 'Posición en: "She ___ is happy."', a: 'always (después de is)', hint: 'Después del verbo to be' },
+  { cat: 'Simple Past', q: 'Pasado de "go"', a: 'went', hint: 'Irregular: go → went' },
+  { cat: 'Simple Past', q: 'Pasado de "buy"', a: 'bought', hint: 'Irregular: buy → bought' },
+  { cat: 'Simple Past', q: 'Pasado de "eat"', a: 'ate', hint: 'Irregular: eat → ate' },
+  { cat: 'Simple Past', q: '"play + ed" → pronunciación', a: '/d/', hint: 'Sonido sonoro al final → /d/' },
+  { cat: 'Simple Past', q: '"wash + ed" → pronunciación', a: '/t/', hint: 'Sonido sordo al final → /t/' },
+  { cat: 'Simple Past', q: '"start + ed" → pronunciación', a: '/ɪd/', hint: 'Termina en /t/ → /ɪd/' },
+  { cat: 'Simple Past', q: '"She ___ (not/go) yesterday."', a: "didn't go", hint: 'Negativo pasado = didn\'t + verbo base' },
+  { cat: 'Comparativos', q: 'Comparativo de "good"', a: 'better', hint: 'Irregular: good → better' },
+  { cat: 'Comparativos', q: 'Comparativo de "bad"', a: 'worse', hint: 'Irregular: bad → worse' },
+  { cat: 'Comparativos', q: '"Tokyo is ___ (big) than London."', a: 'bigger', hint: 'CVC de 1 sílaba → dobla + er' },
+  { cat: 'Comparativos', q: '"That is ___ (comfortable) than this."', a: 'more comfortable', hint: '2+ sílabas → more + adj' },
+  { cat: 'Be Going To', q: '"I ___ (go) to study tonight."', a: "am going to study", hint: 'I → am going to + verb' },
+  { cat: 'Be Going To', q: '"___ she going to eat fish?"', a: 'Is', hint: 'She → Is going to' },
+  { cat: 'There is/are', q: '"___ some cafes in town."', a: 'There are', hint: 'Plural → there are' },
+  { cat: 'There is/are', q: '"___ a hospital here?" Pregunta.', a: 'Is there', hint: 'Singular → Is there?' },
+  { cat: 'Vocab', q: '¿Qué significa "Hit the books"?', a: 'Ponerse a estudiar', hint: 'Idiom muy común en inglés' },
+  { cat: 'Vocab', q: '¿Qué significa "Piece of cake"?', a: 'Muy fácil / pan comido', hint: 'Idiom de facilidad' },
+  { cat: 'Vocab', q: '¿Qué significa "Ring a bell"?', a: 'Sonar familiar', hint: 'Como cuando casi recordás algo' },
+  { cat: 'Vocab', q: '"What is she ___?" → personalidad', a: 'like', hint: '"What is she like?" → describe carácter' },
+  { cat: 'Vocab', q: '"What does she ___ like?" → apariencia', a: 'look', hint: '"look like" = apariencia física' },
+];
+
+const quizData = [
+  { cat: 'Pronombres', q: 'He never listens to ___.',
+    opts: ['we','us','our','ours'], correct: 1, exp: 'Después de preposición → objeto pronoun: us' },
+  { cat: 'Artículos', q: '___ sun sets in the west.',
+    opts: ['A','An','The','∅'], correct: 2, exp: 'El sol es único → THE' },
+  { cat: 'Artículos', q: 'She found ___ umbrella.',
+    opts: ['a','an','the','some'], correct: 1, exp: 'Umbrella empieza con vocal → AN' },
+  { cat: 'Simple Present', q: 'She always ___ breakfast at 7.',
+    opts: ['eat','eats','eating','ate'], correct: 1, exp: '3ra persona (she) → eat + s = eats' },
+  { cat: 'Simple Present', q: 'He ___ like coffee.',
+    opts: ["don't","doesn't","isn't","aren't"], correct: 1, exp: '3ra persona negativo → doesn\'t' },
+  { cat: 'Frecuencia', q: '"She ___ is happy." ¿Cuál adverbio va ahí?',
+    opts: ['always before is','always after is','never with is','only with do'], correct: 1,
+    exp: 'Los adverbios de frecuencia van DESPUÉS del verbo to be' },
+  { cat: 'Present Continuous', q: '¿Cuál NO puede usarse en -ing?',
+    opts: ['run','study','know','eat'], correct: 2,
+    exp: '"Know" es non-progressive verb (estado mental). No se usa en -ing.' },
+  { cat: 'WH-Questions', q: 'What ___ she eat for breakfast?',
+    opts: ['do','does','did','is'], correct: 1, exp: 'She → Does (Simple Present)' },
+  { cat: 'Simple Past', q: 'She ___ to school yesterday. (walk)',
+    opts: ['walk','walks','walked','walking'], correct: 2, exp: 'Pasado regular: walk + ed = walked' },
+  { cat: 'Simple Past', q: 'He ___ to the gym last night. (go)',
+    opts: ['goed','goes','gone','went'], correct: 3, exp: 'go es irregular → went' },
+  { cat: 'Simple Past', q: '"played" → pronunciación del -ed:',
+    opts: ['/t/','/d/','/ɪd/','silent'], correct: 1, exp: 'play termina en sonido sonoro → /d/' },
+  { cat: 'Simple Past', q: '"started" → pronunciación del -ed:',
+    opts: ['/t/','/d/','/ɪd/','silent'], correct: 2, exp: 'start termina en /t/ → /ɪd/' },
+  { cat: 'Simple Past', q: 'She ___ go to the gym. (negativo pasado)',
+    opts: ["don't","doesn't","didn't","wasn't"], correct: 2,
+    exp: 'Negativo simple past → didn\'t + verbo base' },
+  { cat: 'Comparativos', q: 'Tokyo is ___ than London. (big)',
+    opts: ['more big','biger','bigger','biggest'], correct: 2,
+    exp: 'CVC de 1 sílaba → dobla la consonante + er: bigger' },
+  { cat: 'Comparativos', q: 'Comparativo de "good":',
+    opts: ['gooder','more good','better','best'], correct: 2, exp: 'Irregular: good → better' },
+  { cat: 'Be Going To', q: 'I ___ study tonight.',
+    opts: ['am going to','is going to','are going to','going to'], correct: 0,
+    exp: 'I → am going to + verb' },
+  { cat: 'Be Going To', q: 'Look at those clouds! It ___ rain.',
+    opts: ["'s going to","'s going","will be","go to"], correct: 0,
+    exp: 'Predicción con evidencia → be going to' },
+  { cat: 'There is/are', q: 'There ___ some cafes in town.',
+    opts: ['is','are','be','am'], correct: 1, exp: 'Plural "cafes" → there are' },
+  { cat: 'There is/are', q: 'There ___ a hospital near here. (negativo)',
+    opts: ["aren't","isn't","don't","not"], correct: 1,
+    exp: 'Singular negativo → there isn\'t' },
+  { cat: 'Vocab', q: '¿Qué significa "Hit the books"?',
+    opts: ['Golpear libros','Ponerse a estudiar','Ir a la biblioteca','Terminar un libro'], correct: 1,
+    exp: 'Idiom: Hit the books = ponerse a estudiar' },
+];
+
+const irregularVerbs = [
+  ['be','was/were'],['become','became'],['begin','began'],['break','broke'],
+  ['bring','brought'],['build','built'],['buy','bought'],['catch','caught'],
+  ['choose','chose'],['come','came'],['cost','cost'],['cut','cut'],
+  ['do','did'],['draw','drew'],['drink','drank'],['drive','drove'],
+  ['eat','ate'],['fall','fell'],['feel','felt'],['feed','fed'],
+  ['fight','fought'],['find','found'],['fly','flew'],['forget','forgot'],
+  ['get','got'],['give','gave'],['go','went'],['grow','grew'],
+  ['have','had'],['hear','heard'],['hide','hid'],['hit','hit'],
+  ['hold','held'],['keep','kept'],['know','knew'],['leave','left'],
+  ['lose','lost'],['make','made'],['meet','met'],['pay','paid'],
+  ['put','put'],['read','read'],['ride','rode'],['run','ran'],
+  ['say','said'],['see','saw'],['send','sent'],['sing','sang'],
+  ['sleep','slept'],['speak','spoke'],['spend','spent'],['stand','stood'],
+  ['steal','stole'],['swim','swam'],['take','took'],['teach','taught'],
+  ['tell','told'],['think','thought'],['throw','threw'],['wake','woke'],
+  ['wear','wore'],['win','won'],['write','wrote'],
+];
+
+// ============================================================
+// RENDER
+// ============================================================
+
+function renderTopics() {
+  const grid = document.getElementById('topicsGrid');
+  grid.innerHTML = topics.map((t, i) => `
+    <div class="topic-card fade-in" style="animation-delay:${i*0.06}s">
+      <div class="topic-card-header">
+        <div class="topic-icon" style="background:${t.color}22; color:${t.color}">${t.icon}</div>
+        <h3>${t.title}</h3>
+        <span class="topic-badge ${t.course.includes('1') && !t.course.includes('2') ? 'badge-1' : t.course.includes('2') && !t.course.includes('1') ? 'badge-2' : 'badge-1'}">${t.course}</span>
+      </div>
+      <div class="topic-card-body">
+        <p>${t.desc}</p>
+        <div class="formula">${t.formula}</div>
+        <div class="examples">
+          ${t.examples.map(e => `
+            <div class="ex-row">
+              <span class="ex-label ${e.type}">${e.type === 'pos' ? '+' : e.type === 'neg' ? '−' : e.type === 'q' ? '?' : '🔑'}</span>
+              <span class="ex-text">${e.text}</span>
+            </div>
+          `).join('')}
+        </div>
+        ${t.table ? `
+          <table class="ref-table" style="margin-top:0.8rem">
+            <thead><tr>${t.table.headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead>
+            <tbody>${t.table.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody>
+          </table>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+// ---- FLASHCARDS ----
+let activeCategory = 'all';
+const categories = ['all', ...new Set(flashcardsData.map(f => f.cat))];
+
+function renderFlashcardControls() {
+  const ctrl = document.getElementById('fcControls');
+  ctrl.innerHTML = categories.map(c => `
+    <button class="fc-filter-btn ${c === activeCategory ? 'active' : ''}" onclick="filterCards('${c}')">
+      ${c === 'all' ? '📚 Todas' : c}
+    </button>
+  `).join('');
+}
+
+function filterCards(cat) {
+  activeCategory = cat;
+  renderFlashcardControls();
+  renderFlashcards();
+}
+
+function renderFlashcards() {
+  const grid = document.getElementById('flashcardsGrid');
+  const filtered = activeCategory === 'all' ? flashcardsData : flashcardsData.filter(f => f.cat === activeCategory);
+  grid.innerHTML = filtered.map((f, i) => `
+    <div class="flashcard fade-in" style="animation-delay:${i*0.04}s" onclick="this.classList.toggle('flipped')">
+      <div class="fc-inner">
+        <div class="fc-front">
+          <div class="fc-category">${f.cat.toUpperCase()}</div>
+          <div class="fc-question">${f.q}</div>
+          <div class="fc-tap">↩ Tocá para ver respuesta</div>
+        </div>
+        <div class="fc-back">
+          <div class="fc-category">${f.cat.toUpperCase()}</div>
+          <div class="fc-answer">${f.a}</div>
+          <div class="fc-hint">${f.hint}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ---- QUIZ ----
+let currentQ = 0, score = 0, answered = false;
+const shuffledQuiz = [...quizData].sort(() => Math.random() - 0.5);
+
+function renderQuiz() {
+  const container = document.getElementById('quizContainer');
+  if (currentQ >= shuffledQuiz.length) {
+    const pct = Math.round(score / shuffledQuiz.length * 100);
+    const emoji = pct >= 80 ? '🎉' : pct >= 60 ? '💪' : '📚';
+    container.innerHTML = `
+      <div class="quiz-results">
+        <div class="score-big">${pct}%</div>
+        <p>${emoji} ${score} de ${shuffledQuiz.length} correctas</p>
+        <p style="margin-bottom:1.5rem">${pct>=80?'¡Excelente! Estás listo para el curso.':pct>=60?'Bien, pero repasá los temas donde fallaste.':'Repasá la sección de Gramática y volvé a intentarlo.'}</p>
+        <button class="restart-btn" onclick="restartQuiz()">🔄 Intentar de nuevo</button>
+      </div>`;
+    return;
+  }
+  const q = shuffledQuiz[currentQ];
+  const letters = ['A','B','C','D'];
+  const progress = ((currentQ) / shuffledQuiz.length * 100).toFixed(0);
+  document.getElementById('quizCount').textContent = `${currentQ+1} / ${shuffledQuiz.length}`;
+  document.getElementById('quizProgress').style.width = progress + '%';
+  document.getElementById('quizScore').textContent = `✓ ${score}`;
+  answered = false;
+  container.innerHTML = `
+    <div class="quiz-card fade-in">
+      <div class="quiz-category">${q.cat.toUpperCase()}</div>
+      <div class="quiz-question">${q.q}</div>
+      <div class="quiz-options">
+        ${q.opts.map((opt, i) => `
+          <button class="quiz-option" onclick="selectOption(${i})">
+            <span class="opt-letter">${letters[i]}</span> ${opt}
+          </button>
+        `).join('')}
+      </div>
+      <div class="quiz-feedback" id="quizFeedback"></div>
+    </div>
+    <button class="quiz-next-btn" id="quizNext" onclick="nextQuestion()">
+      ${currentQ + 1 < shuffledQuiz.length ? 'Siguiente →' : 'Ver resultado'}
+    </button>`;
+}
+
+function selectOption(idx) {
+  if (answered) return;
+  answered = true;
+  const q = shuffledQuiz[currentQ];
+  const opts = document.querySelectorAll('.quiz-option');
+  const feedback = document.getElementById('quizFeedback');
+  opts.forEach(o => o.disabled = true);
+  if (idx === q.correct) {
+    score++;
+    opts[idx].classList.add('correct');
+    feedback.textContent = '✓ Correcto! ' + q.exp;
+    feedback.className = 'quiz-feedback show correct';
+  } else {
+    opts[idx].classList.add('wrong');
+    opts[q.correct].classList.add('correct');
+    feedback.textContent = '✗ Incorrecto. ' + q.exp;
+    feedback.className = 'quiz-feedback show wrong';
+  }
+  document.getElementById('quizNext').classList.add('show');
+}
+
+function nextQuestion() {
+  currentQ++;
+  renderQuiz();
+}
+
+function restartQuiz() {
+  currentQ = 0; score = 0;
+  shuffledQuiz.sort(() => Math.random() - 0.5);
+  renderQuiz();
+}
+
+// ---- VERBS ----
+function renderVerbs(filter = '') {
+  const body = document.getElementById('verbsBody');
+  const filtered = irregularVerbs.filter(v =>
+    v[0].includes(filter.toLowerCase()) || v[1].includes(filter.toLowerCase())
+  );
+  // Pair them into rows of 2
+  const rows = [];
+  for (let i = 0; i < filtered.length; i += 2) {
+    rows.push([filtered[i], filtered[i+1] || null]);
+  }
+  body.innerHTML = rows.map(r => `
+    <tr>
+      <td style="font-family:var(--mono)">${r[0][0]}</td>
+      <td style="color:var(--accent);font-family:var(--mono)">${r[0][1]}</td>
+      <td style="font-family:var(--mono)">${r[1] ? r[1][0] : ''}</td>
+      <td style="color:var(--accent);font-family:var(--mono)">${r[1] ? r[1][1] : ''}</td>
+    </tr>
+  `).join('');
+  if (rows.length === 0) {
+    body.innerHTML = `<tr><td colspan="4" style="text-align:center;color:var(--text-muted);padding:2rem">No se encontró ningún verbo</td></tr>`;
+  }
+}
+
+function filterVerbs(val) { renderVerbs(val); }
+
+// ---- NAV ----
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.mob-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll(`.nav-btn`).forEach(b => {
+    if (b.getAttribute('onclick')?.includes(id)) b.classList.add('active');
+  });
+  document.querySelectorAll(`.mob-btn`).forEach(b => {
+    if (b.getAttribute('onclick')?.includes(id)) b.classList.add('active');
+  });
+  window.scrollTo(0, 0);
+}
+
+function toggleMode() {
+  document.body.classList.toggle('light-mode');
+  const btn = document.querySelector('.toggle-mode');
+  btn.textContent = document.body.classList.contains('light-mode') ? '🌙' : '☀️';
+}
+
+// ---- INIT ----
+renderTopics();
+renderFlashcardControls();
+renderFlashcards();
+renderQuiz();
+renderVerbs();
+</script>
+</body>
+</html>
