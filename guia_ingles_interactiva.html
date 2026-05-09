@@ -43,8 +43,19 @@
 <!-- GRAMMAR -->
 <div id="grammar" class="section">
   <div class="section-title">Gramática</div>
-  <div class="section-sub">Tocá cada tarjeta para ver la explicación completa</div>
-  <div class="topics-grid" id="topicsGrid"></div>
+  <div class="section-sub">Seleccioná un tema de la lista para leerlo en modo concentración</div>
+  
+  <div class="grammar-book-layout">
+    <div class="grammar-sidebar">
+      <ul id="grammarTopicList"></ul>
+    </div>
+    <div class="grammar-content" id="grammarContentArea">
+      <div class="grammar-empty-state">
+        <span class="empty-icon">📖</span>
+        <p>Elegí un tema del menú lateral para empezar a repasar.</p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- FLASHCARDS -->
@@ -59,6 +70,9 @@
 <div id="quiz" class="section">
   <div class="section-title">Quiz</div>
   <div class="section-sub">Poné a prueba lo que sabés</div>
+  <div class="quiz-controls" id="quizControls">
+    <!-- Filter injected by JS -->
+  </div>
   <div class="quiz-wrapper">
     <div class="quiz-header">
       <span class="quiz-count" id="quizCount">1 / 20</span>
@@ -73,12 +87,13 @@
 <div id="verbs" class="section">
   <div class="section-title">Verbos Irregulares</div>
   <div class="section-sub">Lista completa — buscá cualquier verbo</div>
-  <input class="verbs-search" type="text" placeholder="Buscar verbo... (ej: go, buy, eat)" oninput="filterVerbs(this.value)" id="verbSearch">
-  <div class="verbs-table-wrap">
-    <table class="ref-table" id="verbsTable">
-      <thead><tr><th>PRESENTE</th><th>PASADO</th><th>PRESENTE</th><th>PASADO</th></tr></thead>
-      <tbody id="verbsBody"></tbody>
-    </table>
+
+  <div class="verbs-controls" style="display:flex; gap:0.5rem; margin-bottom:1rem;" id="verbControls">
+    <input class="verbs-search" type="text" placeholder="Buscar verbo... (ej: go, buy)" oninput="handleVerbSearch()" id="verbSearch" style="flex:1;">
+  </div>
+  
+  <div class="verbs-accordion-wrap" id="verbsBody">
+    <!-- Verbs or Categories will be injected here -->
   </div>
 </div>
 
