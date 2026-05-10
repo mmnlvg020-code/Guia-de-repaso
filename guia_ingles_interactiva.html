@@ -1,126 +1,140 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inglés TI — Guía de Estudio</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inglés TI — Guía de Estudio</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;700&family=Syne:wght@700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 
 </head>
+
 <body>
 
-<header>
-  <div class="logo">ENG<span>/</span>TI <span>// CUC</span></div>
-  <nav>
-    <button class="nav-btn active" onclick="showSection('home')">Inicio</button>
-    <button class="nav-btn" onclick="showSection('grammar')">Gramática</button>
-    <button class="nav-btn" onclick="showSection('flashcards')">Flashcards</button>
-    <button class="nav-btn" onclick="showSection('quiz')">Quiz</button>
-    <button class="nav-btn" onclick="showSection('verbs')">Verbos</button>
-  </nav>
-  <button class="toggle-mode" onclick="toggleMode()" title="Cambiar modo">🌙</button>
-</header>
+  <header>
+    <div class="logo">ENG<span>/</span>TI <span>// CUC</span></div>
+    <nav>
+      <button class="nav-btn active" onclick="showSection('home')">Inicio</button>
+      <button class="nav-btn" onclick="showSection('grammar')">Gramática</button>
+      <button class="nav-btn" onclick="showSection('flashcards')">Flashcards</button>
+      <button class="nav-btn" onclick="showSection('quiz')">Quiz</button>
+      <button class="nav-btn" onclick="showSection('verbs')">Verbos</button>
+    </nav>
+    <button class="toggle-mode" onclick="toggleMode()" title="Cambiar modo">🌙</button>
+  </header>
 
-<!-- HOME -->
-<div id="home" class="section active">
-  <div class="hero">
-    <div class="hero-tag">INGLÉS 1 & 2 → INGLÉS TÉCNICO TI</div>
-    <h1>Tu guía de<br><span class="hl">repaso completo</span></h1>
-    <p>Todo lo que necesitás repasar antes de entrar al Inglés Técnico. Gramática, vocabulario, flashcards y quizzes.</p>
-    <div class="stats-row">
-      <div class="stat-chip"><b>15</b> temas cubiertos</div>
-      <div class="stat-chip"><b>50+</b> flashcards</div>
-      <div class="stat-chip"><b>20</b> preguntas de quiz</div>
-      <div class="stat-chip"><b>60</b> verbos irregulares</div>
-    </div>
-    <div class="offline-notice" id="offlineNotice" style="display:none;">
-      <span>📱 Modo offline disponible — app cacheada para uso sin conexión</span>
-    </div>
-  </div>
-</div>
-
-<!-- GRAMMAR -->
-<div id="grammar" class="section">
-  <div class="section-title">Gramática</div>
-  <div class="section-sub">Seleccioná un tema de la lista para leerlo en modo concentración</div>
-  
-  <div class="grammar-book-layout">
-    <div class="grammar-sidebar">
-      <ul id="grammarTopicList"></ul>
-    </div>
-    <div class="grammar-content" id="grammarContentArea">
-      <div class="grammar-empty-state">
-        <span class="empty-icon">📖</span>
-        <p>Elegí un tema del menú lateral para empezar a repasar.</p>
+  <!-- HOME -->
+  <div id="home" class="section active">
+    <div class="hero">
+      <div class="hero-tag">INGLÉS 1 & 2 → INGLÉS TÉCNICO TI</div>
+      <h1>Tu guía de<br><span class="hl">repaso completo</span></h1>
+      <p>Todo lo que necesitás repasar antes de entrar al Inglés Técnico. Gramática, vocabulario, flashcards y quizzes.
+      </p>
+      <div class="stats-row">
+        <div class="stat-chip"><b id="stat-topics">0</b> temas cubiertos</div>
+        <div class="stat-chip"><b id="stat-flashcards">0</b> flashcards</div>
+        <div class="stat-chip"><b id="stat-quiz">0</b> preguntas de quiz</div>
+        <div class="stat-chip"><b id="stat-verbs">0</b> verbos irregulares</div>
+      </div>
+      <div class="offline-notice" id="offlineNotice" style="display:none;">
+        <span>📱 Modo offline disponible — app cacheada para uso sin conexión</span>
       </div>
     </div>
   </div>
-</div>
 
-<!-- FLASHCARDS -->
-<div id="flashcards" class="section">
-  <div class="section-title">Flashcards</div>
-  <div class="section-sub">Tocá cada tarjeta para ver la respuesta</div>
-  <div class="fc-controls" id="fcControls"></div>
-  <div class="flashcards-grid" id="flashcardsGrid"></div>
-</div>
+  <!-- GRAMMAR -->
+  <div id="grammar" class="section">
+    <div class="section-title">Gramática</div>
+    <div class="section-sub">Seleccioná un tema de la lista para leerlo en modo concentración</div>
 
-<!-- QUIZ -->
-<div id="quiz" class="section">
-  <div class="section-title">Quiz</div>
-  <div class="section-sub">Poné a prueba lo que sabés</div>
-  <div class="quiz-controls" id="quizControls">
-    <!-- Filter injected by JS -->
-  </div>
-  <div class="quiz-wrapper">
-    <div class="quiz-header">
-      <span class="quiz-count" id="quizCount">1 / 20</span>
-      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizProgress" style="width:5%"></div></div>
-      <span class="quiz-score-badge" id="quizScore">✓ 0</span>
+    <div class="grammar-book-layout">
+      <div class="grammar-sidebar">
+        <ul id="grammarTopicList"></ul>
+      </div>
+      <div class="grammar-content" id="grammarContentArea">
+        <div class="grammar-empty-state">
+          <span class="empty-icon">📖</span>
+          <p>Elegí un tema del menú lateral para empezar a repasar.</p>
+        </div>
+      </div>
     </div>
-    <div id="quizContainer"></div>
   </div>
-</div>
 
-<!-- IRREGULAR VERBS -->
-<div id="verbs" class="section">
-  <div class="section-title">Verbos Irregulares</div>
-  <div class="section-sub">Lista completa — buscá cualquier verbo</div>
-
-  <div class="verbs-controls" style="display:flex; gap:0.5rem; margin-bottom:1rem;" id="verbControls">
-    <input class="verbs-search" type="text" placeholder="Buscar verbo... (ej: go, buy)" oninput="handleVerbSearch()" id="verbSearch" style="flex:1;">
+  <!-- FLASHCARDS -->
+  <div id="flashcards" class="section">
+    <div class="section-title">Flashcards</div>
+    <div class="section-sub">Tocá cada tarjeta para ver la respuesta</div>
+    <div class="fc-controls" id="fcControls"></div>
+    <div class="flashcards-grid" id="flashcardsGrid"></div>
   </div>
-  
-  <div class="verbs-accordion-wrap" id="verbsBody">
-    <!-- Verbs or Categories will be injected here -->
+
+  <!-- QUIZ -->
+  <div id="quiz" class="section">
+    <div class="section-title">Quiz</div>
+    <div class="section-sub">Poné a prueba lo que sabés</div>
+    <div class="quiz-controls" id="quizControls">
+      <!-- Filter injected by JS -->
+    </div>
+    <div class="quiz-wrapper">
+      <div class="quiz-header">
+        <span class="quiz-count" id="quizCount">1 / 20</span>
+        <div class="quiz-progress-bar">
+          <div class="quiz-progress-fill" id="quizProgress" style="width:5%"></div>
+        </div>
+        <span class="quiz-score-badge" id="quizScore">✓ 0</span>
+      </div>
+      <div id="quizContainer"></div>
+    </div>
   </div>
-</div>
 
-<div class="mobile-nav">
-  <button class="mob-btn active" onclick="showSection('home')"><span>🏠</span><span>Inicio</span></button>
-  <button class="mob-btn" onclick="showSection('grammar')"><span>📚</span><span>Gramática</span></button>
-  <button class="mob-btn" onclick="showSection('flashcards')"><span>🃏</span><span>Cards</span></button>
-  <button class="mob-btn" onclick="showSection('quiz')"><span>⚡</span><span>Quiz</span></button>
-  <button class="mob-btn" onclick="showSection('verbs')"><span>📝</span><span>Verbos</span></button>
-</div>
+  <!-- IRREGULAR VERBS -->
+  <div id="verbs" class="section">
+    <div class="section-title">Verbos Irregulares</div>
+    <div class="section-sub">Lista completa — buscá cualquier verbo</div>
 
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('service-worker.js', { scope: './' })
-      .then(reg => {
-        console.log('Service Worker registrado en:', reg.scope);
-        // Mostrar aviso offline después de registro exitoso
-        setTimeout(() => {
-          const notice = document.getElementById('offlineNotice');
-          if (notice) notice.style.display = 'block';
-        }, 1000); // Pequeño delay para que se note
-      })
-      .catch(err => console.warn('Error registrando Service Worker:', err));
-  });
-}
-</script>
-<script src="app.js"></script>
+    <div class="verbs-controls" style="display:flex; gap:0.5rem; margin-bottom:1rem;" id="verbControls">
+      <input class="verbs-search" type="text" placeholder="Buscar verbo... (ej: go, buy)" oninput="handleVerbSearch()"
+        id="verbSearch" style="flex:1;">
+    </div>
+
+    <div id="verbBackBar" class="verb-back-bar" style="display:none;">
+      <button class="grammar-back-btn verb-back-btn" onclick="selectVerbCategory(null)">← Volver a categorías</button>
+      <span class="verb-cat-label"></span>
+    </div>
+
+    <div class="verbs-accordion-wrap" id="verbsBody">
+      <!-- Verbs or Categories will be injected here -->
+    </div>
+  </div>
+
+  <div class="mobile-nav">
+    <button class="mob-btn active" onclick="showSection('home')"><span>🏠</span><span>Inicio</span></button>
+    <button class="mob-btn" onclick="showSection('grammar')"><span>📚</span><span>Gramática</span></button>
+    <button class="mob-btn" onclick="showSection('flashcards')"><span>🃏</span><span>Cards</span></button>
+    <button class="mob-btn" onclick="showSection('quiz')"><span>⚡</span><span>Quiz</span></button>
+    <button class="mob-btn" onclick="showSection('verbs')"><span>📝</span><span>Verbos</span></button>
+  </div>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js', { scope: './' })
+          .then(reg => {
+            console.log('Service Worker registrado en:', reg.scope);
+            // Mostrar aviso offline después de registro exitoso
+            setTimeout(() => {
+              const notice = document.getElementById('offlineNotice');
+              if (notice) notice.style.display = 'block';
+            }, 1000); // Pequeño delay para que se note
+          })
+          .catch(err => console.warn('Error registrando Service Worker:', err));
+      });
+    }
+  </script>
+  <script src="app.js"></script>
 </body>
+
 </html>

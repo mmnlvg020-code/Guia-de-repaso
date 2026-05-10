@@ -432,6 +432,10 @@ html { scroll-behavior: smooth; }
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 1rem;
+    max-height: 65vh;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    padding-right: 4px; /* small gap so cards don't clip on the scrollbar */
   }
   .flashcard {
     height: 160px;
@@ -697,6 +701,42 @@ html { scroll-behavior: smooth; }
     max-width: 600px;
     margin: 0 auto;
   }
+
+  /* Back bar for verb category view — stays above the scrollable list */
+  .verb-back-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 0 0.8rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .verb-back-btn {
+    display: inline-flex !important;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-bottom: 0 !important;
+  }
+  .verb-cat-label {
+    font-family: var(--display);
+    font-size: 1rem;
+    color: var(--text);
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  /* Internal scrolling: only the verb list scrolls, back button stays above */
+  #verbsBody {
+    max-height: 65vh;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+  }
+  /* Remove the has-back-bar padding hack */
+  #verbs.has-back-bar { padding-top: 2rem; }
   .verb-accordion-item {
     background: var(--surface);
     border: 1px solid var(--border);

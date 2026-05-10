@@ -88,12 +88,22 @@ const topics = [
   {
     icon: '🗣️', color: '#ffd93d', course: 'Inglés 1',
     title: 'Imperatives',
-    desc: 'Instrucciones u órdenes. El sujeto "you" está implícito.',
-    formula: 'Verb (base) | Don\'t + verb',
+    desc: 'Se usan para dar órdenes, instrucciones, advertencias o consejos. No llevan sujeto explícito, ya que siempre se dirigen a "you" (tú/ustedes).',
+    formula: 'Verb (base) | Don\'t + verb | Let\'s + verb',
     examples: [
-      { type: 'pos', text: 'Open your book. / Sit down.' },
-      { type: 'neg', text: "Don't talk. / Don't be late." },
+      { type: 'pos', text: 'Open your book. / Turn off the lights. (Instrucción)' },
+      { type: 'neg', text: "Don't talk during the exam. / Don't be late. (Prohibición)" },
+      { type: 'kw', text: "Let's go to the park! (Sugerencia para 'nosotros')" },
+      { type: 'pos', text: 'Have a good trip! / Take care. (Deseos o consejos)' },
     ],
+    table: {
+      headers: ['Tipo', 'Estructura', 'Ejemplo', 'Uso'],
+      rows: [
+        ['Afirmativo', 'Verbo base', 'Please, sit down.', 'Dar una orden o instrucción directa.'],
+        ['Negativo', 'Do not (Don\'t) + verbo base', "Don't touch that!", 'Prohibiciones o advertencias.'],
+        ['Sugerencia', "Let's + verbo base", "Let's take a break.", 'Sugerencia que incluye al hablante ("Hagamos algo").'],
+      ]
+    }
   },
   {
     icon: '⏱️', color: '#00ff88', course: 'Inglés 1 & 2',
@@ -324,6 +334,9 @@ const flashcardsData = [
   { cat: 'Demonstratives', q: '¿Cuál demostrativo usas para algo LEJANO y PLURAL?', a: 'those', hint: 'Those cars / Those are expensive.' },
   { cat: 'Demonstratives', q: '"___ are my keys." (cerca, plural)', a: 'These', hint: 'Cerca + plural = These' },
   { cat: 'Demonstratives', q: '"Is ___ your bag?" (lejos, singular)', a: 'that', hint: 'Lejos + singular = that' },
+  // Imperatives
+  { cat: 'Imperatives', q: '¿Cómo formas un imperativo negativo?', a: "Don't + verbo", hint: "Don't run / Don't talk." },
+  { cat: 'Imperatives', q: '¿Qué palabra usas para sugerir hacer algo juntos?', a: "Let's", hint: "Let's go / Let's eat." },
   // Tipos de Verbos
   { cat: 'Tipos de Verbos', q: '¿Los verbos Stative pueden usarse con -ing?', a: 'No. Nunca.', hint: 'I know (correcto). I am knowing (¡MAL!)' },
   { cat: 'Tipos de Verbos', q: '¿Cuál es un verbo Modal?', a: 'Can, should, must', hint: 'No llevan "to" ni -s: She can swim.' },
@@ -452,6 +465,43 @@ const quizData = [
     cat: 'Demonstratives', q: '"___ shoes are very comfortable." (cerca, plural)',
     opts: ['This', 'That', 'Those', 'These'], correct: 3, exp: 'Cerca + plural = These'
   },
+  {
+    cat: 'Demonstratives', q: '"___ is my dog over there." (lejos, singular)',
+    opts: ['This', 'These', 'That', 'Those'], correct: 2, exp: 'Lejos + singular = That'
+  },
+  {
+    cat: 'Demonstratives', q: '¿Cuál es el plural de "this"?',
+    opts: ['that', 'those', 'these', 'thats'], correct: 2, exp: 'This (singular) → these (plural). Ambos indican cercanía.'
+  },
+  {
+    cat: 'Demonstratives', q: '"___ coffee is cold." (el café que está lejos)',
+    opts: ['This', 'These', 'Those', 'That'], correct: 3, exp: 'Lejos + singular = That. That coffee is cold.'
+  },
+  // Imperatives
+  {
+    cat: 'Imperatives', q: '___ open the window, it is cold!',
+    opts: ["Don't", 'Not', 'No', "Doesn't"], correct: 0, exp: 'El imperativo negativo se forma con "Don\'t" + verbo base.'
+  },
+  {
+    cat: 'Imperatives', q: '"___ go to the cinema tonight!" (Sugerencia)',
+    opts: ['Let', 'Lets', "Let's", 'Let us to'], correct: 2, exp: 'Para sugerencias grupales se usa "Let\'s" (Let us).'
+  },
+  {
+    cat: 'Imperatives', q: '"___ your homework before watching TV!" (orden directa)',
+    opts: ['You do', 'Do', 'Does', 'Did'], correct: 1, exp: 'Imperativo afirmativo = verbo base sin sujeto: Do your homework!'
+  },
+  {
+    cat: 'Imperatives', q: 'Please ___ quiet during the exam.',
+    opts: ['to be', 'be', 'are', 'is'], correct: 1, exp: "Imperativo con 'be': Please be quiet. No lleva sujeto ni auxiliar."
+  },
+  {
+    cat: 'Imperatives', q: '¿Cuál es el imperativo de "(you) leave"?',
+    opts: ['You leave!', 'Leave!', 'Leaving!', 'Left!'], correct: 1, exp: 'El imperativo omite el sujeto: ¡Leave!'
+  },
+  {
+    cat: 'Imperatives', q: '"___ run in the hallway!" (prohibición)',
+    opts: ['Not', 'No', "Don't", "Doesn't"], correct: 2, exp: "Prohibición = Don't + verbo base: Don't run!"
+  },
   // Tipos de Verbos
   {
     cat: 'Tipos de Verbos', q: '¿Cuál de estos es un Stative Verb?',
@@ -472,6 +522,196 @@ const quizData = [
     cat: 'Tipos de Verbos', q: '"Do", "be" y "have" son verbos de tipo:',
     opts: ['Action', 'Stative', 'Auxiliary', 'Modal'], correct: 2,
     exp: 'Los Auxiliary Verbs ayudan a formar tiempos y preguntas.'
+  },
+  {
+    cat: 'Tipos de Verbos', q: '¿Cuál oración usa un Action Verb correctamente?',
+    opts: ['She is knowing French.', 'I am having a car.', 'He is building a house.', 'They are believing you.'], correct: 2,
+    exp: '"Build" es Action Verb → puede ir en -ing. Know, have y believe son stative.'
+  },
+  {
+    cat: 'Tipos de Verbos', q: '"Be" puede funcionar como:',
+    opts: ['Solo verbo principal', 'Solo auxiliar', 'Principal y auxiliar', 'Verbo modal'], correct: 2,
+    exp: '"Be" es auxiliar (She is running) y también verbo principal (She is a teacher).'
+  },
+  // Pronombres (extra)
+  {
+    cat: 'Pronombres', q: 'She loves ___. (him)',
+    opts: ['he', 'him', 'his', 'her'], correct: 1, exp: 'Después de un verbo → objeto pronoun: him'
+  },
+  {
+    cat: 'Pronombres', q: 'They need ___. (us)',
+    opts: ['we', 'our', 'us', 'ours'], correct: 2, exp: 'Después de un verbo → objeto pronoun: us'
+  },
+  {
+    cat: 'Pronombres', q: 'I told ___ about the meeting. (them)',
+    opts: ['they', 'them', 'their', 'theirs'], correct: 1, exp: 'Después de un verbo → objeto pronoun: them'
+  },
+  {
+    cat: 'Pronombres', q: '"___ is my best friend." ¿Cuál es correcto?',
+    opts: ['Her', 'Him', 'She', 'Them'], correct: 2, exp: 'Sujeto de la oración → subject pronoun: She'
+  },
+  {
+    cat: 'Pronombres', q: 'Can you help ___? (me)',
+    opts: ['I', 'my', 'me', 'mine'], correct: 2, exp: 'Después de un verbo → objeto pronoun: me'
+  },
+  // Artículos (extra)
+  {
+    cat: 'Artículos', q: 'He wants to be ___ engineer.',
+    opts: ['a', 'an', 'the', '∅'], correct: 1, exp: '"Engineer" comienza con vocal /ɛ/ → AN'
+  },
+  {
+    cat: 'Artículos', q: 'I play ___ piano every evening.',
+    opts: ['a', 'an', 'the', '∅'], correct: 2, exp: 'Instrumentos musicales llevan THE: play the piano'
+  },
+  {
+    cat: 'Artículos', q: '"___ dogs are good pets." (generalización)',
+    opts: ['A', 'An', 'The', '∅'], correct: 3, exp: 'Plural general/abstracto → sin artículo (∅). Dogs are good pets.'
+  },
+  {
+    cat: 'Artículos', q: 'She is ___ honest person.',
+    opts: ['a', 'an', 'the', 'some'], correct: 1, exp: '"Honest" comienza con sonido vocal /ɒ/ → AN'
+  },
+  // Frecuencia (extra)
+  {
+    cat: 'Frecuencia', q: '"She ___ eats breakfast." ¿Dónde va el adverbio?',
+    opts: ['always before eats', 'always after eats', 'at the end', 'before She'], correct: 0,
+    exp: 'Con verbos normales, los adverbios van ANTES del verbo principal: She always eats.'
+  },
+  {
+    cat: 'Frecuencia', q: '¿Qué porcentaje representa "sometimes"?',
+    opts: ['100%', '90%', '50%', '0%'], correct: 2, exp: 'Sometimes = aproximadamente 50% de las veces.'
+  },
+  {
+    cat: 'Frecuencia', q: '¿Qué significa "rarely"?',
+    opts: ['nunca', 'a veces', 'casi nunca', 'siempre'], correct: 2, exp: 'Rarely = casi nunca, muy pocas veces (1-10%).'
+  },
+  {
+    cat: 'Frecuencia', q: '"She ___ late." (never, con to be)',
+    opts: ['is never', 'never is', 'is never being', 'be never'], correct: 0,
+    exp: 'Con to be → sujeto + to be + adverbio: She is never late.'
+  },
+  {
+    cat: 'Frecuencia', q: '"I ___ eat vegetables." (90% de frecuencia)',
+    opts: ['always', 'usually', 'sometimes', 'never'], correct: 1, exp: 'Usually = 90% de frecuencia.'
+  },
+  // WH-Questions (extra)
+  {
+    cat: 'WH-Questions', q: '"___ is your name?"',
+    opts: ['Who', 'What', 'Where', 'When'], correct: 1, exp: 'What pregunta sobre cosas e información: What is your name?'
+  },
+  {
+    cat: 'WH-Questions', q: '"___ does she live?" (lugar)',
+    opts: ['What', 'Who', 'Where', 'Why'], correct: 2, exp: 'Where pregunta sobre lugar o ubicación.'
+  },
+  {
+    cat: 'WH-Questions', q: '"___ did they go to the party?" (razón)',
+    opts: ['When', 'Where', 'Why', 'Who'], correct: 2, exp: 'Why pregunta sobre razones o motivos.'
+  },
+  {
+    cat: 'WH-Questions', q: '"___ called you last night?" (persona sujeto)',
+    opts: ['What', 'Who', 'Where', 'How'], correct: 1,
+    exp: 'Who pregunta sobre personas. Como es sujeto, NO necesita do/did: Who called you?'
+  },
+  // Present Continuous (extra)
+  {
+    cat: 'Present Continuous', q: '"She ___ English right now."',
+    opts: ['study', 'studies', 'is studying', 'studied'], correct: 2,
+    exp: 'Acción en progreso ahora → am/is/are + verb-ing'
+  },
+  {
+    cat: 'Present Continuous', q: '"They ___ soccer at the moment."',
+    opts: ['are play', 'are playing', 'is playing', 'play'], correct: 1,
+    exp: 'They → are + verb-ing: They are playing.'
+  },
+  {
+    cat: 'Present Continuous', q: '"___ you listening to me?"',
+    opts: ['Do', 'Does', 'Are', 'Is'], correct: 2,
+    exp: 'Pregunta en Present Continuous → Are/Is + sujeto + verb-ing?'
+  },
+  {
+    cat: 'Present Continuous', q: '¿Cuál oración es CORRECTA?',
+    opts: ['She is knowing the answer.', 'I am wanting coffee.', 'He is running fast.', 'They are understanding.'],
+    correct: 2, exp: '"Run" es Action Verb → puede ir en -ing. Know, want y understand son stative.'
+  },
+  {
+    cat: 'Present Continuous', q: '"I ___ work tomorrow." (plan futuro)',
+    opts: ["am not working", "don't work", "am working", "working"], correct: 2,
+    exp: 'Present Continuous expresa planes futuros confirmados: am working.'
+  },
+  // There is/are (extra)
+  {
+    cat: 'There is/are', q: '"___ any students in the class?"',
+    opts: ['Is there', 'Are there', 'There is', 'There are'], correct: 1,
+    exp: 'Students es plural → Are there any...?'
+  },
+  {
+    cat: 'There is/are', q: '"There ___ a book on the table."',
+    opts: ['are', 'is', 'were', 'am'], correct: 1, exp: 'Singular (a book) → There is'
+  },
+  {
+    cat: 'There is/are', q: '"There ___ many problems with this plan."',
+    opts: ['is', 'are', 'am', 'be'], correct: 1, exp: 'Many problems = plural → There are'
+  },
+  {
+    cat: 'There is/are', q: '¿Qué artículo va con "There is" en singular afirmativo?',
+    opts: ['some', 'any', 'a / an', 'the'], correct: 2, exp: 'There is + a/an + sustantivo singular: There is a cat.'
+  },
+  // Comparativos (extra)
+  {
+    cat: 'Comparativos', q: '"This book is ___ than that one." (interesting)',
+    opts: ['more interesting', 'interestinger', 'most interesting', 'interestingest'], correct: 0,
+    exp: '2+ sílabas → more + adj + than: more interesting than'
+  },
+  {
+    cat: 'Comparativos', q: 'Comparativo de "bad":',
+    opts: ['badder', 'more bad', 'worse', 'worst'], correct: 2, exp: 'Irregular: bad → worse'
+  },
+  {
+    cat: 'Comparativos', q: '"My cat is ___ fast ___ your dog." (igualdad)',
+    opts: ['more...than', 'as...as', 'so...that', 'too...to'], correct: 1,
+    exp: 'Igualdad → as + adj + as: My cat is as fast as your dog.'
+  },
+  // Be Going To (extra)
+  {
+    cat: 'Be Going To', q: '"She ___ visit her family next week."',
+    opts: ['is going to', 'are going to', 'am going to', 'going to'], correct: 0,
+    exp: 'She → is going to + verb'
+  },
+  {
+    cat: 'Be Going To', q: '"She ___ eat meat." (negativo)',
+    opts: ["isn't going to", "aren't going to", "not going to", "don't going to"], correct: 0,
+    exp: "She → isn't going to (negación)"
+  },
+  {
+    cat: 'Be Going To', q: '"I can see dark clouds. It ___ rain." (predicción con evidencia)',
+    opts: ['is going to', 'will probably', 'is going', 'goes to'], correct: 0,
+    exp: 'Predicción con evidencia visible → be going to'
+  },
+  // Vocab (extra)
+  {
+    cat: 'Vocab', q: '¿Qué significa "Piece of cake"?',
+    opts: ['Un pedazo de pastel', 'Muy fácil', 'Una sorpresa agradable', 'Trabajo en equipo'], correct: 1,
+    exp: 'Idiom: Piece of cake = muy fácil, pan comido'
+  },
+  {
+    cat: 'Vocab', q: '¿Qué significa "Break a leg"?',
+    opts: ['Romper algo', 'Buena suerte', 'Salir corriendo', 'Trabajar duro'], correct: 1,
+    exp: 'Idiom: Break a leg = ¡Buena suerte! (especialmente antes de actuar o presentar)'
+  },
+  {
+    cat: 'Vocab', q: '¿Qué significa "Under the weather"?',
+    opts: ['Al aire libre', 'Sentirse mal / enfermo', 'Bajo presión', 'Con mucho trabajo'], correct: 1,
+    exp: 'Idiom: Under the weather = sentirse mal o enfermo'
+  },
+  {
+    cat: 'Vocab', q: '¿Qué significa "Hang out"?',
+    opts: ['Colgar ropa', 'Pasar el rato', 'Salir de viaje', 'Trabajar horas extra'], correct: 1,
+    exp: 'Phrasal verb: Hang out = pasar el rato, juntarse con alguien'
+  },
+  {
+    cat: 'Vocab', q: '¿Qué significa "Catch up"?',
+    opts: ['Atrapar a alguien', 'Ponerse al día', 'Llegar tarde', 'Entender algo difícil'], correct: 1,
+    exp: 'Phrasal verb: Catch up = ponerse al día con alguien o algo'
   },
 ];
 
@@ -685,6 +925,37 @@ const irregularVerbs = [
   ["witness", "witnessed", "/ˈwɪtnəs/", "I like to witness.", "Derecho y Justicia", "Atestiguar", "Action Verbs"],
   ["would", "would", "/wʊd/", "I would like some coffee.", "Verbos Modales", "haría (condicional)", "Modal Verbs"],
   ["write", "wrote", "/raɪt/", "Write clean and readable code.", "Mente y Comunicación", "escribir", "Action Verbs"],
+  // ---- Tecnología e Informática ----
+  ["automate", "automated", "/ˈɔːtəmeɪt/", "We automated the deployment pipeline.", "Tecnología e Informática", "Automatizar", "Action Verbs"],
+  ["browse", "browsed", "/braʊz/", "She browsed the documentation for hours.", "Tecnología e Informática", "Navegar (web)", "Action Verbs"],
+  ["clone", "cloned", "/kloʊn/", "Clone the repository to your machine.", "Tecnología e Informática", "Clonar", "Action Verbs"],
+  ["code", "coded", "/koʊd/", "She codes every day to improve her skills.", "Tecnología e Informática", "Programar/Codear", "Action Verbs"],
+  ["compile", "compiled", "/kəmˈpaɪl/", "Compile the code before running it.", "Tecnología e Informática", "Compilar", "Action Verbs"],
+  ["connect", "connected", "/kəˈnekt/", "Connect to the VPN before working.", "Tecnología e Informática", "Conectar", "Action Verbs"],
+  ["debug", "debugged", "/diːˈbʌɡ/", "I need to debug this function.", "Tecnología e Informática", "Depurar/Debuggear", "Action Verbs"],
+  ["deploy", "deployed", "/dɪˈplɔɪ/", "We deployed the new version last night.", "Tecnología e Informática", "Desplegar", "Action Verbs"],
+  ["download", "downloaded", "/ˌdaʊnˈloʊd/", "I downloaded the latest framework.", "Tecnología e Informática", "Descargar", "Action Verbs"],
+  ["encrypt", "encrypted", "/ɪnˈkrɪpt/", "Always encrypt your sensitive data.", "Tecnología e Informática", "Encriptar", "Action Verbs"],
+  ["install", "installed", "/ɪnˈstɔːl/", "Install the latest version of the app.", "Tecnología e Informática", "Instalar", "Action Verbs"],
+  ["merge", "merged", "/mɜːrdʒ/", "Merge the feature branch into main.", "Tecnología e Informática", "Fusionar/Mergear", "Action Verbs"],
+  ["refactor", "refactored", "/riːˈfæktər/", "Refactor the code to improve readability.", "Tecnología e Informática", "Refactorizar", "Action Verbs"],
+  ["type", "typed", "/taɪp/", "Type the command in the terminal.", "Tecnología e Informática", "Tipear/Escribir", "Action Verbs"],
+  ["upload", "uploaded", "/ˌʌpˈloʊd/", "Upload your files to the cloud.", "Tecnología e Informática", "Subir/Cargar", "Action Verbs"],
+  // ---- Salud y Bienestar ----
+  ["ache", "ached", "/eɪk/", "My back ached after sitting all day.", "Salud y Bienestar", "Doler/Resentir", "Action Verbs"],
+  ["breathe", "breathed", "/briːð/", "Breathe deeply to reduce stress.", "Salud y Bienestar", "Respirar", "Action Verbs"],
+  ["consult", "consulted", "/kənˈsʌlt/", "Consult a doctor before taking medicine.", "Salud y Bienestar", "Consultar", "Action Verbs"],
+  ["diagnose", "diagnosed", "/ˈdaɪəɡnoʊz/", "The doctor diagnosed him with allergies.", "Salud y Bienestar", "Diagnosticar", "Action Verbs"],
+  ["examine", "examined", "/ɪɡˈzæmɪn/", "The doctor examined the patient carefully.", "Salud y Bienestar", "Examinar", "Action Verbs"],
+  ["heal", "healed", "/hiːl/", "The wound healed quickly with treatment.", "Salud y Bienestar", "Sanar/Curar", "Action Verbs"],
+  ["hydrate", "hydrated", "/ˈhaɪdreɪt/", "Hydrate well during exercise.", "Salud y Bienestar", "Hidratarse", "Action Verbs"],
+  ["inject", "injected", "/ɪnˈdʒekt/", "The nurse injected the vaccine.", "Salud y Bienestar", "Inyectar", "Action Verbs"],
+  ["meditate", "meditated", "/ˈmedɪteɪt/", "She meditates every morning to relax.", "Salud y Bienestar", "Meditar", "Action Verbs"],
+  ["operate", "operated", "/ˈɒpəreɪt/", "The surgeon operated for three hours.", "Salud y Bienestar", "Operar", "Action Verbs"],
+  ["prescribe", "prescribed", "/prɪˈskraɪb/", "The doctor prescribed antibiotics.", "Salud y Bienestar", "Recetar/Prescribir", "Action Verbs"],
+  ["prevent", "prevented", "/prɪˈvent/", "Exercise helps prevent chronic diseases.", "Salud y Bienestar", "Prevenir", "Action Verbs"],
+  ["recover", "recovered", "/rɪˈkʌvər/", "She recovered from the flu in a week.", "Salud y Bienestar", "Recuperarse", "Action Verbs"],
+  ["treat", "treated", "/triːt/", "The nurse treated the injury carefully.", "Salud y Bienestar", "Tratar", "Action Verbs"],
 ];
 
 // ============================================================
@@ -945,6 +1216,9 @@ function renderVerbs() {
   
   // 1. Search Mode
   if (searchVal) {
+    const backBar = document.getElementById('verbBackBar');
+    if (backBar) backBar.style.display = 'none';
+    document.getElementById('verbs')?.classList.remove('has-back-bar');
     const filtered = irregularVerbs.map((v, i) => ({v, i})).filter(item => {
       return item.v[0].includes(searchVal) || item.v[1].includes(searchVal) || (item.v[5] && item.v[5].toLowerCase().includes(searchVal));
     });
@@ -954,6 +1228,9 @@ function renderVerbs() {
   
   // 2. Category Grid Mode
   if (!selectedVerbCategory) {
+    const backBar = document.getElementById('verbBackBar');
+    if (backBar) backBar.style.display = 'none';
+    document.getElementById('verbs')?.classList.remove('has-back-bar');
     const cats = [...new Set(irregularVerbs.map(v => v[4]))].sort();
     
     body.innerHTML = `
@@ -975,10 +1252,15 @@ function renderVerbs() {
   // 3. Verb List Mode (Selected Category)
   const filtered = irregularVerbs.map((v, i) => ({v, i})).filter(item => item.v[4] === selectedVerbCategory);
   
+  const backBar = document.getElementById('verbBackBar');
+  if (backBar) {
+    backBar.style.display = 'block';
+    backBar.querySelector('span.verb-cat-label').textContent = selectedVerbCategory;
+  }
+  document.getElementById('verbs')?.classList.add('has-back-bar');
+
   body.innerHTML = `
     <div class="fade-in">
-      <button class="grammar-back-btn" style="margin-bottom:1rem;" onclick="selectVerbCategory(null)">← Volver a categorías</button>
-      <h3 style="margin-bottom:1rem; color:var(--text);">${selectedVerbCategory}</h3>
       ${buildVerbsAccordion(filtered)}
     </div>
   `;
@@ -1046,3 +1328,19 @@ renderFlashcards();
 renderVerbControls();
 renderVerbs();
 initQuiz();
+
+function initStats() {
+  const statTopics = document.getElementById('stat-topics');
+  if (statTopics) statTopics.textContent = topics.length;
+
+  const statFc = document.getElementById('stat-flashcards');
+  if (statFc) statFc.textContent = flashcardsData.length;
+
+  const statQuiz = document.getElementById('stat-quiz');
+  if (statQuiz) statQuiz.textContent = quizData.length;
+
+  const statVerbs = document.getElementById('stat-verbs');
+  if (statVerbs) statVerbs.textContent = irregularVerbs.length;
+}
+
+initStats();
