@@ -1,4 +1,4 @@
-const CACHE_NAME = 'guia-ingles-cache-v24';
+const CACHE_NAME = 'guia-ingles-cache-v28';
 const FILES_TO_CACHE = [
   'guia_ingles_interactiva.html',
   'styles.css',

@@ -7,6 +7,7 @@ const topics = [
     title: 'Pronombres: Sujeto vs Objeto',
     desc: 'Los pronombres sujeto hacen la acción. Los de objeto la reciben.',
     formula: 'Subject + verb + Object pronoun',
+    analogy: { emoji: '⚽', text: 'Pensá en un partido de fútbol: el <strong>sujeto</strong> patea (hace la acción), el <strong>objeto</strong> recibe el balón. "She kicked him" = ella le pegó a él. El que patea usa pronombre sujeto (she), el que recibe usa pronombre objeto (him).' },
     examples: [
       { type: 'pos', text: 'She called him yesterday.' },
       { type: 'neg', text: 'He never listens to us.' },
@@ -26,6 +27,7 @@ const topics = [
     title: 'Artículos: A / AN / THE',
     desc: 'A/AN = indefinido (cualquiera). THE = específico o único.',
     formula: 'A + consonant | AN + vowel | THE + specific/unique',
+    analogy: { emoji: '🤝', text: 'Imaginate que presentás a alguien: "I met <em>a</em> guy at the party" (primera mención, es desconocido). Al día siguiente: "<em>The</em> guy called me back" — ya lo conocemos, es específico. <em>A/AN</em> = primera vez que lo mencionás. <em>THE</em> = ya sabemos de quién o qué hablamos.' },
     examples: [
       { type: 'pos', text: 'She is reading a book.' },
       { type: 'pos', text: 'He found an umbrella.' },
@@ -68,6 +70,7 @@ const topics = [
     title: 'Demonstratives',
     desc: 'Demostrativos: señalan personas u objetos según cercanía (this/that) y número (these/those).',
     formula: 'This/These = cerca | That/Those = lejos | Singular/Plural',
+    analogy: { emoji: '👆', text: 'Imaginate que señalás con el dedo: <em>this</em> = algo dentro de tu brazo, muy cerquita. <em>that</em> = algo al otro lado del cuarto, lejos. <em>these/those</em> = lo mismo pero con varias cosas a la vez. La distancia no cambia, solo la cantidad.' },
     examples: [
       { type: 'pos', text: 'This is my phone. (cerca, singular)' },
       { type: 'pos', text: 'These are my books. (cerca, plural)' },
@@ -110,6 +113,7 @@ const topics = [
     title: 'Simple Present',
     desc: 'Hábitos, rutinas y hechos generales. Con he/she/it el verbo lleva -s.',
     formula: 'S + verb(s/es) | S + do/does + not + verb | Do/Does + S + verb?',
+    analogy: { emoji: '🛫', text: 'Pensá en el <strong>tablero de salidas de un aeropuerto</strong>: "Flight 202 <em>departs</em> at 9:00 AM". No dice está saliendo ahora sino que es un hecho fijo y repetible. El Simple Present describe verdades que siempre son así, como ese horario que nunca cambia.' },
     examples: [
       { type: 'pos', text: 'She eats breakfast every day.' },
       { type: 'neg', text: "She doesn't eat breakfast." },
@@ -131,6 +135,7 @@ const topics = [
     title: 'Adverbs of Frequency',
     desc: 'Van ANTES del verbo principal, pero DESPUÉS del verbo to be.',
     formula: 'S + adverb + verb | S + to be + adverb',
+    analogy: { emoji: '🌡️', text: 'Imaginate un <strong>termómetro de frecuencia</strong> de 0% a 100%: <em>never</em> = frío total (0%), <em>sometimes</em> = temperatura media (50%), <em>always</em> = máxima temperatura (100%). Cuanto más alto el porcentaje, más seguido ocurre la acción.' },
     examples: [
       { type: 'pos', text: 'She always eats breakfast.' },
       { type: 'pos', text: 'He is always happy.' },
@@ -153,6 +158,7 @@ const topics = [
     title: 'WH-Questions',
     desc: 'Para obtener información específica (no solo sí/no).',
     formula: 'WH + do/does/did + S + verb?',
+    analogy: { emoji: '🕵️', text: 'Pensá en un <strong>detective interrogando</strong>: cada palabra WH es una pregunta de investigación específica. <em>Who</em> = ¿quién lo hizo? <em>Where</em> = ¿dónde? <em>When</em> = ¿cuándo? <em>Why</em> = ¿por qué? Cada WH abre un camino de información distinto, como las pistas de un caso policial.' },
     examples: [
       { type: 'q', text: 'What do you eat for lunch?' },
       { type: 'q', text: 'Where does she live?' },
@@ -177,6 +183,7 @@ const topics = [
     title: 'Present Continuous',
     desc: 'Acciones que pasan AHORA o planes futuros cercanos.',
     formula: 'S + am/is/are + verb-ing',
+    analogy: { emoji: '📺', text: 'Imaginate una <strong>transmisión en vivo</strong>: el comentarista narra lo que ve en este momento. "He <em>is running</em>! She <em>is scoring</em>!" Todo en tiempo real, mientras sucede. El Present Continuous es ese instante que se está describiendo <em>ahora mismo</em>.' },
     examples: [
       { type: 'pos', text: 'She is studying English right now.' },
       { type: 'neg', text: "She isn't studying English." },
@@ -199,6 +206,7 @@ const topics = [
     title: 'Simple Past',
     desc: 'Acciones completadas en el pasado. Regulares: +ed. Irregulares: cambia el verbo.',
     formula: 'S + verb-ed/irregular | S + didn\'t + verb | Did + S + verb?',
+    analogy: { emoji: '📷', text: 'Pensá en un <strong>álbum de fotos</strong>: cada foto ya fue tomada, ya pasó, está fija para siempre. No podés cambiarla ni editarla. El Simple Past es exactamente eso: una acción que ya terminó y quedó congelada en el tiempo, como una fotografía.' },
     examples: [
       { type: 'pos', text: 'She walked to school yesterday.' },
       { type: 'pos', text: 'He went to the gym last night.' },
@@ -220,6 +228,7 @@ const topics = [
     title: 'Comparatives',
     desc: 'Comparar dos cosas. Se usa "than" después del adjetivo.',
     formula: 'adj+er than | more + adj + than | as + adj + as',
+    analogy: { emoji: '🏆', text: 'Pensá en un <strong>marcador de partido</strong>: siempre hay dos equipos (dos cosas) y uno supera al otro. "Tokyo <em>is bigger than</em> London" = Tokyo 1, London 0. Los comparativos siempre necesitan <em>dos</em> elementos para funcionar, como un marcador necesita dos equipos.' },
     examples: [
       { type: 'pos', text: 'Tokyo is bigger than London.' },
       { type: 'pos', text: 'That book is more interesting than this one.' },
@@ -243,6 +252,7 @@ const topics = [
     title: 'Be Going To',
     desc: 'Planes futuros y predicciones con evidencia.',
     formula: 'S + am/is/are + going to + verb',
+    analogy: { emoji: '📅', text: 'Imaginate un <strong>calendario con planes ya escritos</strong>: si ya lo apuntaste, es <em>going to</em>. Y si ves nubes negras y decís "it\'s going to rain" — también es <em>going to</em>, porque la evidencia visible ya te lo dice. En ambos casos, el futuro ya se puede ver desde ahora.' },
     examples: [
       { type: 'pos', text: "I'm going to study tonight. (plan)" },
       { type: 'pos', text: "Look at those clouds! It's going to rain. (predicción)" },
@@ -256,6 +266,7 @@ const topics = [
     title: 'There is / There are',
     desc: 'Indicar la existencia de algo en un lugar.',
     formula: 'There is + singular | There are + plural',
+    analogy: { emoji: '🏪', text: 'Pensá en el <strong>sistema de inventario de una tienda</strong>: "There <em>are</em> 5 apples in stock" — el sistema reporta lo que existe y cuánto hay. No hay un sujeto que haga algo, solo se declara la existencia. <em>There is/are</em> funciona igual: reporta que algo está ahí.' },
     examples: [
       { type: 'pos', text: 'There is a bank near here.' },
       { type: 'pos', text: 'There are some cafes in town.' },
@@ -269,6 +280,7 @@ const topics = [
     title: 'Tipos de Verbos (Roles)',
     desc: 'Los verbos no solo son acciones. Cumplen diferentes roles en la oración, desde describir un estado hasta ayudar a otros verbos.',
     formula: 'Action = Físico | Stative = Mental | Aux = Ayudante | Modal = Condición',
+    analogy: { emoji: '🏢', text: 'Pensá en los <strong>roles de una empresa</strong>: los <em>Action Verbs</em> son los empleados que hacen el trabajo físico. Los <em>Stative Verbs</em> son las cámaras de seguridad (observan, sienten, saben). Los <em>Auxiliary</em> son los gerentes (ayudan a que otros trabajen: do, be, have). Los <em>Modal</em> son el reglamento interno (<em>can</em> = está permitido, <em>must</em> = es obligatorio).' },
     examples: [
       { type: 'pos', text: 'Action (Acciones físicas o procesos): Run, jump, eat, build. "He runs every morning."' },
       { type: 'neg', text: 'Stative (Estados mentales, sentidos, posesión): Know, want, love, own. "I know the answer." (NO se usan en continuo "-ing")' },
@@ -1017,6 +1029,15 @@ function selectTopic(index) {
             <thead><tr>${t.table.headers.map(h => `<th>${h}</th>`).join('')}</tr></thead>
             <tbody>${t.table.rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody>
           </table>` : ''}
+
+        ${t.analogy ? `
+          <div class="analogy-block">
+            <div class="analogy-emoji">${t.analogy.emoji}</div>
+            <div class="analogy-body">
+              <div class="analogy-label">💡 Analogía para recordarlo</div>
+              <p class="analogy-text">${t.analogy.text}</p>
+            </div>
+          </div>` : ''}
       </div>
     </div>
   `;
@@ -1111,48 +1132,129 @@ function filterQuiz(cat) {
 }
 
 function initQuiz() {
+  // Reiniciamos todos los contadores al comenzar un nuevo quiz.
   renderQuizControls();
-  const filtered = quizActiveCategory === 'all' ? quizData : quizData.filter(q => q.cat === quizActiveCategory);
-  currentQuizData = [...filtered].sort(() => Math.random() - 0.5).slice(0, 20); // max 20 questions
-  currentQ = 0; score = 0; answered = false;
-  
+
+  // Filtramos por categoría activa (o usamos todas si está en 'all'),
+  // mezclamos aleatoriamente y limitamos a un máximo de 20 preguntas.
+  const filtered = quizActiveCategory === 'all'
+    ? quizData
+    : quizData.filter(q => q.cat === quizActiveCategory);
+  currentQuizData = [...filtered].sort(() => Math.random() - 0.5).slice(0, 20);
+
+  // Reseteamos el estado global del quiz.
+  currentQ = 0;
+  score = 0;
+  answered = false;
+
+  // Caso borde: si no hay preguntas para ese tema, mostramos un aviso.
   if (currentQuizData.length === 0) {
-    document.getElementById('quizContainer').innerHTML = `<p style="text-align:center; padding: 2rem;">No hay preguntas para este tema aún.</p>`;
+    document.getElementById('quizContainer').innerHTML =
+      `<p style="text-align:center; padding: 2rem;">No hay preguntas para este tema aún.</p>`;
     document.getElementById('quizCount').textContent = `0 / 0`;
     return;
   }
+
   renderQuiz();
 }
 
+// ─────────────────────────────────────────────────────
+// advanceQuiz()
+// Se llama ÚNICAMENTE cuando el usuario hace clic en
+// el botón "Siguiente →". No hay auto-avance por timer.
+// ─────────────────────────────────────────────────────
+function advanceQuiz() {
+  // Buscamos la tarjeta actual en el DOM para animarla antes de destruirla.
+  const card = document.querySelector('.quiz-card');
+
+  if (card) {
+    // Añadimos la clase CSS que dispara la animación de salida (slide hacia la izquierda).
+    card.classList.add('quiz-slide-out');
+
+    // Esperamos 260ms (duración de la animación CSS) antes de cambiar el contenido.
+    // Así el usuario ve la tarjeta salir suavemente antes de que aparezca la siguiente.
+    setTimeout(() => {
+      currentQ++;        // Avanzamos al número de la siguiente pregunta.
+      answered = false;  // Reseteamos la bandera: la nueva pregunta aún no fue respondida.
+      renderQuiz();      // Pintamos la nueva pregunta en el DOM.
+    }, 260);
+
+  } else {
+    // Si por algún motivo la tarjeta no existe en el DOM (caso borde), avanzamos directo.
+    currentQ++;
+    answered = false;
+    renderQuiz();
+  }
+}
+
+// ─────────────────────────────────────────────────────
+// renderQuiz()
+// Dibuja la pregunta actual (o la pantalla final si el
+// quiz terminó). Siempre parte desde el estado global
+// currentQ y currentQuizData.
+// ─────────────────────────────────────────────────────
 function renderQuiz() {
+  // Referencia al contenedor principal del quiz donde se inyecta todo el HTML.
   const container = document.getElementById('quizContainer');
+
+  // ── PANTALLA FINAL ──────────────────────────────────
+  // Si currentQ llegó o superó el total de preguntas, el quiz terminó.
   if (currentQ >= currentQuizData.length) {
+    // Calculamos el porcentaje de aciertos (redondeado al entero más cercano).
+    const pct = Math.round((score / currentQuizData.length) * 100);
+
+    // Elegimos el emoji según el rango de porcentaje: excelente / bien / sigue practicando.
+    const emoji = pct >= 80 ? '🏆' : pct >= 50 ? '👍' : '💪';
+
+    // Mensaje motivacional adaptado al resultado.
+    const msg = pct >= 80 ? '¡Excelente dominio!' : pct >= 50 ? '¡Buen trabajo!' : '¡Seguí practicando!';
+
+    // Pintamos la pantalla de resultados con el score, el porcentaje y el botón de reinicio.
     container.innerHTML = `
       <div class="quiz-result fade-in">
-        <h2>¡Quiz Terminado! 🎉</h2>
-        <p>Puntaje final: ${score} / ${currentQuizData.length}</p>
-        <div style="font-size:3rem; margin:1rem 0;">${score / currentQuizData.length > 0.8 ? '🏆' : '👍'}</div>
-        <button class="fc-filter-btn active" onclick="initQuiz()">Volver a Jugar</button>
+        <div class="quiz-result-emoji">${emoji}</div>
+        <h2>¡Quiz Terminado!</h2>
+        <div class="quiz-result-score">${score}<span>/${currentQuizData.length}</span></div>
+        <div class="quiz-result-pct">${pct}% correcto</div>
+        <p class="quiz-result-msg">${msg}</p>
+        <button class="quiz-restart-btn" onclick="initQuiz()">🔄 Volver a Jugar</button>
       </div>
     `;
-    return;
+    return; // Salimos: no hay nada más que renderizar.
   }
-  
+
+  // ── PREGUNTA ACTIVA ─────────────────────────────────
+  // Obtenemos el objeto de la pregunta actual del array mezclado.
   const q = currentQuizData[currentQ];
-  const progress = ((currentQ) / currentQuizData.length) * 100;
+
+  // Calculamos qué porcentaje del quiz se completó (para la barra de progreso superior).
+  // Usamos currentQ (sin +1) para que la barra refleje las preguntas YA respondidas.
+  const progress = (currentQ / currentQuizData.length) * 100;
+
+  // Actualizamos la barra de progreso horizontal en el header del quiz.
   document.getElementById('quizProgress').style.width = progress + '%';
+
+  // Actualizamos el contador textual "2 / 10" en el header.
   document.getElementById('quizCount').textContent = `${currentQ + 1} / ${currentQuizData.length}`;
+
+  // Actualizamos el badge de puntaje (✓ 3) en el header.
   document.getElementById('quizScore').textContent = `✓ ${score}`;
+
+  // Reseteamos la bandera: esta pregunta todavía no fue contestada.
   answered = false;
-  
+
+  // Array de letras para los botones de opción (A, B, C, D).
   const letters = ['A', 'B', 'C', 'D'];
+
+  // Generamos el HTML completo de la tarjeta: categoría, pregunta, opciones y zona de feedback.
+  // El botón "Siguiente" NO está aquí; se inyecta en selectOption() DESPUÉS de responder.
   container.innerHTML = `
-    <div class="quiz-card fade-in">
+    <div class="quiz-card">
       <div class="quiz-category">${q.cat.toUpperCase()}</div>
       <div class="quiz-question">${q.q}</div>
       <div class="quiz-options">
         ${q.opts.map((opt, i) => `
-          <button class="quiz-option" onclick="selectOption(${i})">
+          <button class="quiz-option" id="qopt-${i}" onclick="selectOption(${i})">
             <span class="opt-letter">${letters[i]}</span> ${opt}
           </button>
         `).join('')}
@@ -1160,33 +1262,77 @@ function renderQuiz() {
       <div class="quiz-feedback" id="quizFeedback"></div>
     </div>
   `;
+
+  // Disparamos la animación de entrada DESPUÉS de que el navegador pintó el DOM.
+  // requestAnimationFrame garantiza que la clase se agrega en el siguiente frame,
+  // lo que permite que la animación CSS quizSlideIn se ejecute correctamente.
+  requestAnimationFrame(() => {
+    const card = document.querySelector('.quiz-card');
+    if (card) card.classList.add('quiz-slide-in'); // La tarjeta entra deslizándose desde la derecha.
+  });
 }
 
+// ─────────────────────────────────────────────────────
+// selectOption(idx)
+// Se llama cuando el usuario hace clic en una opción.
+// idx → índice (0-3) del botón que eligió.
+// ─────────────────────────────────────────────────────
 function selectOption(idx) {
+  // Si ya respondió esta pregunta, ignoramos el clic (evita doble respuesta).
   if (answered) return;
+
+  // Marcamos que esta pregunta ya fue contestada.
   answered = true;
+
+  // Obtenemos el objeto de la pregunta actual con sus datos (correcta, explicación, etc.).
   const q = currentQuizData[currentQ];
+
+  // Seleccionamos todos los botones de opción para poder manipularlos.
   const opts = document.querySelectorAll('.quiz-option');
+
+  // Referencia al div de feedback donde mostraremos el resultado (correcto/incorrecto).
   const feedback = document.getElementById('quizFeedback');
+
+  // Deshabilitamos TODOS los botones para que el usuario no pueda cambiar su respuesta.
   opts.forEach(o => o.disabled = true);
-  if (idx === q.correct) {
-    score++;
-    opts[idx].classList.add('correct');
-    feedback.textContent = '✓ Correcto! ' + q.exp;
-    feedback.className = 'quiz-feedback show correct';
+
+  // Comparamos el índice elegido con el índice correcto (guardado en q.correct).
+  const isCorrect = idx === q.correct;
+
+  if (isCorrect) {
+    score++;                                // Sumamos 1 punto al puntaje global.
+    opts[idx].classList.add('correct');     // Pintamos el botón elegido en verde.
+    // Mostramos el ícono ✓ + el texto explicativo de por qué es correcto.
+    feedback.innerHTML = '<span class="fb-icon">✓</span> Correcto! ' + q.exp;
+    feedback.className = 'quiz-feedback show correct'; // Hacemos visible el feedback en verde.
   } else {
-    opts[idx].classList.add('wrong');
-    opts[q.correct].classList.add('correct');
-    feedback.textContent = '✗ Incorrecto. ' + q.exp;
-    feedback.className = 'quiz-feedback show wrong';
+    opts[idx].classList.add('wrong');           // Pintamos la opción elegida en rojo.
+    opts[q.correct].classList.add('correct');   // Revelamos cuál era la respuesta correcta (verde).
+    // Mostramos el ícono ✗ + la explicación de la respuesta correcta.
+    feedback.innerHTML = '<span class="fb-icon">✗</span> Incorrecto. ' + q.exp;
+    feedback.className = 'quiz-feedback show wrong'; // Feedback visible en rojo.
   }
-  
-  const btn = document.createElement('button');
-  btn.className = 'grammar-back-btn fade-in';
-  btn.style.marginTop = '1rem';
-  btn.textContent = 'Siguiente →';
-  btn.onclick = () => { currentQ++; answered = false; renderQuiz(); };
-  document.getElementById('quizContainer').appendChild(btn);
+
+  // Actualizamos el badge de score en el header INMEDIATAMENTE al responder.
+  document.getElementById('quizScore').textContent = `✓ ${score}`;
+
+  // ── BOTÓN "SIGUIENTE" ──────────────────────────────
+  // Creamos el botón dinámicamente y lo añadimos debajo de la tarjeta.
+  // El usuario lo verá DESPUÉS de responder y avanzará CUANDO QUIERA.
+  const nextBtn = document.createElement('button');
+  nextBtn.className = 'quiz-next-btn show fade-in'; // 'show' lo hace visible, 'fade-in' lo anima.
+
+  // Etiqueta del botón: en la última pregunta dice "Ver Resultado" en lugar de "Siguiente".
+  const isLastQuestion = currentQ === currentQuizData.length - 1;
+  nextBtn.innerHTML = isLastQuestion
+    ? `Ver Resultado <span class="next-arrow">→</span>`
+    : `Siguiente <span class="next-arrow">→</span>`;
+
+  // Al hacer clic se llama advanceQuiz(), que anima la salida y renderiza la pregunta siguiente.
+  nextBtn.onclick = advanceQuiz;
+
+  // Insertamos el botón dentro del quizContainer (debajo de la tarjeta).
+  document.getElementById('quizContainer').appendChild(nextBtn);
 }
 
 // ---- VERBS ----
