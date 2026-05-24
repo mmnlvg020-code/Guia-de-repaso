@@ -133,12 +133,13 @@ const topics = [
   {
     icon: '📊', color: '#ff6b6b', course: 'Inglés 1',
     title: 'Adverbs of Frequency',
-    desc: 'Van ANTES del verbo principal, pero DESPUÉS del verbo to be.',
+    desc: 'Van ANTES del verbo principal, pero DESPUÉS del verbo to be. <strong>Responden a la pregunta: "How often...?"</strong>',
     formula: 'S + adverb + verb | S + to be + adverb',
     analogy: { emoji: '🌡️', text: 'Imaginate un <strong>termómetro de frecuencia</strong> de 0% a 100%: <em>never</em> = frío total (0%), <em>sometimes</em> = temperatura media (50%), <em>always</em> = máxima temperatura (100%). Cuanto más alto el porcentaje, más seguido ocurre la acción.' },
     examples: [
       { type: 'pos', text: 'She always eats breakfast.' },
       { type: 'pos', text: 'He is always happy.' },
+      { type: 'q', text: 'How often do you exercise? → I usually exercise.' },
       { type: 'kw', text: 'always(100%) usually(90%) sometimes(50%) never(0%)' },
     ],
     table: {
@@ -174,7 +175,7 @@ const topics = [
         ['When', 'Tiempo', 'When did they arrive?'],
         ['Why', 'Razón', 'Why are you late?'],
         ['How', 'Manera', 'How do you go to work?'],
-        ['How often', 'Frecuencia', 'How often do you exercise?'],
+        ['How often', 'Frecuencia (se responde con Adverbios de Frecuencia)', 'How often do you exercise?'],
       ]
     }
   },
@@ -316,6 +317,7 @@ const flashcardsData = [
   { cat: 'Frecuencia', q: 'Adverbio de frecuencia al 0%', a: 'never', hint: 'Never = jamás / nunca' },
   { cat: 'Frecuencia', q: 'Adverbio de frecuencia al 100%', a: 'always', hint: 'Always = siempre' },
   { cat: 'Frecuencia', q: 'Posición en: "She ___ is happy."', a: 'always (después de is)', hint: 'Después del verbo to be' },
+  { cat: 'Frecuencia', q: '¿Qué WH-Question se usa para preguntar por la frecuencia de una acción?', a: 'How often', hint: 'How often do you exercise?' },
   { cat: 'Simple Past', q: 'Pasado de "go"', a: 'went', hint: 'Irregular: go → went' },
   { cat: 'Simple Past', q: 'Pasado de "buy"', a: 'bought', hint: 'Irregular: buy → bought' },
   { cat: 'Simple Past', q: 'Pasado de "eat"', a: 'ate', hint: 'Irregular: eat → ate' },
@@ -605,6 +607,11 @@ const quizData = [
   {
     cat: 'Frecuencia', q: '"I ___ eat vegetables." (90% de frecuencia)',
     opts: ['always', 'usually', 'sometimes', 'never'], correct: 1, exp: 'Usually = 90% de frecuencia.'
+  },
+  {
+    cat: 'Frecuencia', q: 'A: How often do you study?<br>B: I ___ study at night. (Siempre)',
+    opts: ['always', 'usually', 'sometimes', 'never'], correct: 0,
+    exp: 'Para responder a la pregunta "How often" (con qué frecuencia), usamos un adverbio como always (siempre).'
   },
   // WH-Questions (extra)
   {
@@ -1027,7 +1034,28 @@ function selectTopic(index) {
           <h4 class="detail-subtitle">Tabla de Referencia</h4>
           <table class="ref-table">
             <thead><tr>${t.table.headers.map(h => `<th>${h}</th>`).join('')}</tr></thead>
-            <tbody>${t.table.rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody>
+            <tbody>${t.table.rows.map(r => `<tr>${r.map(c => {
+              if (c === 'How often') {
+                return `<td>
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-trigger" title="Conexión: Ver Adverbios de Frecuencia">💡
+                      <span class="custom-tooltip">
+                        <span class="tooltip-title">💡 Adverbios de Frecuencia</span>
+                        <span class="tooltip-row"><span class="tooltip-pct">100%</span> <strong>Always</strong> (siempre)</span>
+                        <span class="tooltip-row"><span class="tooltip-pct">90%</span> <strong>Usually</strong> (usualmente)</span>
+                        <span class="tooltip-row"><span class="tooltip-pct">70%</span> <strong>Often</strong> (a menudo)</span>
+                        <span class="tooltip-row"><span class="tooltip-pct">50%</span> <strong>Sometimes</strong> (a veces)</span>
+                        <span class="tooltip-row"><span class="tooltip-pct">10%</span> <strong>Rarely</strong> (casi nunca)</span>
+                        <span class="tooltip-row"><span class="tooltip-pct">0%</span> <strong>Never</strong> (nunca)</span>
+                        <span class="tooltip-footer">Ver tema completo en la barra lateral</span>
+                      </span>
+                    </span>
+                    How often
+                  </span>
+                </td>`;
+              }
+              return `<td>${c}</td>`;
+            }).join('')}</tr>`).join('')}</tbody>
           </table>` : ''}
 
         ${t.analogy ? `
@@ -1064,29 +1092,49 @@ function closeTopicDetail() {
 // ---- FLASHCARDS ----
 let activeCategory = 'all';
 const categories = ['all', ...new Set(flashcardsData.map(f => f.cat))];
+let isShuffled = false;
+let currentShuffledCards = [];
 
 function renderFlashcardControls() {
   const ctrl = document.getElementById('fcControls');
   ctrl.innerHTML = `
-    <select class="verbs-search" style="margin-bottom:1rem; width:100%; max-width:300px; display:block;" onchange="filterCards(this.value)">
-      ${categories.map(c => `
-        <option value="${c}" ${c === activeCategory ? 'selected' : ''}>
-          ${c === 'all' ? '📚 Todos los Temas' : c}
-        </option>
-      `).join('')}
-    </select>
+    <div style="display:flex; gap:0.8rem; align-items:center; justify-content:center; margin-bottom:1.5rem; flex-wrap:nowrap;">
+      <select class="verbs-search" style="margin-bottom:0; width:100%; max-width:240px; display:inline-block;" onchange="filterCards(this.value)">
+        ${categories.map(c => `
+          <option value="${c}" ${c === activeCategory ? 'selected' : ''}>
+            ${c === 'all' ? '📚 Todos los Temas' : c}
+          </option>
+        `).join('')}
+      </select>
+      <button class="quiz-restart-btn" style="padding:0.7rem 1.2rem; font-size:0.9rem; height:42px; display:inline-flex; align-items:center; gap:0.5rem; white-space:nowrap; margin-bottom:0;" onclick="shuffleFlashcards()">
+        <span>🔀</span> Barajar
+      </button>
+    </div>
   `;
+}
+
+function shuffleFlashcards() {
+  const filtered = activeCategory === 'all' ? flashcardsData : flashcardsData.filter(f => f.cat === activeCategory);
+  currentShuffledCards = [...filtered].sort(() => Math.random() - 0.5);
+  isShuffled = true;
+  renderFlashcards();
 }
 
 function filterCards(cat) {
   activeCategory = cat;
+  isShuffled = false;
   renderFlashcardControls();
   renderFlashcards();
 }
 
 function renderFlashcards() {
   const grid = document.getElementById('flashcardsGrid');
-  const filtered = activeCategory === 'all' ? flashcardsData : flashcardsData.filter(f => f.cat === activeCategory);
+  let filtered = activeCategory === 'all' ? flashcardsData : flashcardsData.filter(f => f.cat === activeCategory);
+  
+  if (isShuffled) {
+    filtered = currentShuffledCards;
+  }
+  
   grid.innerHTML = filtered.map((f, i) => `
     <div class="flashcard fade-in" style="animation-delay:${i * 0.04}s" onclick="this.classList.toggle('flipped')">
       <div class="fc-inner">
@@ -1110,6 +1158,7 @@ let quizActiveCategory = 'all';
 const quizCategories = ['all', ...new Set(quizData.map(q => q.cat))];
 let currentQ = 0, score = 0, answered = false;
 let currentQuizData = [];
+let quizUserHistory = [];
 
 function renderQuizControls() {
   const ctrl = document.getElementById('quizControls');
@@ -1146,6 +1195,7 @@ function initQuiz() {
   currentQ = 0;
   score = 0;
   answered = false;
+  quizUserHistory = [];
 
   // Caso borde: si no hay preguntas para ese tema, mostramos un aviso.
   if (currentQuizData.length === 0) {
@@ -1203,21 +1253,73 @@ function renderQuiz() {
     // Calculamos el porcentaje de aciertos (redondeado al entero más cercano).
     const pct = Math.round((score / currentQuizData.length) * 100);
 
+    // Guardar y comprobar el récord histórico
+    const previousRecord = Number(localStorage.getItem('guia_ingles_quiz_record') || -1);
+    let newRecordSet = false;
+    if (pct > previousRecord) {
+      localStorage.setItem('guia_ingles_quiz_record', pct);
+      newRecordSet = true;
+      initStats(); // Actualizar estadísticas en la pantalla principal
+    }
+
     // Elegimos el emoji según el rango de porcentaje: excelente / bien / sigue practicando.
     const emoji = pct >= 80 ? '🏆' : pct >= 50 ? '👍' : '💪';
 
     // Mensaje motivacional adaptado al resultado.
-    const msg = pct >= 80 ? '¡Excelente dominio!' : pct >= 50 ? '¡Buen trabajo!' : '¡Seguí practicando!';
+    let msg = pct >= 80 ? '¡Excelente dominio!' : pct >= 50 ? '¡Buen trabajo!' : '¡Seguí practicando!';
+    if (newRecordSet) {
+      msg = `🎉 ¡Estableciste un nuevo récord personal de ${pct}% de aciertos!`;
+    }
+
+    // Filtrar errores del historial
+    const errors = quizUserHistory.filter(h => !h.isCorrect);
 
     // Pintamos la pantalla de resultados con el score, el porcentaje y el botón de reinicio.
     container.innerHTML = `
-      <div class="quiz-result fade-in">
+      <div class="quiz-result fade-in" style="max-width:600px; margin:0 auto;">
+        ${newRecordSet ? `<div style="display:inline-block; background:rgba(0, 255, 136, 0.15); border:1px solid var(--accent); border-radius:20px; padding:0.4rem 1rem; color:var(--accent); font-family:var(--mono); font-size:0.75rem; font-weight:bold; margin-bottom:1rem; text-transform:uppercase; letter-spacing:1px; animation: pulse 1.5s infinite;">🏆 ¡Nuevo Récord Personal! 🏆</div>` : ''}
         <div class="quiz-result-emoji">${emoji}</div>
         <h2>¡Quiz Terminado!</h2>
         <div class="quiz-result-score">${score}<span>/${currentQuizData.length}</span></div>
         <div class="quiz-result-pct">${pct}% correcto</div>
         <p class="quiz-result-msg">${msg}</p>
-        <button class="quiz-restart-btn" onclick="initQuiz()">🔄 Volver a Jugar</button>
+        
+        ${errors.length > 0 ? `
+          <div class="quiz-errors-summary" style="margin-top:2rem; text-align:left; border-top:1px dashed var(--border); padding-top:1.5rem;">
+            <h3 style="font-family:var(--display); font-size:1.2rem; margin-bottom:1rem; color:var(--accent3); display:flex; align-items:center; gap:0.5rem;">
+              <span>🚨</span> Repaso de Errores (${errors.length})
+            </h3>
+            <div style="display:flex; flex-direction:column; gap:1rem; max-height:350px; overflow-y:auto; padding-right:0.5rem; scroll-behavior:smooth;">
+              ${errors.map((e, idx) => `
+                <div style="background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:1rem; font-size:0.9rem;">
+                  <div style="font-size:0.75rem; color:var(--text-muted); font-family:var(--mono); margin-bottom:0.4rem; text-transform:uppercase;">
+                    Tema: ${e.category}
+                  </div>
+                  <div style="font-weight:bold; color:var(--text); margin-bottom:0.6rem; line-height:1.4;">
+                    ${idx + 1}. ${e.question}
+                  </div>
+                  <div style="display:flex; flex-direction:column; gap:0.3rem; margin-bottom:0.6rem;">
+                    <div style="color:var(--accent3); display:flex; align-items:center; gap:0.4rem;">
+                      <span style="font-weight:bold;">Tú elegiste:</span> <span>${e.userAnswer}</span>
+                    </div>
+                    <div style="color:var(--accent); display:flex; align-items:center; gap:0.4rem;">
+                      <span style="font-weight:bold;">Correcto:</span> <span>${e.correctAnswer}</span>
+                    </div>
+                  </div>
+                  <div style="font-size:0.8rem; color:var(--text-muted); border-left:2px solid var(--accent); padding-left:0.6rem; line-height:1.5; font-style:italic;">
+                    💡 ${e.explanation}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        ` : `
+          <div style="margin-top:2rem; padding:1.2rem; background:rgba(0, 255, 136, 0.05); border:1px dashed var(--accent); border-radius:8px; color:var(--accent); font-weight:bold; font-size:0.95rem;">
+            🎯 ¡Increíble! Respondiste todas las preguntas perfectamente.
+          </div>
+        `}
+        
+        <button class="quiz-restart-btn" style="margin-top:2rem;" onclick="initQuiz()">🔄 Volver a Jugar</button>
       </div>
     `;
     return; // Salimos: no hay nada más que renderizar.
@@ -1298,6 +1400,16 @@ function selectOption(idx) {
 
   // Comparamos el índice elegido con el índice correcto (guardado en q.correct).
   const isCorrect = idx === q.correct;
+
+  // Registrar en el historial de esta sesión
+  quizUserHistory.push({
+    question: q.q,
+    category: q.cat,
+    userAnswer: q.opts[idx],
+    correctAnswer: q.opts[q.correct],
+    isCorrect: isCorrect,
+    explanation: q.exp
+  });
 
   if (isCorrect) {
     score++;                                // Sumamos 1 punto al puntaje global.
@@ -1447,19 +1559,39 @@ function filterVerbs() {
 }
 
 // ---- NAV ----
-function showSection(id) {
+function showSection(id, updateHash = true) {
+  const targetSec = document.getElementById(id);
+  if (!targetSec) return;
+
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.mob-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  
+  targetSec.classList.add('active');
+  
   document.querySelectorAll(`.nav-btn`).forEach(b => {
     if (b.getAttribute('onclick')?.includes(id)) b.classList.add('active');
   });
   document.querySelectorAll(`.mob-btn`).forEach(b => {
     if (b.getAttribute('onclick')?.includes(id)) b.classList.add('active');
   });
+
+  if (updateHash) {
+    window.location.hash = id;
+  }
+  
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+// Escuchar cambios de hash para navegación histórica
+window.addEventListener('hashchange', () => {
+  const currentHash = window.location.hash.replace('#', '');
+  if (currentHash) {
+    showSection(currentHash, false);
+  } else {
+    showSection('home', false);
+  }
+});
 
 function toggleMode() {
   document.body.classList.toggle('light-mode');
@@ -1475,6 +1607,14 @@ renderVerbControls();
 renderVerbs();
 initQuiz();
 
+// Sincronizar sección inicial según hash al cargar
+const initialHash = window.location.hash.replace('#', '');
+if (initialHash) {
+  setTimeout(() => {
+    showSection(initialHash, false);
+  }, 100);
+}
+
 function initStats() {
   const statTopics = document.getElementById('stat-topics');
   if (statTopics) statTopics.textContent = topics.length;
@@ -1487,6 +1627,17 @@ function initStats() {
 
   const statVerbs = document.getElementById('stat-verbs');
   if (statVerbs) statVerbs.textContent = irregularVerbs.length;
+
+  // Cargar y mostrar el record histórico
+  const record = localStorage.getItem('guia_ingles_quiz_record');
+  const recordNotice = document.getElementById('quizRecordNotice');
+  const statRecord = document.getElementById('stat-quiz-record');
+  if (record !== null && recordNotice && statRecord) {
+    statRecord.textContent = record + '%';
+    recordNotice.style.display = 'block';
+  } else if (recordNotice) {
+    recordNotice.style.display = 'none';
+  }
 }
 
 initStats();
