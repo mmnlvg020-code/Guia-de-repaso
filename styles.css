@@ -59,6 +59,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -85,6 +86,7 @@ body {
   height: 100%;
   z-index: -2; /* Detrás de todo */
   pointer-events: none;
+  overflow: hidden;
 }
 
 .sphere {
