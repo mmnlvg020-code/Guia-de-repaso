@@ -1,33 +1,78 @@
 // ============================================================
+// ICONS & HELPER
+// ============================================================
+const SVG_ICONS = {
+  // Navigation Icons
+  home: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+  grammar: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10M6 14h10"/></svg>`,
+  flashcards: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><rect x="3" y="3" width="14" height="14" rx="2" ry="2"/><path d="M21 7h-2v10H9v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg>`,
+  quiz: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+  verbs: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>`,
+  
+  // Topic specific
+  user: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+  book: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
+  numbers: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><line x1="10" x1="21" y1="6" y2="6"/><line x1="10" x1="21" y1="12" y2="12"/><line x1="10" x1="21" y1="18" y2="18"/><path d="M4 6h1v4M4 10h2M4 16h2v.5A1.5 1.5 0 0 1 4.5 18v0A1.5 1.5 0 0 1 6 19.5H4"/></svg>`,
+  "arrow-right": `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="m12 5 7 7-7 7M5 12h14"/></svg>`,
+  "message-square": `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+  timer: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><line x1="12" x1="12" y1="2" y2="6"/><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2"/></svg>`,
+  "bar-chart": `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><line x1="18" x1="18" y1="20" y2="10"/><line x1="12" x1="12" y1="20" y2="4"/><line x1="6" x1="6" y1="20" y2="14"/></svg>`,
+  "help-circle": `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" x1="12" y1="17" y2="17"/></svg>`,
+  repeat: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>`,
+  history: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/><line x1="12" x1="12" y1="7" y2="12"/><line x1="12" x1="16" y1="12" y2="12"/></svg>`,
+  "trending-up": `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polygon points="17 6 23 6 23 12"/></svg>`,
+  sparkles: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275Z"/></svg>`,
+  "map-pin": `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`,
+  settings: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
+  
+  // Analogy specific
+  soccer: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28"><circle cx="12" cy="12" r="10"/><path d="m12 2-2 3v3.5l3 1.5 3-1.5V5l-2-3zM5.5 6.5l3.5 1.5M15 8l3.5-1.5M3 14h3.5l1.5 3M16 17l1.5-3H21M9.5 15.5l2.5 3.5 2.5-3.5"/></svg>`,
+  handshake: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28"><path d="M16 3h5v5M8 3H3v5M12 14a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M12 14v6M3 21h18"/></svg>`,
+  plane: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28"><path d="M17.8 20.19 14 12h-4.5l-2.25 4.5H5l2-6-2-6h2.25L9.5 9H14L17.8 3.81c.5-.67 1.2-.19 1 .69l-1.5 5.5H21a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2h-3.7l-1.5 5.5c-.2.88-.9 1.36-1.5.69z"/></svg>`,
+  thermometer: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg>`,
+  search: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28"><circle cx="11" cy="11" r="8"/><line x1="21" x1="16.65" y1="21" y2="16.65"/></svg>`,
+  tv: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>`,
+  camera: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>`,
+  calendar: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+  store: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28"><rect x="2" y="10" width="20" height="12" rx="2"/><path d="m12 2-10 8h20Z"/><path d="M6 22v-6h4v6M14 22v-6h4v6"/></svg>`,
+  
+  // Interface / status utilities
+  shuffle: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>`,
+  lightbulb: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A5 5 0 0 0 8 8c0 1 .3 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>`,
+  "alert-circle": `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="10"/><line x1="12" x1="12" y1="8" y2="12"/><line x1="12" x1="12" y1="16" y2="16"/></svg>`,
+  tag: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>`,
+  trophy: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H4v2h16v-2h-5c-.55 0-1-.45-1-1v-2.34"/><path d="M12 2a6 6 0 0 1 6 6v3.5a6 6 0 0 1-12 0V8a6 6 0 0 1 6-6Z"/></svg>`,
+  check: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>`,
+  x: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" stroke-width="3"><line x1="18" x1="6" y1="6" y2="18"/><line x1="6" x1="18" y1="6" y2="18"/></svg>`,
+  moon: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`,
+  sun: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>`,
+  "chevron-down": `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><polyline points="6 9 12 15 18 9"/></svg>`,
+  "chevron-up": `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><polyline points="18 15 12 9 6 15"/></svg>`,
+  volume: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`
+};
+
+function getIcon(name, size = null, strokeWidth = null) {
+  let markup = SVG_ICONS[name] || '';
+  if (!markup) return '';
+  if (size) {
+    markup = markup.replace(/width="\d+"/, `width="${size}"`).replace(/height="\d+"/, `height="${size}"`);
+  }
+  if (strokeWidth) {
+    markup = markup.replace(/stroke-width="\d+(\.\d+)?"/, `stroke-width="${strokeWidth}"`);
+  }
+  return markup;
+}
+
+// ============================================================
 // DATA
 // ============================================================
 const topics = [
   {
-    icon: '👤', color: '#00bfff', course: 'Inglés 1',
-    title: 'Pronombres: Sujeto vs Objeto',
-    desc: 'Los pronombres sujeto hacen la acción. Los de objeto la reciben.',
-    formula: 'Subject + verb + Object pronoun',
-    analogy: { emoji: '⚽', text: 'Pensá en un partido de fútbol: el <strong>sujeto</strong> patea (hace la acción), el <strong>objeto</strong> recibe el balón. "She kicked him" = ella le pegó a él. El que patea usa pronombre sujeto (she), el que recibe usa pronombre objeto (him).' },
-    examples: [
-      { type: 'pos', text: 'She called him yesterday.' },
-      { type: 'neg', text: 'He never listens to us.' },
-      { type: 'q', text: 'What time can I call you?' },
-      { type: 'kw', text: 'I/me · he/him · she/her · we/us · they/them' },
-    ],
-    table: {
-      headers: ['Sujeto', 'Objeto', 'Ejemplo'],
-      rows: [
-        ['I', 'me', 'Call me!'], ['he', 'him', 'She loves him.'], ['she', 'her', 'He called her.'],
-        ['we', 'us', 'They need us.'], ['they', 'them', 'I told them.'], ['you', 'you', 'I see you.'],
-      ]
-    }
-  },
-  {
-    icon: '📖', color: '#ffd93d', course: 'Inglés 1',
+    icon: 'book', color: '#ffd93d', course: 'Inglés 1',
     title: 'Artículos: A / AN / THE',
     desc: 'A/AN = indefinido (cualquiera). THE = específico o único.',
     formula: 'A + consonant | AN + vowel | THE + specific/unique',
-    analogy: { emoji: '🤝', text: 'Imaginate que presentás a alguien: "I met <em>a</em> guy at the party" (primera mención, es desconocido). Al día siguiente: "<em>The</em> guy called me back" — ya lo conocemos, es específico. <em>A/AN</em> = primera vez que lo mencionás. <em>THE</em> = ya sabemos de quién o qué hablamos.' },
+    analogy: { emoji: 'handshake', text: 'Imaginate que presentás a alguien: "I met <em>a</em> guy at the party" (primera mención, es desconocido). Al día siguiente: "<em>The</em> guy called me back" — ya lo conocemos, es específico. <em>A/AN</em> = primera vez que lo mencionás. <em>THE</em> = ya sabemos de quién o qué hablamos.' },
     examples: [
       { type: 'pos', text: 'She is reading a book.' },
       { type: 'pos', text: 'He found an umbrella.' },
@@ -45,7 +90,7 @@ const topics = [
     }
   },
   {
-    icon: '🔢', color: '#ff6b6b', course: 'Inglés 1',
+    icon: 'numbers', color: '#ff6b6b', course: 'Inglés 1',
     title: 'Plurales',
     desc: 'Reglas para convertir sustantivos al plural.',
     formula: 'noun + s / es / ies (según la terminación)',
@@ -66,11 +111,31 @@ const topics = [
     }
   },
   {
-    icon: '👉', color: '#a78bfa', course: 'Inglés 1',
+    icon: 'user', color: '#00bfff', course: 'Inglés 1',
+    title: 'Pronombres: Sujeto vs Objeto',
+    desc: 'Los pronombres sujeto hacen la acción. Los de objeto la reciben.',
+    formula: 'Subject + verb + Object pronoun',
+    analogy: { emoji: 'soccer', text: 'Pensá en un partido de fútbol: el <strong>sujeto</strong> patea (hace la acción), el <strong>objeto</strong> recibe el balón. "She kicked him" = ella le pegó a él. El que patea usa pronombre sujeto (she), el que recibe usa pronombre objeto (him).' },
+    examples: [
+      { type: 'pos', text: 'She called him yesterday.' },
+      { type: 'neg', text: 'He never listens to us.' },
+      { type: 'q', text: 'What time can I call you?' },
+      { type: 'kw', text: 'I/me · he/him · she/her · we/us · they/them' },
+    ],
+    table: {
+      headers: ['Sujeto', 'Objeto', 'Ejemplo'],
+      rows: [
+        ['I', 'me', 'Call me!'], ['he', 'him', 'She loves him.'], ['she', 'her', 'He called her.'],
+        ['we', 'us', 'They need us.'], ['they', 'them', 'I told them.'], ['you', 'you', 'I see you.'],
+      ]
+    }
+  },
+  {
+    icon: 'arrow-right', color: '#a78bfa', course: 'Inglés 1',
     title: 'Demonstratives',
     desc: 'Demostrativos: señalan personas u objetos según cercanía (this/that) y número (these/those).',
     formula: 'This/These = cerca | That/Those = lejos | Singular/Plural',
-    analogy: { emoji: '👆', text: 'Imaginate que señalás con el dedo: <em>this</em> = algo dentro de tu brazo, muy cerquita. <em>that</em> = algo al otro lado del cuarto, lejos. <em>these/those</em> = lo mismo pero con varias cosas a la vez. La distancia no cambia, solo la cantidad.' },
+    analogy: { emoji: 'arrow-right', text: 'Imaginate que señalás con el dedo: <em>this</em> = algo dentro de tu brazo, muy cerquita. <em>that</em> = algo al otro lado del cuarto, lejos. <em>these/those</em> = lo mismo pero con varias cosas a la vez. La distancia no cambia, solo la cantidad.' },
     examples: [
       { type: 'pos', text: 'This is my phone. (cerca, singular)' },
       { type: 'pos', text: 'These are my books. (cerca, plural)' },
@@ -89,7 +154,7 @@ const topics = [
     }
   },
   {
-    icon: '🗣️', color: '#ffd93d', course: 'Inglés 1',
+    icon: 'message-square', color: '#ffd93d', course: 'Inglés 1',
     title: 'Imperatives',
     desc: 'Se usan para dar órdenes, instrucciones, advertencias o consejos. No llevan sujeto explícito, ya que siempre se dirigen a "you" (tú/ustedes).',
     formula: 'Verb (base) | Don\'t + verb | Let\'s + verb',
@@ -109,11 +174,33 @@ const topics = [
     }
   },
   {
-    icon: '⏱️', color: '#00ff88', course: 'Inglés 1 & 2',
+    icon: 'settings', color: '#ff00ff', course: 'Inglés 1 & 2',
+    title: 'Tipos de Verbos (Roles)',
+    desc: 'Los verbos no solo son acciones. Cumplen diferentes roles en la oración, desde describir un estado hasta ayudar a otros verbos.',
+    formula: 'Action = Físico | Stative = Mental | Aux = Ayudante | Modal = Condición',
+    analogy: { emoji: 'store', text: 'Pensá en los <strong>roles de una empresa</strong>: los <em>Action Verbs</em> son los empleados que hacen el trabajo físico. Los <em>Stative Verbs</em> son las cámaras de seguridad (observan, sienten, saben). Los <em>Auxiliary</em> son los gerentes (ayudan a que otros trabajen: do, be, have). Los <em>Modal</em> son el reglamento interno (<em>can</em> = está permitido, <em>must</em> = es obligatorio).' },
+    examples: [
+      { type: 'pos', text: 'Action (Acciones físicas o procesos): Run, jump, eat, build. "He runs every morning."' },
+      { type: 'neg', text: 'Stative (Estados mentales, sentidos, posesión): Know, want, love, own. "I know the answer." (NO se usan en continuo "-ing")' },
+      { type: 'kw', text: 'Auxiliary (Ayudantes para tiempos verbales o preguntas): Be, do, have. "Do you like coffee?" "She is working."' },
+      { type: 'q', text: 'Modal (Añaden condición, habilidad, permiso o deber): Can, should, must. "You should sleep." (NO llevan "to" ni "s")' }
+    ],
+    table: {
+      headers: ['Tipo', 'Función', 'Ejemplo', 'Regla de Oro'],
+      rows: [
+        ['Action Verbs', 'Acción o movimiento', 'run, eat, build', 'Pueden usarse en tiempos continuos (-ing).'],
+        ['Stative Verbs', 'Estado, mente o sentido', 'know, like, seem', '¡NUNCA se usan en continuo (I am knowing)!'],
+        ['Auxiliary', 'Ayudan a formar tiempos', 'do, be, have', 'Se usan para negar (don\'t) o preguntar (do you?).'],
+        ['Modal Verbs', 'Condición, poder o deber', 'can, must, should', 'Van directos con otro verbo sin "to" (can go).'],
+      ]
+    }
+  },
+  {
+    icon: 'timer', color: '#00ff88', course: 'Inglés 1 & 2',
     title: 'Simple Present',
     desc: 'Hábitos, rutinas y hechos generales. Con he/she/it el verbo lleva -s.',
     formula: 'S + verb(s/es) | S + do/does + not + verb | Do/Does + S + verb?',
-    analogy: { emoji: '🛫', text: 'Pensá en el <strong>tablero de salidas de un aeropuerto</strong>: "Flight 202 <em>departs</em> at 9:00 AM". No dice está saliendo ahora sino que es un hecho fijo y repetible. El Simple Present describe verdades que siempre son así, como ese horario que nunca cambia.' },
+    analogy: { emoji: 'plane', text: 'Pensá en el <strong>tablero de salidas de un aeropuerto</strong>: "Flight 202 <em>departs</em> at 9:00 AM". No dice está saliendo ahora sino que es un hecho fijo y repetible. El Simple Present describe verdades que siempre son así, como ese horario que nunca cambia.' },
     examples: [
       { type: 'pos', text: 'She eats breakfast every day.' },
       { type: 'neg', text: "She doesn't eat breakfast." },
@@ -131,11 +218,11 @@ const topics = [
     }
   },
   {
-    icon: '📊', color: '#ff6b6b', course: 'Inglés 1',
+    icon: 'bar-chart', color: '#ff6b6b', course: 'Inglés 1',
     title: 'Adverbs of Frequency',
     desc: 'Van ANTES del verbo principal, pero DESPUÉS del verbo to be. <strong>Responden a la pregunta: "How often...?"</strong>',
     formula: 'S + adverb + verb | S + to be + adverb',
-    analogy: { emoji: '🌡️', text: 'Imaginate un <strong>termómetro de frecuencia</strong> de 0% a 100%: <em>never</em> = frío total (0%), <em>sometimes</em> = temperatura media (50%), <em>always</em> = máxima temperatura (100%). Cuanto más alto el porcentaje, más seguido ocurre la acción.' },
+    analogy: { emoji: 'thermometer', text: 'Imaginate un <strong>termómetro de frecuencia</strong> de 0% a 100%: <em>never</em> = frío total (0%), <em>sometimes</em> = temperatura media (50%), <em>always</em> = máxima temperatura (100%). Cuanto más alto el porcentaje, más seguido ocurre la acción.' },
     examples: [
       { type: 'pos', text: 'She always eats breakfast.' },
       { type: 'pos', text: 'He is always happy.' },
@@ -155,11 +242,11 @@ const topics = [
     }
   },
   {
-    icon: '❓', color: '#00ff88', course: 'Inglés 1 & 2',
+    icon: 'help-circle', color: '#00ff88', course: 'Inglés 1 & 2',
     title: 'WH-Questions',
     desc: 'Para obtener información específica (no solo sí/no).',
     formula: 'WH + do/does/did + S + verb?',
-    analogy: { emoji: '🕵️', text: 'Pensá en un <strong>detective interrogando</strong>: cada palabra WH es una pregunta de investigación específica. <em>Who</em> = ¿quién lo hizo? <em>Where</em> = ¿dónde? <em>When</em> = ¿cuándo? <em>Why</em> = ¿por qué? Cada WH abre un camino de información distinto, como las pistas de un caso policial.' },
+    analogy: { emoji: 'search', text: 'Pensá en un <strong>detective interrogando</strong>: cada palabra WH es una pregunta de investigación específica. <em>Who</em> = ¿quién lo hizo? <em>Where</em> = ¿dónde? <em>When</em> = ¿cuándo? <em>Why</em> = ¿por qué? Cada WH abre un camino de información distinto, como las pistas de un caso policial.' },
     examples: [
       { type: 'q', text: 'What do you eat for lunch?' },
       { type: 'q', text: 'Where does she live?' },
@@ -180,11 +267,11 @@ const topics = [
     }
   },
   {
-    icon: '🔄', color: '#00bfff', course: 'Inglés 1 & 2',
+    icon: 'repeat', color: '#00bfff', course: 'Inglés 1 & 2',
     title: 'Present Continuous',
     desc: 'Acciones que pasan AHORA o planes futuros cercanos.',
     formula: 'S + am/is/are + verb-ing',
-    analogy: { emoji: '📺', text: 'Imaginate una <strong>transmisión en vivo</strong>: el comentarista narra lo que ve en este momento. "He <em>is running</em>! She <em>is scoring</em>!" Todo en tiempo real, mientras sucede. El Present Continuous es ese instante que se está describiendo <em>ahora mismo</em>.' },
+    analogy: { emoji: 'tv', text: 'Imaginate una <strong>transmisión en vivo</strong>: el comentarista narra lo que ve en este momento. "He <em>is running</em>! She <em>is scoring</em>!" Todo en tiempo real, mientras sucede. El Present Continuous es ese instante que se está describiendo <em>ahora mismo</em>.' },
     examples: [
       { type: 'pos', text: 'She is studying English right now.' },
       { type: 'neg', text: "She isn't studying English." },
@@ -203,11 +290,25 @@ const topics = [
     }
   },
   {
-    icon: '⏪', color: '#00bfff', course: 'Inglés 2',
+    icon: 'map-pin', color: '#00ff88', course: 'Inglés 2',
+    title: 'There is / There are',
+    desc: 'Indicar la existencia de algo en un lugar.',
+    formula: 'There is + singular | There are + plural',
+    analogy: { emoji: 'store', text: 'Pensá en el <strong>sistema de inventario de una tienda</strong>: "There <em>are</em> 5 apples in stock" — el sistema reporta lo que existe y cuánto hay. No hay un sujeto que haga algo, solo se declara la existencia. <em>There is/are</em> funciona igual: reporta que algo está ahí.' },
+    examples: [
+      { type: 'pos', text: 'There is a bank near here.' },
+      { type: 'pos', text: 'There are some cafes in town.' },
+      { type: 'neg', text: "There isn't a hospital. / There aren't any movie theaters." },
+      { type: 'q', text: 'Is there a school? / Are there any colleges?' },
+      { type: 'kw', text: 'some (afirm.) · any (neg./preg.) · a (singular)' },
+    ],
+  },
+  {
+    icon: 'history', color: '#00bfff', course: 'Inglés 2',
     title: 'Simple Past',
     desc: 'Acciones completadas en el pasado. Regulares: +ed. Irregulares: cambia el verbo.',
     formula: 'S + verb-ed/irregular | S + didn\'t + verb | Did + S + verb?',
-    analogy: { emoji: '📷', text: 'Pensá en un <strong>álbum de fotos</strong>: cada foto ya fue tomada, ya pasó, está fija para siempre. No podés cambiarla ni editarla. El Simple Past es exactamente eso: una acción que ya terminó y quedó congelada en el tiempo, como una fotografía.' },
+    analogy: { emoji: 'camera', text: 'Pensá en un <strong>álbum de fotos</strong>: cada foto ya fue tomada, ya pasó, está fija para siempre. No podés cambiarla ni editarla. El Simple Past es exactamente eso: una acción que ya terminó y quedó congelada en el tiempo, como una fotografía.' },
     examples: [
       { type: 'pos', text: 'She walked to school yesterday.' },
       { type: 'pos', text: 'He went to the gym last night.' },
@@ -225,11 +326,11 @@ const topics = [
     }
   },
   {
-    icon: '📈', color: '#ffd93d', course: 'Inglés 2',
+    icon: 'trending-up', color: '#ffd93d', course: 'Inglés 2',
     title: 'Comparatives',
     desc: 'Comparar dos cosas. Se usa "than" después del adjetivo.',
     formula: 'adj+er than | more + adj + than | as + adj + as',
-    analogy: { emoji: '🏆', text: 'Pensá en un <strong>marcador de partido</strong>: siempre hay dos equipos (dos cosas) y uno supera al otro. "Tokyo <em>is bigger than</em> London" = Tokyo 1, London 0. Los comparativos siempre necesitan <em>dos</em> elementos para funcionar, como un marcador necesita dos equipos.' },
+    analogy: { emoji: 'trophy', text: 'Pensá en un <strong>marcador de partido</strong>: siempre hay dos equipos (dos cosas) y uno supera al otro. "Tokyo <em>is bigger than</em> London" = Tokyo 1, London 0. Los comparativos siempre necesitan <em>dos</em> elementos para funcionar, como un marcador necesita dos equipos.' },
     examples: [
       { type: 'pos', text: 'Tokyo is bigger than London.' },
       { type: 'pos', text: 'That book is more interesting than this one.' },
@@ -249,11 +350,11 @@ const topics = [
     }
   },
   {
-    icon: '🔮', color: '#ff6b6b', course: 'Inglés 2',
+    icon: 'sparkles', color: '#ff6b6b', course: 'Inglés 2',
     title: 'Be Going To',
     desc: 'Planes futuros y predicciones con evidencia.',
     formula: 'S + am/is/are + going to + verb',
-    analogy: { emoji: '📅', text: 'Imaginate un <strong>calendario con planes ya escritos</strong>: si ya lo apuntaste, es <em>going to</em>. Y si ves nubes negras y decís "it\'s going to rain" — también es <em>going to</em>, porque la evidencia visible ya te lo dice. En ambos casos, el futuro ya se puede ver desde ahora.' },
+    analogy: { emoji: 'calendar', text: 'Imaginate un <strong>calendario con planes ya escritos</strong>: si ya lo apuntaste, es <em>going to</em>. Y si ves nubes negras y decís "it\'s going to rain" — también es <em>going to</em>, porque la evidencia visible ya te lo dice. En ambos casos, el futuro ya se puede ver desde ahora.' },
     examples: [
       { type: 'pos', text: "I'm going to study tonight. (plan)" },
       { type: 'pos', text: "Look at those clouds! It's going to rain. (predicción)" },
@@ -263,41 +364,186 @@ const topics = [
     ],
   },
   {
-    icon: '📍', color: '#00ff88', course: 'Inglés 2',
-    title: 'There is / There are',
-    desc: 'Indicar la existencia de algo en un lugar.',
-    formula: 'There is + singular | There are + plural',
-    analogy: { emoji: '🏪', text: 'Pensá en el <strong>sistema de inventario de una tienda</strong>: "There <em>are</em> 5 apples in stock" — el sistema reporta lo que existe y cuánto hay. No hay un sujeto que haga algo, solo se declara la existencia. <em>There is/are</em> funciona igual: reporta que algo está ahí.' },
+    icon: 'book', color: '#ff00ff', course: 'Inglés Técnico',
+    title: 'Noun Phrases (Frases Nominales)',
+    desc: 'Un grupo de palabras estructurado alrededor de un sustantivo principal (Head Noun). En inglés, los modificadores van ANTES del sustantivo.',
+    formula: 'Modifiers (Articles/Adjectives/Nouns) + HEAD NOUN',
+    analogy: { emoji: 'package', text: 'Pensá en una <strong>caja de envío</strong>: el sustantivo principal (Head Noun) es el objeto que compraste. Todo lo demás (el plástico de burbujas, la etiqueta, la caja de cartón) son los <em>modificadores</em> que lo envuelven para darle contexto. "A WIRELESS NETWORK <em>DEVICE</em>" -> el objeto principal es "device" (dispositivo).' },
     examples: [
-      { type: 'pos', text: 'There is a bank near here.' },
-      { type: 'pos', text: 'There are some cafes in town.' },
-      { type: 'neg', text: "There isn't a hospital. / There aren't any movie theaters." },
-      { type: 'q', text: 'Is there a school? / Are there any colleges?' },
-      { type: 'kw', text: 'some (afirm.) · any (neg./preg.) · a (singular)' },
-    ],
-  },
-  {
-    icon: '⚙️', color: '#ff00ff', course: 'Inglés 1 & 2',
-    title: 'Tipos de Verbos (Roles)',
-    desc: 'Los verbos no solo son acciones. Cumplen diferentes roles en la oración, desde describir un estado hasta ayudar a otros verbos.',
-    formula: 'Action = Físico | Stative = Mental | Aux = Ayudante | Modal = Condición',
-    analogy: { emoji: '🏢', text: 'Pensá en los <strong>roles de una empresa</strong>: los <em>Action Verbs</em> son los empleados que hacen el trabajo físico. Los <em>Stative Verbs</em> son las cámaras de seguridad (observan, sienten, saben). Los <em>Auxiliary</em> son los gerentes (ayudan a que otros trabajen: do, be, have). Los <em>Modal</em> son el reglamento interno (<em>can</em> = está permitido, <em>must</em> = es obligatorio).' },
-    examples: [
-      { type: 'pos', text: 'Action (Acciones físicas o procesos): Run, jump, eat, build. "He runs every morning."' },
-      { type: 'neg', text: 'Stative (Estados mentales, sentidos, posesión): Know, want, love, own. "I know the answer." (NO se usan en continuo "-ing")' },
-      { type: 'kw', text: 'Auxiliary (Ayudantes para tiempos verbales o preguntas): Be, do, have. "Do you like coffee?" "She is working."' },
-      { type: 'q', text: 'Modal (Añaden condición, habilidad, permiso o deber): Can, should, must. "You should sleep." (NO llevan "to" ni "s")' }
+      { type: 'pos', text: 'A risk (Artículo + Sustantivo)' },
+      { type: 'pos', text: 'Security threats (Sustantivo + Sustantivo)' },
+      { type: 'pos', text: 'A database program (Artículo + Sust. + Sust.)' },
+      { type: 'pos', text: 'The memory address signals (Art + Sust + Sust + Sust)' },
+      { type: 'kw', text: 'Truco: Para traducirlo al español, casi siempre se lee de ATRÁS hacia ADELANTE.' },
     ],
     table: {
-      headers: ['Tipo', 'Función', 'Ejemplo', 'Regla de Oro'],
+      headers: ['Modificadores', 'Head Noun', 'Traducción'],
       rows: [
-        ['Action Verbs', 'Acción o movimiento', 'run, eat, build', 'Pueden usarse en tiempos continuos (-ing).'],
-        ['Stative Verbs', 'Estado, mente o sentido', 'know, like, seem', '¡NUNCA se usan en continuo (I am knowing)!'],
-        ['Auxiliary', 'Ayudan a formar tiempos', 'do, be, have', 'Se usan para negar (don\'t) o preguntar (do you?).'],
-        ['Modal Verbs', 'Condición, poder o deber', 'can, must, should', 'Van directos con otro verbo sin "to" (can go).'],
+        ['a wireless network', 'device', 'un dispositivo de red inalámbrica'],
+        ['security', 'threats', 'amenazas de seguridad'],
+        ['your website\'s', 'purpose', 'el propósito de tu sitio web'],
       ]
     }
   },
+  {
+    icon: 'search', color: '#00ff88', course: 'Inglés Técnico',
+    title: 'Pronoun Referents (Referentes Pronominales)',
+    desc: 'Los pronombres reemplazan a los sustantivos para evitar repeticiones. En textos técnicos es clave saber a qué palabra exacta (referente) están apuntando.',
+    formula: 'Sustantivo Original ... Pronombre',
+    analogy: { emoji: 'link', text: 'Imaginate un <strong>acceso directo</strong> en tu escritorio. El icono no es el programa real, es solo un link que te lleva a él. Los pronombres hacen lo mismo: "IT (pronombre) is a field..." -> "IT" es el acceso directo que apunta a "Information Technology".' },
+    examples: [
+      { type: 'pos', text: 'Subject: IT is a field... IT plays a crucial role.' },
+      { type: 'pos', text: 'Object: These are the cases. Where shall I put THEM?' },
+      { type: 'pos', text: 'Reciprocal: Rachel and Joe love EACH OTHER.' },
+      { type: 'pos', text: 'Reflexive/Emphatic: A transmitter ITSELF generates a wave.' },
+      { type: 'pos', text: 'Relative: A monitor is a screen THAT displays text.' },
+    ],
+    table: {
+      headers: ['Tipo de Pronombre', 'Palabras', 'Uso'],
+      rows: [
+        ['Subject', 'I, you, he, she, it, we, they', 'Realiza la acción principal.'],
+        ['Object', 'me, him, her, it, us, them', 'Recibe la acción (después del verbo).'],
+        ['Reflexive / Emphatic', 'myself, itself, themselves', 'Refleja la acción al sujeto o le da énfasis.'],
+        ['Relative', 'that, which, who, whom, whose', 'Conecta frases refiriéndose a algo anterior.'],
+        ['Reciprocal', 'each other, one another', 'Acción mutua entre 2 o más sujetos.'],
+      ]
+    }
+  },
+  {
+    icon: 'tag', color: '#ffd93d', course: 'Inglés Técnico',
+    title: 'Connectors (Conectores)',
+    desc: 'Palabras que unen ideas lógicas dentro de un manual o texto técnico, indicando causa, efecto, contraste o secuencia.',
+    formula: 'Clause 1 + Connector + Clause 2',
+    analogy: { emoji: 'git-merge', text: 'Como las <strong>señales de tránsito</strong>: te dicen qué viene en la siguiente oración. "However" es un cartel de desvío (cambio de idea). "Therefore" es una flecha recta (consecuencia lógica). "Furthermore" es un carril de suma (agrega más información).' },
+    examples: [
+      { type: 'pos', text: 'The system crashed. THEREFORE, data was lost. (Efecto)' },
+      { type: 'pos', text: 'It is secure; HOWEVER, it is slow. (Contraste)' },
+      { type: 'pos', text: 'First, reboot the PC. THEN, check the IP. (Secuencia)' },
+      { type: 'kw', text: 'Cause: because, since, due to' },
+    ],
+    table: {
+      headers: ['Función', 'Conectores Comunes', 'Ejemplo'],
+      rows: [
+        ['Causa', 'because, since, due to', '...due to a power failure.'],
+        ['Efecto / Resultado', 'therefore, thus, as a result', '...therefore, the server went offline.'],
+        ['Contraste', 'however, although, but', '...however, the backup was saved.'],
+        ['Adición', 'furthermore, in addition, also', '...in addition, it encrypts the files.'],
+        ['Secuencia', 'first, then, finally, next', 'First, install the app. Then, run it.'],
+      ]
+    }
+  },
+  {
+    icon: 'star', color: '#ff00ff', course: 'Inglés Técnico',
+    title: 'Parts of Speech (Componentes)',
+    desc: 'Los bloques de construcción de cualquier oración en inglés. Entender qué función cumple cada palabra es vital para traducir manuales técnicos.',
+    formula: 'Nouns, Verbs, Adjectives, Adverbs, etc.',
+    analogy: { emoji: 'cpu', text: 'Piensa en las partes de la oración como los <strong>componentes de hardware</strong> de una PC. El Sustantivo (Noun) es el disco duro (donde están las cosas), el Verbo (Verb) es el procesador (hace la acción), y el Adjetivo (Adjective) es la tarjeta gráfica (le da color/detalle al sustantivo).' },
+    examples: [
+      { type: 'pos', text: 'Noun: "The SERVER is down." (Persona, lugar, objeto o concepto)' },
+      { type: 'pos', text: 'Verb: "We UPGRADED the RAM." (Acción o estado)' },
+      { type: 'pos', text: 'Adjective: "It is a FAST network." (Modifica al sustantivo)' },
+      { type: 'pos', text: 'Adverb: "The program ran QUICKLY." (Modifica al verbo/adjetivo)' },
+      { type: 'pos', text: 'Preposition: "Data travels THROUGH the cable." (Relación espacial/lógica)' }
+    ],
+    table: {
+      headers: ['Part of Speech', 'Función Técnica', 'Ejemplo IT'],
+      rows: [
+        ['Noun', 'Nombra componentes, redes, datos', 'Smartphone, modem, network, data'],
+        ['Verb', 'Acciones del sistema o usuario', 'Boot, install, download, crash'],
+        ['Adjective', 'Describe capacidades o estados', 'Wireless, digital, binary, secure'],
+        ['Adverb', 'Cómo ocurre un proceso', 'Automatically, remotely, quickly'],
+      ]
+    }
+  },
+  {
+    icon: 'alert', color: '#ff00ff', course: 'Inglés Técnico',
+    title: 'False Friends & Cognates',
+    desc: 'Palabras que se parecen al español. Los Cognados significan lo mismo, pero los Falsos Amigos (False Friends) engañan y significan algo totalmente distinto.',
+    formula: 'Cognate = Amigo / False Friend = Trampa',
+    analogy: { emoji: 'shield', text: 'Los falsos amigos son como el <strong>Phishing</strong>. Parecen legítimos a simple vista, pero si haces clic asumiendo que significan lo que parecen, cometerás un error de traducción.' },
+    examples: [
+      { type: 'pos', text: 'Cognate: Program = Programa' },
+      { type: 'pos', text: 'Cognate: Binary = Binario' },
+      { type: 'pos', text: 'False Friend: Actual = Real (NO significa "actual" de tiempo)' },
+      { type: 'pos', text: 'False Friend: Large = Grande (NO significa "largo")' },
+    ],
+    table: {
+      headers: ['Palabra en Inglés', 'Parece que es...', 'Realmente significa...'],
+      rows: [
+        ['Large', 'Largo', 'Grande'],
+        ['Actual', 'Actual (hoy)', 'Real / Verdadero'],
+        ['Library', 'Librería (tienda)', 'Biblioteca (ej. de código)'],
+        ['Exit', 'Éxito', 'Salida (exit code)'],
+        ['Sensible', 'Sensible', 'Sensato / Lógico'],
+      ]
+    }
+  },
+  {
+    icon: 'message', color: '#ff00ff', course: 'Inglés Técnico',
+    title: 'Phrasal Verbs & Tech Idioms',
+    desc: 'Verbos compuestos (Verbo + Preposición) muy usados en IT, y frases coloquiales (modismos) usadas en el entorno laboral.',
+    formula: 'Verb + Preposition',
+    analogy: { emoji: 'terminal', text: 'Los Phrasal Verbs son como <strong>macros de teclado</strong> (atajos). En lugar de decir "initialize the authentication protocol" (formal), los gringos usan un atajo: "Log in".' },
+    examples: [
+      { type: 'pos', text: 'Boot up: Iniciar (un servidor o PC)' },
+      { type: 'pos', text: 'Log on/in: Conectarse (iniciar sesión)' },
+      { type: 'pos', text: 'Back up: Respaldar información' },
+      { type: 'pos', text: 'Idiom: "Out of the blue" (De la nada / Inesperado)' },
+      { type: 'pos', text: 'Idiom: "No sweat" (Sin problema / Fácil)' },
+    ],
+    table: {
+      headers: ['Phrasal Verb', 'Sinónimo Formal', 'Español'],
+      rows: [
+        ['Turn on / Switch on', 'Activate', 'Encender'],
+        ['Turn off / Shut down', 'Deactivate', 'Apagar'],
+        ['Hook up', 'Connect', 'Conectar (cables/equipos)'],
+        ['Set up', 'Install / Configure', 'Instalar / Configurar'],
+        ['Wipe out', 'Erase completely', 'Borrar por completo (ej. un disco)'],
+      ]
+    }
+  },
+  {
+    icon: 'eye', color: '#ff00ff', course: 'Inglés Técnico',
+    title: 'Reading: Skimming & Scanning',
+    desc: 'Estrategias de comprensión lectora (Reading Comprehension) esenciales para digerir manuales de documentación largos rápidamente.',
+    formula: 'Skim = Idea General | Scan = Dato Específico',
+    analogy: { emoji: 'search', text: '<strong>Skimming</strong> es como hacer scroll rápido en un post de Reddit solo leyendo los títulos para ver de qué trata. <strong>Scanning</strong> es hacer "Ctrl + F" en el teclado para encontrar una palabra clave exacta en el texto.' },
+    examples: [
+      { type: 'pos', text: 'Skimming: Leer títulos, subtítulos, 1ra y última oración del párrafo.' },
+      { type: 'pos', text: 'Scanning: Ignorar el 90% del texto y buscar acrónimos, números o nombres.' },
+      { type: 'kw', text: 'Topic Sentence: Indica la idea principal del párrafo (suele ser la 1ra oración).' },
+    ],
+    table: {
+      headers: ['Técnica', 'Objetivo', 'Cuándo usarla en IT'],
+      rows: [
+        ['Skimming', 'Idea General (Gist)', 'Evaluando si un tutorial sirve para tu problema.'],
+        ['Scanning', 'Datos Específicos', 'Buscando una dirección IP o un comando en la wiki.'],
+        ['Close Reading', 'Comprensión Total', 'Leyendo los términos de licencia o un bloque de código crítico.'],
+      ]
+    }
+  },
+  {
+    icon: 'server', color: '#ff00ff', course: 'Inglés Técnico',
+    title: 'IT Definitions & Latency',
+    desc: 'Definiciones técnicas estándar y fundamentos de redes que todo profesional de IT debe poder explicar en inglés.',
+    formula: 'Term + refers to + Definition',
+    analogy: { emoji: 'cloud', text: 'Estos son los <strong>fundamentos de infraestructura</strong>. Saber armar una frase "Noun Phrase" no sirve de nada si no conoces el significado técnico del hardware y software con el que trabajas.' },
+    examples: [
+      { type: 'pos', text: 'Hardware: Physical devices (servers, equipment).' },
+      { type: 'pos', text: 'Software: Programs that run on hardware to perform tasks.' },
+      { type: 'pos', text: 'Latency: The delay for data to travel from source to destination.' },
+      { type: 'kw', text: 'High latency = Slower response times.' },
+    ],
+    table: {
+      headers: ['Término', 'Palabras Clave (Keywords)', 'Español'],
+      rows: [
+        ['Networks', 'Connect computers, exchange data', 'Redes'],
+        ['Data Storage', 'Storing, retrieving, databases', 'Almacenamiento de datos'],
+        ['Cybersecurity', 'Protect data, threats, unauthorized access', 'Ciberseguridad'],
+        ['Latency', 'Delay, travel time, congestion', 'Latencia'],
+      ]
+    }
+  }
 ];
 
 
@@ -355,6 +601,28 @@ const flashcardsData = [
   { cat: 'Tipos de Verbos', q: '¿Los verbos Stative pueden usarse con -ing?', a: 'No. Nunca.', hint: 'I know (correcto). I am knowing (¡MAL!)' },
   { cat: 'Tipos de Verbos', q: '¿Cuál es un verbo Modal?', a: 'Can, should, must', hint: 'No llevan "to" ni -s: She can swim.' },
   { cat: 'Tipos de Verbos', q: 'Do, be y have son verbos de tipo...', a: 'Auxiliary (Auxiliares)', hint: 'Ayudan a formar tiempos y preguntas.' },
+  // ── INGLÉS TÉCNICO ──────────────────────────────────────────────────
+  // False Friends & Cognates
+  { cat: 'False Friends', q: '¿Qué significa "actual" en inglés?', a: 'Real / verdadero', hint: 'Actual ≠ Actual (esp.). "The actual cost" = el costo real.' },
+  { cat: 'False Friends', q: '¿Qué significa "library" en inglés?', a: 'Biblioteca', hint: 'Library ≠ Librería. Librería = Bookstore.' },
+  { cat: 'False Friends', q: '¿Qué significa "large" en inglés?', a: 'Grande', hint: 'Large ≠ Largo. Largo = Long.' },
+  { cat: 'False Friends', q: '¿Qué significa "exit" en inglés?', a: 'Salida', hint: 'Exit ≠ Éxito. Éxito = Success.' },
+  { cat: 'False Friends', q: '¿Qué es un "cognate"?', a: 'Palabra similar en dos idiomas con el mismo significado', hint: 'Ej: "information" (ES) = "information" (EN).' },
+  // Parts of Speech
+  { cat: 'Parts of Speech', q: '¿Qué función cumple un Adjective (adjetivo)?', a: 'Modifica/describe a un sustantivo', hint: 'The FAST server / A BROKEN link.' },
+  { cat: 'Parts of Speech', q: '¿Qué función cumple un Adverb (adverbio)?', a: 'Modifica un verbo, adjetivo u otro adverbio', hint: 'The system runs QUICKLY. It is VERY fast.' },
+  { cat: 'Parts of Speech', q: 'En "The server crashed.", ¿qué función cumple "server"?', a: 'Noun (sustantivo)', hint: 'Es el sujeto de la oración.' },
+  { cat: 'Parts of Speech', q: 'En una Noun Phrase, ¿cuál es la palabra núcleo?', a: 'El sustantivo (noun)', hint: '"A fast network" → network es el núcleo.' },
+  // Phrasal Verbs Técnicos
+  { cat: 'Phrasal Verbs IT', q: '¿Qué significa "boot up"?', a: 'Encender/iniciar un sistema', hint: 'Boot up the server before running the script.' },
+  { cat: 'Phrasal Verbs IT', q: '¿Qué significa "log in"?', a: 'Iniciar sesión', hint: 'Log in with your credentials.' },
+  { cat: 'Phrasal Verbs IT', q: '¿Qué significa "shut down"?', a: 'Apagar un sistema', hint: 'Shut down the server after backup.' },
+  { cat: 'Phrasal Verbs IT', q: '¿Qué significa "roll back"?', a: 'Revertir a una versión anterior', hint: 'We need to roll back the update.' },
+  // IT Definitions
+  { cat: 'IT Vocab', q: '¿Qué es "latency" en redes?', a: 'El tiempo de demora en transmitir datos', hint: 'High latency = conexión lenta o con lag.' },
+  { cat: 'IT Vocab', q: '¿Qué significa "deploy"?', a: 'Desplegar/publicar una aplicación', hint: 'We deploy the app to production every Friday.' },
+  { cat: 'IT Vocab', q: '¿Qué significa "bandwidth"?', a: 'Ancho de banda (capacidad de transferencia de datos)', hint: 'More bandwidth = faster downloads.' },
+  { cat: 'IT Vocab', q: '¿Qué significa "firmware"?', a: 'Software integrado permanentemente en un hardware', hint: 'Router firmware controls its basic operations.' },
 ];
 
 const quizData = [
@@ -732,6 +1000,86 @@ const quizData = [
     opts: ['Atrapar a alguien', 'Ponerse al día', 'Llegar tarde', 'Entender algo difícil'], correct: 1,
     exp: 'Phrasal verb: Catch up = ponerse al día con alguien o algo'
   },
+  // ── INGLÉS TÉCNICO ──────────────────────────────────────────────────
+  // False Friends
+  {
+    cat: 'False Friends', q: '¿Qué significa "actual" en inglés?',
+    opts: ['Actual (igual al español)', 'Real / Verdadero', 'Reciente', 'Próximo'],
+    correct: 1, exp: 'False Friend: "actual" EN = real/verdadero. En español lo usamos como "actual" (presente), pero en inglés eso se dice "current".'
+  },
+  {
+    cat: 'False Friends', q: '¿Cuál es el significado correcto de "library" en inglés?',
+    opts: ['Librería (tienda)', 'Biblioteca', 'Libreta', 'Laboratorio'],
+    correct: 1, exp: 'Library = Biblioteca. Librería (tienda de libros) = Bookstore.'
+  },
+  {
+    cat: 'False Friends', q: '¿Qué palabra inglesa es sinónimo de "éxito"?',
+    opts: ['Exit', 'Exact', 'Success', 'Access'],
+    correct: 2, exp: 'Exit = Salida. Éxito = Success. Son False Friends clásicos.'
+  },
+  {
+    cat: 'False Friends', q: '"Large" en inglés significa:',
+    opts: ['Largo', 'Grande', 'Amplio', 'Ancho'],
+    correct: 1, exp: 'Large = Grande. Largo = Long. ¡No confundir!'
+  },
+  // Parts of Speech
+  {
+    cat: 'Parts of Speech', q: 'En "The old laptop crashed.", ¿qué función tiene "old"?',
+    opts: ['Noun', 'Verb', 'Adjective', 'Adverb'],
+    correct: 2, exp: '"Old" describe al sustantivo "laptop" → es un Adjective.'
+  },
+  {
+    cat: 'Parts of Speech', q: '¿Cuál de estas palabras es un Adverb (adverbio)?',
+    opts: ['quickly', 'server', 'broken', 'network'],
+    correct: 0, exp: '"Quickly" modifica un verbo → The system runs quickly. Es un adverbio.'
+  },
+  {
+    cat: 'Parts of Speech', q: 'En la frase "a high-speed network", ¿cuál es el núcleo de la Noun Phrase?',
+    opts: ['high', 'speed', 'network', 'a'],
+    correct: 2, exp: 'El núcleo de una Noun Phrase siempre es el sustantivo → "network".'
+  },
+  {
+    cat: 'Parts of Speech', q: '¿Qué tipo de palabra es "between" en "between the client and server"?',
+    opts: ['Noun', 'Verb', 'Adjective', 'Preposition'],
+    correct: 3, exp: '"Between" indica relación de posición entre dos elementos → Preposition.'
+  },
+  // Phrasal Verbs IT
+  {
+    cat: 'Phrasal Verbs IT', q: '"Boot up" en un contexto de TI significa:',
+    opts: ['Apagar el sistema', 'Encender/iniciar el sistema', 'Reiniciar la red', 'Cerrar sesión'],
+    correct: 1, exp: 'Boot up = iniciar o encender un sistema. "Boot up the server before the migration."'
+  },
+  {
+    cat: 'Phrasal Verbs IT', q: 'El opuesto de "log in" es:',
+    opts: ['Log off / Log out', 'Log in again', 'Boot up', 'Shut in'],
+    correct: 0, exp: 'Log in = iniciar sesión. Log off / Log out = cerrar sesión.'
+  },
+  {
+    cat: 'Phrasal Verbs IT', q: '"We had to ___ the update after the bug was discovered."',
+    opts: ['roll back', 'log in', 'boot up', 'hook up'],
+    correct: 0, exp: 'Roll back = revertir a una versión anterior después de un error.'
+  },
+  // IT Definitions
+  {
+    cat: 'IT Vocab', q: '¿Qué mide la "latency" en una red?',
+    opts: ['La velocidad máxima de descarga', 'El tiempo de demora en transmitir datos', 'La cantidad de usuarios conectados', 'El tamaño del archivo'],
+    correct: 1, exp: 'Latency (latencia) = el tiempo que tarda un paquete de datos en llegar de un punto a otro.'
+  },
+  {
+    cat: 'IT Vocab', q: '"Bandwidth" en español equivale a:',
+    opts: ['Cortafuegos', 'Ancho de banda', 'Memoria RAM', 'Firmware'],
+    correct: 1, exp: 'Bandwidth = Ancho de banda. Define la capacidad máxima de transferencia de datos.'
+  },
+  {
+    cat: 'IT Vocab', q: '¿Qué significa "deploy" en el contexto de software?',
+    opts: ['Eliminar una aplicación', 'Hacer una copia de seguridad', 'Desplegar/publicar una aplicación en producción', 'Encriptar datos'],
+    correct: 2, exp: 'Deploy = desplegar. "We deploy to production every Friday" = publicamos los cambios cada viernes.'
+  },
+  {
+    cat: 'IT Vocab', q: '"Firmware" es:',
+    opts: ['Un tipo de malware', 'Software integrado permanentemente en hardware', 'Un sistema operativo móvil', 'Un tipo de red WiFi'],
+    correct: 1, exp: 'Firmware = software de bajo nivel incrustado en el hardware (ej: BIOS de una PC, software de un router).'
+  },
 ];
 
 const irregularVerbs = [
@@ -975,6 +1323,26 @@ const irregularVerbs = [
   ["prevent", "prevented", "/prɪˈvent/", "Exercise helps prevent chronic diseases.", "Salud y Bienestar", "Prevenir", "Action Verbs"],
   ["recover", "recovered", "/rɪˈkʌvər/", "She recovered from the flu in a week.", "Salud y Bienestar", "Recuperarse", "Action Verbs"],
   ["treat", "treated", "/triːt/", "The nurse treated the injury carefully.", "Salud y Bienestar", "Tratar", "Action Verbs"],
+  // ---- Inglés Técnico: IT Terms ----
+  ["bandwidth", "—", "/ˈbændwɪdθ/", "We need more bandwidth to support 500 users.", "Inglés Técnico IT", "Ancho de banda", "IT Terms"],
+  ["latency", "—", "/ˈleɪtənsi/", "High latency causes lag in video calls.", "Inglés Técnico IT", "Latencia", "IT Terms"],
+  ["firmware", "—", "/ˈfɜːrmwer/", "Update the router firmware regularly.", "Inglés Técnico IT", "Firmware", "IT Terms"],
+  ["repository", "—", "/rɪˈpɒzɪtɔːri/", "Push your changes to the repository.", "Inglés Técnico IT", "Repositorio", "IT Terms"],
+  ["encryption", "—", "/ɪnˈkrɪpʃən/", "Encryption protects sensitive data.", "Inglés Técnico IT", "Encriptación", "IT Terms"],
+  ["scalability", "—", "/ˌskeɪləˈbɪlɪti/", "The system lacks scalability under heavy load.", "Inglés Técnico IT", "Escalabilidad", "IT Terms"],
+  ["authentication", "—", "/ɔːˌθentɪˈkeɪʃən/", "Two-factor authentication improves security.", "Inglés Técnico IT", "Autenticación", "IT Terms"],
+  ["server", "—", "/ˈsɜːrvər/", "The server handles all incoming requests.", "Inglés Técnico IT", "Servidor", "IT Terms"],
+  ["database", "—", "/ˈdeɪtəbeɪs/", "The database stores all user records.", "Inglés Técnico IT", "Base de datos", "IT Terms"],
+  ["protocol", "—", "/ˈproʊtəkɒl/", "HTTP is a protocol for web communication.", "Inglés Técnico IT", "Protocolo", "IT Terms"],
+  ["cache", "—", "/kæʃ/", "Clear the cache to fix loading issues.", "Inglés Técnico IT", "Caché", "IT Terms"],
+  ["middleware", "—", "/ˈmɪdlwer/", "Middleware connects the front end and the database.", "Inglés Técnico IT", "Middleware", "IT Terms"],
+  ["payload", "—", "/ˈpeɪloʊd/", "The API response includes a JSON payload.", "Inglés Técnico IT", "Carga útil / Payload", "IT Terms"],
+  ["throughput", "—", "/ˈθruːpʊt/", "The network throughput dropped during peak hours.", "Inglés Técnico IT", "Rendimiento/Capacidad de red", "IT Terms"],
+  // ---- Inglés Técnico: False Friends ----
+  ["actual", "—", "/ˈæktʃuəl/", "The actual cost was higher than expected.", "Inglés Técnico IT", "Real / Verdadero (≠ Actual)", "False Friends"],
+  ["library", "—", "/ˈlaɪbreri/", "She works at the city library.", "Inglés Técnico IT", "Biblioteca (≠ Librería)", "False Friends"],
+  ["large", "—", "/lɑːrdʒ/", "This is a large network infrastructure.", "Inglés Técnico IT", "Grande (≠ Largo)", "False Friends"],
+  ["exit", "—", "/ˈeksɪt/", "Press ESC to exit the program.", "Inglés Técnico IT", "Salida / Salir (≠ Éxito)", "False Friends"],
 ];
 
 // ============================================================
@@ -983,16 +1351,24 @@ const irregularVerbs = [
 
 let activeTopicIndex = -1;
 
+function getCourseBadgeClass(course) {
+  if (course.includes('Técnico')) return 'badge-tech';
+  if (course.includes('1 & 2') || (course.includes('1') && course.includes('2'))) return 'badge-shared';
+  if (course.includes('1')) return 'badge-1';
+  if (course.includes('2')) return 'badge-2';
+  return 'badge-1';
+}
+
 function renderTopics() {
   const listContainer = document.getElementById('grammarTopicList');
   if (!listContainer) return;
 
   listContainer.innerHTML = topics.map((t, i) => `
     <li class="grammar-list-item ${activeTopicIndex === i ? 'active' : ''}" onclick="selectTopic(${i})">
-      <div class="topic-icon-small" style="background:${t.color}22; color:${t.color}">${t.icon}</div>
+      <div class="topic-icon-small" style="background:${t.color}22; color:${t.color}">${getIcon(t.icon)}</div>
       <div class="topic-list-info">
         <span class="topic-list-title">${t.title}</span>
-        <span class="topic-badge ${t.course.includes('1') && !t.course.includes('2') ? 'badge-1' : t.course.includes('2') && !t.course.includes('1') ? 'badge-2' : 'badge-1'}">${t.course}</span>
+        <span class="topic-badge ${getCourseBadgeClass(t.course)}">${t.course}</span>
       </div>
     </li>
   `).join('');
@@ -1009,10 +1385,10 @@ function selectTopic(index) {
     <button class="grammar-back-btn" onclick="closeTopicDetail()">← Volver a la lista</button>
     <div class="topic-detail fade-in">
       <div class="topic-detail-header">
-        <div class="topic-icon-large" style="background:${t.color}22; color:${t.color}">${t.icon}</div>
+        <div class="topic-icon-large" style="background:${t.color}22; color:${t.color}">${getIcon(t.icon)}</div>
         <div>
           <h2>${t.title}</h2>
-          <span class="topic-badge ${t.course.includes('1') && !t.course.includes('2') ? 'badge-1' : t.course.includes('2') && !t.course.includes('1') ? 'badge-2' : 'badge-1'}">${t.course}</span>
+          <span class="topic-badge ${getCourseBadgeClass(t.course)}">${t.course}</span>
         </div>
       </div>
       
@@ -1038,9 +1414,10 @@ function selectTopic(index) {
               if (c === 'How often') {
                 return `<td>
                   <span class="tooltip-wrapper">
-                    <span class="tooltip-trigger" title="Conexión: Ver Adverbios de Frecuencia">💡
-                      <span class="custom-tooltip">
-                        <span class="tooltip-title">💡 Adverbios de Frecuencia</span>
+                    <span class="tooltip-trigger" title="Conexión: Ver Adverbios de Frecuencia">
+                      ${getIcon('lightbulb', 14)}
+                      <span class="custom-tooltip tooltip-right">
+                        <span class="tooltip-title">${getIcon('lightbulb', 14)} Adverbios de Frecuencia</span>
                         <span class="tooltip-row"><span class="tooltip-pct">100%</span> <strong>Always</strong> (siempre)</span>
                         <span class="tooltip-row"><span class="tooltip-pct">90%</span> <strong>Usually</strong> (usualmente)</span>
                         <span class="tooltip-row"><span class="tooltip-pct">70%</span> <strong>Often</strong> (a menudo)</span>
@@ -1060,9 +1437,9 @@ function selectTopic(index) {
 
         ${t.analogy ? `
           <div class="analogy-block">
-            <div class="analogy-emoji">${t.analogy.emoji}</div>
+            <div class="analogy-emoji">${getIcon(t.analogy.emoji)}</div>
             <div class="analogy-body">
-              <div class="analogy-label">💡 Analogía para recordarlo</div>
+              <div class="analogy-label">${getIcon('lightbulb', 14)} Analogía para recordarlo</div>
               <p class="analogy-text">${t.analogy.text}</p>
             </div>
           </div>` : ''}
@@ -1083,8 +1460,30 @@ function closeTopicDetail() {
   const contentArea = document.getElementById('grammarContentArea');
   contentArea.innerHTML = `
     <div class="grammar-empty-state">
-      <span class="empty-icon">📖</span>
+      <span class="empty-icon">${getIcon('book')}</span>
       <p>Elegí un tema del menú lateral para empezar a repasar.</p>
+      
+      <div style="margin-top: 2rem; background: var(--bg-card); padding: 1rem 1.5rem; border-radius: 12px; border: 1px solid var(--border); max-width: 400px; margin-inline: auto; text-align: left;">
+        <h4 style="margin: 0 0 1rem 0; font-size: 0.9rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem;">${getIcon('info', 16)} Leyenda de Cursos</h4>
+        <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <span class="topic-badge badge-1">Inglés 1</span>
+            <span style="font-size: 0.85rem; color: var(--text-muted);">Temas base y fundamentos.</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <span class="topic-badge badge-2">Inglés 2</span>
+            <span style="font-size: 0.85rem; color: var(--text-muted);">Tiempos avanzados y pasado.</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <span class="topic-badge badge-shared">Inglés 1 & 2</span>
+            <span style="font-size: 0.85rem; color: var(--text-muted);">Temas compartidos entre ambos.</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <span class="topic-badge badge-tech">Inglés Técnico</span>
+            <span style="font-size: 0.85rem; color: var(--text-muted);">Contenido exclusivo de tu carrera.</span>
+          </div>
+        </div>
+      </div>
     </div>
   `;
 }
@@ -1102,12 +1501,12 @@ function renderFlashcardControls() {
       <select class="verbs-search" style="margin-bottom:0; width:100%; max-width:240px; display:inline-block;" onchange="filterCards(this.value)">
         ${categories.map(c => `
           <option value="${c}" ${c === activeCategory ? 'selected' : ''}>
-            ${c === 'all' ? '📚 Todos los Temas' : c}
+            ${c === 'all' ? 'Todos los Temas' : c}
           </option>
         `).join('')}
       </select>
       <button class="quiz-restart-btn" style="padding:0.7rem 1.2rem; font-size:0.9rem; height:42px; display:inline-flex; align-items:center; gap:0.5rem; white-space:nowrap; margin-bottom:0;" onclick="shuffleFlashcards()">
-        <span>🔀</span> Barajar
+        ${getIcon('shuffle')} Barajar
       </button>
     </div>
   `;
@@ -1135,22 +1534,35 @@ function renderFlashcards() {
     filtered = currentShuffledCards;
   }
   
-  grid.innerHTML = filtered.map((f, i) => `
-    <div class="flashcard fade-in" style="animation-delay:${i * 0.04}s" onclick="this.classList.toggle('flipped')">
-      <div class="fc-inner">
-        <div class="fc-front">
-          <div class="fc-category">${f.cat.toUpperCase()}</div>
-          <div class="fc-question">${f.q}</div>
-          <div class="fc-tap">↩ Tocá para ver respuesta</div>
-        </div>
-        <div class="fc-back">
-          <div class="fc-category">${f.cat.toUpperCase()}</div>
-          <div class="fc-answer">${f.a}</div>
-          <div class="fc-hint">${f.hint}</div>
+  grid.innerHTML = filtered.map((f, i) => {
+    const globalIdx = flashcardsData.indexOf(f);
+    // Detectar si la respuesta está en español o es una explicación
+    const isSpanish = /[áéíóúñÁÉÍÓÚÑ¿¡]/.test(f.a) || /\b(de|en|el|la|los|un|una|para|con|por|se|al|como|que|es|del|verbo|persona|significa|consonante|vocal|tiempo|después|antes|cerca|lejos|sonar|estudiar|pasar|hacer|ejercicio|rato|día|nunca|auxiliares)\b/i.test(f.a);
+    
+    return `
+      <div class="flashcard fade-in" style="animation-delay:${i * 0.04}s" onclick="this.classList.toggle('flipped')">
+        <div class="fc-inner">
+          <div class="fc-front">
+            <div class="fc-category">${f.cat.toUpperCase()}</div>
+            <div class="fc-question">${f.q}</div>
+            <div class="fc-tap">↩ Tocá para ver respuesta</div>
+          </div>
+          <div class="fc-back">
+            <div class="fc-category">${f.cat.toUpperCase()}</div>
+            <div class="fc-answer" style="display:flex; align-items:center; gap:0.5rem; justify-content:center;">
+              ${f.a}
+              ${!isSpanish ? `
+              <button class="fc-speak-btn" onclick="speakFlashcard(${globalIdx}, event)" title="Escuchar pronunciación en inglés">
+                ${getIcon('volume', 16)}
+              </button>
+              ` : ''}
+            </div>
+            <div class="fc-hint">${f.hint}</div>
+          </div>
         </div>
       </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 // ---- QUIZ ----
@@ -1167,7 +1579,7 @@ function renderQuizControls() {
       <select class="verbs-search" style="margin-bottom:1rem; width:100%; max-width:300px; display:block;" onchange="filterQuiz(this.value)">
         ${quizCategories.map(c => `
           <option value="${c}" ${c === quizActiveCategory ? 'selected' : ''}>
-            ${c === 'all' ? '📚 Todos los Temas (Random)' : c}
+            ${c === 'all' ? 'Todos los Temas (Random)' : c}
           </option>
         `).join('')}
       </select>
@@ -1262,8 +1674,13 @@ function renderQuiz() {
       initStats(); // Actualizar estadísticas en la pantalla principal
     }
 
-    // Elegimos el emoji según el rango de porcentaje: excelente / bien / sigue practicando.
-    const emoji = pct >= 80 ? '🏆' : pct >= 50 ? '👍' : '💪';
+    // Disparar confeti si el porcentaje de aciertos es del 50% o más
+    if (pct >= 50) {
+      triggerConfetti();
+    }
+
+    // Elegimos el icono SVG según el rango de porcentaje.
+    const emoji = pct >= 80 ? getIcon('trophy', 64) : pct >= 50 ? getIcon('check', 64) : getIcon('alert-circle', 64);
 
     // Mensaje motivacional adaptado al resultado.
     let msg = pct >= 80 ? '¡Excelente dominio!' : pct >= 50 ? '¡Buen trabajo!' : '¡Seguí practicando!';
@@ -1277,7 +1694,7 @@ function renderQuiz() {
     // Pintamos la pantalla de resultados con el score, el porcentaje y el botón de reinicio.
     container.innerHTML = `
       <div class="quiz-result fade-in" style="max-width:600px; margin:0 auto;">
-        ${newRecordSet ? `<div style="display:inline-block; background:rgba(0, 255, 136, 0.15); border:1px solid var(--accent); border-radius:20px; padding:0.4rem 1rem; color:var(--accent); font-family:var(--mono); font-size:0.75rem; font-weight:bold; margin-bottom:1rem; text-transform:uppercase; letter-spacing:1px; animation: pulse 1.5s infinite;">🏆 ¡Nuevo Récord Personal! 🏆</div>` : ''}
+        ${newRecordSet ? `<div style="display:inline-block; background:rgba(0, 255, 136, 0.15); border:1px solid var(--accent); border-radius:20px; padding:0.4rem 1rem; color:var(--accent); font-family:var(--mono); font-size:0.75rem; font-weight:bold; margin-bottom:1rem; text-transform:uppercase; letter-spacing:1px; animation: pulse 1.5s infinite;">${getIcon('trophy')} ¡Nuevo Récord Personal!</div>` : ''}
         <div class="quiz-result-emoji">${emoji}</div>
         <h2>¡Quiz Terminado!</h2>
         <div class="quiz-result-score">${score}<span>/${currentQuizData.length}</span></div>
@@ -1287,7 +1704,7 @@ function renderQuiz() {
         ${errors.length > 0 ? `
           <div class="quiz-errors-summary" style="margin-top:2rem; text-align:left; border-top:1px dashed var(--border); padding-top:1.5rem;">
             <h3 style="font-family:var(--display); font-size:1.2rem; margin-bottom:1rem; color:var(--accent3); display:flex; align-items:center; gap:0.5rem;">
-              <span>🚨</span> Repaso de Errores (${errors.length})
+              ${getIcon('alert-circle')} Repaso de Errores (${errors.length})
             </h3>
             <div style="display:flex; flex-direction:column; gap:1rem; max-height:350px; overflow-y:auto; padding-right:0.5rem; scroll-behavior:smooth;">
               ${errors.map((e, idx) => `
@@ -1307,19 +1724,19 @@ function renderQuiz() {
                     </div>
                   </div>
                   <div style="font-size:0.8rem; color:var(--text-muted); border-left:2px solid var(--accent); padding-left:0.6rem; line-height:1.5; font-style:italic;">
-                    💡 ${e.explanation}
+                    ${getIcon('lightbulb', 14)} ${e.explanation}
                   </div>
                 </div>
               `).join('')}
             </div>
           </div>
         ` : `
-          <div style="margin-top:2rem; padding:1.2rem; background:rgba(0, 255, 136, 0.05); border:1px dashed var(--accent); border-radius:8px; color:var(--accent); font-weight:bold; font-size:0.95rem;">
-            🎯 ¡Increíble! Respondiste todas las preguntas perfectamente.
+          <div style="margin-top:2rem; padding:1.2rem; background:rgba(0, 255, 136, 0.05); border:1px dashed var(--accent); border-radius:8px; color:var(--accent); font-weight:bold; font-size:0.95rem; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
+            ${getIcon('trophy')} ¡Increíble! Respondiste todas las preguntas perfectamente.
           </div>
         `}
         
-        <button class="quiz-restart-btn" style="margin-top:2rem;" onclick="initQuiz()">🔄 Volver a Jugar</button>
+        <button class="quiz-restart-btn" style="margin-top:2rem; display:inline-flex; align-items:center; gap:0.5rem;" onclick="initQuiz()">${getIcon('repeat')} Volver a Jugar</button>
       </div>
     `;
     return; // Salimos: no hay nada más que renderizar.
@@ -1340,7 +1757,7 @@ function renderQuiz() {
   document.getElementById('quizCount').textContent = `${currentQ + 1} / ${currentQuizData.length}`;
 
   // Actualizamos el badge de puntaje (✓ 3) en el header.
-  document.getElementById('quizScore').textContent = `✓ ${score}`;
+  document.getElementById('quizScore').innerHTML = `${getIcon('check')} ${score}`;
 
   // Reseteamos la bandera: esta pregunta todavía no fue contestada.
   answered = false;
@@ -1415,18 +1832,18 @@ function selectOption(idx) {
     score++;                                // Sumamos 1 punto al puntaje global.
     opts[idx].classList.add('correct');     // Pintamos el botón elegido en verde.
     // Mostramos el ícono ✓ + el texto explicativo de por qué es correcto.
-    feedback.innerHTML = '<span class="fb-icon">✓</span> Correcto! ' + q.exp;
+    feedback.innerHTML = `<span class="fb-icon">${getIcon('check')}</span> Correcto! ` + q.exp;
     feedback.className = 'quiz-feedback show correct'; // Hacemos visible el feedback en verde.
   } else {
     opts[idx].classList.add('wrong');           // Pintamos la opción elegida en rojo.
     opts[q.correct].classList.add('correct');   // Revelamos cuál era la respuesta correcta (verde).
     // Mostramos el ícono ✗ + la explicación de la respuesta correcta.
-    feedback.innerHTML = '<span class="fb-icon">✗</span> Incorrecto. ' + q.exp;
+    feedback.innerHTML = `<span class="fb-icon">${getIcon('x')}</span> Incorrecto. ` + q.exp;
     feedback.className = 'quiz-feedback show wrong'; // Feedback visible en rojo.
   }
 
   // Actualizamos el badge de score en el header INMEDIATAMENTE al responder.
-  document.getElementById('quizScore').textContent = `✓ ${score}`;
+  document.getElementById('quizScore').innerHTML = `${getIcon('check')} ${score}`;
 
   // ── BOTÓN "SIGUIENTE" ──────────────────────────────
   // Creamos el botón dinámicamente y lo añadimos debajo de la tarjeta.
@@ -1498,7 +1915,7 @@ function renderVerbs() {
           return `
             <div class="verb-cat-card" onclick="selectVerbCategory('${c}')">
               <div class="verb-cat-title">${c}</div>
-              <div class="verb-cat-count">${count} verbos</div>
+              <div class="verb-cat-count">${count} términos</div>
             </div>
           `;
         }).join('')}
@@ -1526,23 +1943,32 @@ function renderVerbs() {
 
 function buildVerbsAccordion(filtered) {
   if (filtered.length === 0) {
-    return `<div class="verb-empty">No se encontró ningún verbo</div>`;
+    return `<div class="verb-empty">No se encontró ningún término</div>`;
   }
   return filtered.map(item => `
     <div class="verb-accordion-item ${expandedVerbIndex === item.i ? 'expanded' : ''}">
       <div class="verb-acc-header" onclick="toggleVerb(${item.i})">
         <div class="verb-acc-title">
           <span class="v-present">${item.v[0]} <small style="color:var(--text-light); font-weight:normal; margin-left:8px;">(${item.v[5] || ''})</small></span>
-          <span class="v-arrow">→</span>
+          <span class="v-arrow">${getIcon('arrow-right', 14)}</span>
           <span class="v-past">${item.v[1]}</span>
         </div>
-        <div class="v-chevron">${expandedVerbIndex === item.i ? '▲' : '▼'}</div>
+        <div class="v-chevron">${expandedVerbIndex === item.i ? getIcon('chevron-up') : getIcon('chevron-down')}</div>
       </div>
       <div class="verb-acc-content">
         <div class="verb-acc-inner">
-          <div class="verb-phonetic">🗣️ ${item.v[2]}</div>
-          <div class="verb-example">💡 "${item.v[3]}"</div>
-          <div class="topic-badge badge-1" style="align-self:flex-start; font-size:0.7rem;">🏷️ ${item.v[6]}</div>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.4rem;">
+            <div class="verb-phonetic" onclick="speak('${item.v[0]}', event)" title="Escuchar presente (Infinitivo)" style="cursor:pointer;">
+              ${getIcon('volume', 14)} Presente: <strong>${item.v[0]}</strong> <span style="font-size:0.75rem; opacity:0.8; font-family:var(--mono);">${item.v[2]}</span>
+            </div>
+            <div class="verb-phonetic" onclick="speak('${item.v[1]}', event)" title="Escuchar pasado" style="cursor:pointer; background:rgba(0, 255, 136, 0.1); color:var(--accent);">
+              ${getIcon('volume', 14)} Pasado: <strong>${item.v[1]}</strong>
+            </div>
+          </div>
+          <div class="verb-example" onclick="speak('${item.v[3].replace(/'/g, "\\'")}', event)" title="Escuchar oración de ejemplo" style="cursor:pointer;">
+            ${getIcon('lightbulb', 14)} "${item.v[3]}"
+          </div>
+          <div class="topic-badge badge-1" style="align-self:flex-start; font-size:0.7rem;">${getIcon('tag', 12)} ${item.v[6]}</div>
         </div>
       </div>
     </div>
@@ -1558,10 +1984,712 @@ function filterVerbs() {
   handleVerbSearch();
 }
 
+// ---- AUDIO TEXT-TO-SPEECH (TTS) ----
+// Buscador y valorador de voces para priorizar las voces "Neurales / Naturales"
+function getVoiceScore(name) {
+  let score = 0;
+  const n = name.toLowerCase();
+  if (n.includes('natural')) score += 100;
+  if (n.includes('neural')) score += 90;
+  if (n.includes('google')) score += 80;
+  if (n.includes('online')) score += 70;
+  if (n.includes('aria') || n.includes('guy') || n.includes('jenny')) score += 50;
+  if (n.includes('samantha') || n.includes('alex') || n.includes('daniel')) score += 40;
+  if (n.includes('zira')) score += 10;
+  if (n.includes('david')) score += 5;
+  return score;
+}
+
+function getBestEnglishVoice() {
+  if (!window.speechSynthesis) return null;
+  const voices = window.speechSynthesis.getVoices();
+  
+  // Filtrar voces en inglés (en-US, en-GB, etc.)
+  const enVoices = voices.filter(v => v.lang.startsWith('en'));
+  if (enVoices.length === 0) return null;
+
+  // Ordenar voces dando prioridad a las más naturales y humanas
+  return enVoices.sort((a, b) => {
+    return getVoiceScore(b.name) - getVoiceScore(a.name);
+  })[0];
+}
+
+// Precalentar la lista de voces en segundo plano al cargar
+if (window.speechSynthesis) {
+  window.speechSynthesis.getVoices(); // Dispara la carga inicial en el navegador
+  window.speechSynthesis.onvoiceschanged = () => {
+    window.speechSynthesis.getVoices(); // Asegura el listado una vez cargado
+  };
+}
+
+function speak(text, event) {
+  if (event) event.stopPropagation(); // Evita abrir/cerrar acordeones o voltear flashcards
+
+  if (!window.speechSynthesis) {
+    console.warn("La síntesis de voz no es compatible con este navegador.");
+    return;
+  }
+
+  // Cancelar audio previo para evitar superposiciones
+  window.speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'en-US'; // Pronunciación estándar en inglés americano
+
+  // Buscar la mejor voz humana disponible
+  const bestVoice = getBestEnglishVoice();
+  if (bestVoice) {
+    utterance.voice = bestVoice;
+    
+    // Si es una voz premium (natural/neural/online), la dejamos a velocidad humana normal (1.0).
+    // Si es una voz más antigua/robótica, la ralentizamos un poco (0.92) para que sea clara.
+    const isPremium = getVoiceScore(bestVoice.name) >= 50;
+    utterance.rate = isPremium ? 0.98 : 0.92;
+  } else {
+    utterance.rate = 0.95;
+  }
+
+  window.speechSynthesis.speak(utterance);
+}
+
+// Lógica de audio para las flashcards en inglés
+function speakFlashcard(index, event) {
+  if (event) event.stopPropagation();
+  const f = flashcardsData[index];
+  speak(f.a);
+}
+
+// ============================================================
+// RÁFAGA DE VERBOS (VERB BLAST) GAME LOGIC
+// ============================================================
+let vbCurrentVerb = null;
+let vbStreak = 0;
+let vbTimer = null;
+let vbTimeAttackTimer = null;
+let vbTimeLeft = 0;
+let vbTotalTimeLeft = 0;
+let vbMaxTime = 10; // default 10 seconds for Sudden Death individual timer
+let vbUsedVerbs = [];
+
+// Advanced Setup Parameters
+let vbGameMode = 'sudden-death'; // 'sudden-death' or 'time-attack'
+let vbFormat = 'mixed';          // 'mixed', 'typing', 'options'
+let vbCurrentGrammar = null;
+
+// Question-specific active states
+let vbActiveQuestionFormat = 'typing';  // 'typing' or 'options'
+let vbActiveQuestionType = 'past';      // 'past', 'present', 'translation'
+
+const VB_INTERVAL = 100; // tick interval in ms for smooth 60fps animations
+
+function initVerbBlast() {
+  // Load dual records from localStorage
+  const sdRecord = Number(localStorage.getItem('guia_ingles_vb_record') || 0);
+  const taRecord = Number(localStorage.getItem('guia_ingles_vb_timeattack_record') || 0);
+  
+  const sdValEl = document.getElementById('vb-record-value');
+  if (sdValEl) sdValEl.textContent = sdRecord;
+
+  const taValEl = document.getElementById('vb-record-value-ta');
+  if (taValEl) taValEl.textContent = taRecord;
+
+  // Reset setup configuration visually to reflect global parameters
+  syncSetupUI();
+
+  // Reset screen visibility
+  document.getElementById('vb-start-screen').style.display = 'block';
+  document.getElementById('vb-start-screen').classList.add('active');
+  document.getElementById('vb-game-screen').style.display = 'none';
+  document.getElementById('vb-game-screen').classList.remove('active');
+  document.getElementById('vb-over-screen').style.display = 'none';
+  document.getElementById('vb-over-screen').classList.remove('active');
+  
+  // Clear any active timers
+  clearVbTimers();
+}
+
+function syncSetupUI() {
+  // 1. Game Mode Buttons
+  document.querySelectorAll('#btn-mode-sd, #btn-mode-ta').forEach(b => b.classList.remove('active'));
+  const modeBtn = vbGameMode === 'sudden-death' ? document.getElementById('btn-mode-sd') : document.getElementById('btn-mode-ta');
+  if (modeBtn) modeBtn.classList.add('active');
+
+  // Toggle individual difficulty row
+  const diffRow = document.getElementById('vb-difficulty-row');
+  if (diffRow) {
+    diffRow.style.display = vbGameMode === 'sudden-death' ? 'flex' : 'none';
+  }
+
+  // 2. Answer Format Buttons
+  document.querySelectorAll('#btn-format-mixed, #btn-format-typing, #btn-format-options').forEach(b => b.classList.remove('active'));
+  let formatBtnId = 'btn-format-mixed';
+  if (vbFormat === 'typing') formatBtnId = 'btn-format-typing';
+  if (vbFormat === 'options') formatBtnId = 'btn-format-options';
+  const formatBtn = document.getElementById(formatBtnId);
+  if (formatBtn) formatBtn.classList.add('active');
+}
+
+function setVbGameMode(mode, btn) {
+  vbGameMode = mode;
+  syncSetupUI();
+}
+
+function setVbFormat(format, btn) {
+  vbFormat = format;
+  syncSetupUI();
+}
+
+
+
+function setVbDifficulty(seconds, btn) {
+  vbMaxTime = seconds;
+  document.querySelectorAll('.vb-diff-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+function clearVbTimers() {
+  if (vbTimer) {
+    clearInterval(vbTimer);
+    vbTimer = null;
+  }
+  if (vbTimeAttackTimer) {
+    clearInterval(vbTimeAttackTimer);
+    vbTimeAttackTimer = null;
+  }
+}
+
+function startVerbBlast() {
+  vbStreak = 0;
+  vbUsedVerbs = [];
+  clearVbTimers();
+  
+  const timerIcon = document.getElementById('vb-timer-icon');
+  if (timerIcon) timerIcon.style.display = 'none';
+  
+  document.getElementById('vb-streak-val').textContent = '0';
+  document.getElementById('vb-start-screen').style.display = 'none';
+  document.getElementById('vb-start-screen').classList.remove('active');
+  document.getElementById('vb-over-screen').style.display = 'none';
+  document.getElementById('vb-over-screen').classList.remove('active');
+  
+  document.getElementById('vb-game-screen').style.display = 'block';
+  document.getElementById('vb-game-screen').classList.add('active');
+
+  // Configure UI headers depending on Mode
+  const streakIcon = document.getElementById('vb-streak-icon-lbl');
+  const streakText = document.getElementById('vb-streak-text-lbl');
+  const numericTimer = document.getElementById('vb-timer-numeric');
+  
+  if (vbGameMode === 'time-attack') {
+    if (streakIcon) streakIcon.textContent = '🎯';
+    if (streakText) streakText.textContent = 'Aciertos';
+    if (numericTimer) {
+      numericTimer.style.display = 'block';
+      document.getElementById('vb-timer-numeric-val').textContent = '60';
+    }
+    
+    // Start Global Time Attack Timer
+    vbTotalTimeLeft = 60000; // 60 seconds global
+    startTimeAttackGlobalTimer();
+  } else {
+    // Sudden Death
+    if (streakIcon) streakIcon.textContent = '🔥';
+    if (streakText) streakText.textContent = 'Racha';
+    if (numericTimer) numericTimer.style.display = 'none';
+  }
+
+  nextVerbBlast();
+}
+
+function startTimeAttackGlobalTimer() {
+  const timerBar = document.getElementById('vb-timer-bar');
+  const numericTimerVal = document.getElementById('vb-timer-numeric-val');
+
+  if (vbTimeAttackTimer) {
+    clearInterval(vbTimeAttackTimer);
+  }
+
+  vbTimeAttackTimer = setInterval(() => {
+    vbTotalTimeLeft -= VB_INTERVAL;
+    
+    if (vbTotalTimeLeft <= 0) {
+      clearVbTimers();
+      if (timerBar) timerBar.style.width = '0%';
+      if (numericTimerVal) numericTimerVal.textContent = '0';
+      endVerbBlast(true); // Game Over by time-out
+      return;
+    }
+
+    // Update Global Numeric and Progress Bar
+    const secondsLeft = Math.ceil(vbTotalTimeLeft / 1000);
+    if (numericTimerVal) numericTimerVal.textContent = secondsLeft;
+
+    const pct = (vbTotalTimeLeft / 60000) * 100;
+    if (timerBar) {
+      timerBar.style.width = pct + '%';
+      
+      // Color coding
+      if (pct > 50) {
+        timerBar.style.backgroundColor = 'var(--accent)';
+        timerBar.style.boxShadow = '0 0 10px var(--accent)';
+      } else if (pct > 25) {
+        timerBar.style.backgroundColor = 'var(--accent4)';
+        timerBar.style.boxShadow = '0 0 10px var(--accent4)';
+      } else {
+        timerBar.style.backgroundColor = 'var(--accent3)';
+        timerBar.style.boxShadow = '0 0 10px var(--accent3)';
+      }
+    }
+  }, VB_INTERVAL);
+}
+
+function nextVerbBlast() {
+  // 1. Determine Dynamic Question Format
+  // 1. Determine if this is a Grammar Question or a Verb Question
+  const isGrammar = Math.random() > 0.5;
+
+  if (isGrammar) {
+    vbCurrentGrammar = quizData[Math.floor(Math.random() * quizData.length)];
+    vbActiveQuestionFormat = 'options'; // Grammar is always options
+    vbActiveQuestionType = 'grammar';
+  } else {
+    vbCurrentGrammar = null;
+    
+    // Determine Dynamic Question Format
+    if (vbFormat === 'mixed') {
+      vbActiveQuestionFormat = Math.random() > 0.5 ? 'typing' : 'options';
+    } else {
+      vbActiveQuestionFormat = vbFormat;
+    }
+
+    // Question type is always mixed for verbs now
+    const r = Math.random();
+    if (r < 0.34) {
+      vbActiveQuestionType = 'past';
+    } else if (r < 0.67) {
+      vbActiveQuestionType = 'present';
+    } else {
+      vbActiveQuestionType = 'translation';
+    }
+
+    // Pick random verb without consecutive repeats
+    let availableVerbs = irregularVerbs;
+    if (vbUsedVerbs.length >= irregularVerbs.length) {
+      vbUsedVerbs = [];
+    }
+    if (vbUsedVerbs.length > 0) {
+      availableVerbs = irregularVerbs.filter(v => !vbUsedVerbs.includes(v[0]));
+    }
+    const randomIndex = Math.floor(Math.random() * availableVerbs.length);
+    vbCurrentVerb = availableVerbs[randomIndex];
+    vbUsedVerbs.push(vbCurrentVerb[0]);
+  }
+
+  // 4. Render Prompt Instruction and Question Text
+  const promptEl = document.getElementById('vb-question-prompt');
+  const verbPresEl = document.getElementById('vb-verb-present');
+  const verbTransEl = document.getElementById('vb-verb-translation');
+
+  if (vbCurrentGrammar) {
+    if (promptEl) promptEl.textContent = 'GRAMÁTICA: ' + vbCurrentGrammar.cat;
+    if (verbPresEl) {
+      verbPresEl.textContent = vbCurrentGrammar.q;
+      verbPresEl.classList.add('vb-grammar-sentence');
+    }
+    if (verbTransEl) verbTransEl.textContent = '';
+  } else {
+    if (verbPresEl) verbPresEl.classList.remove('vb-grammar-sentence');
+    
+    if (vbActiveQuestionType === 'past') {
+      if (promptEl) promptEl.textContent = '¿Cuál es el PASADO SIMPLE de...?';
+      if (verbPresEl) verbPresEl.textContent = vbCurrentVerb[0];
+      if (verbTransEl) verbTransEl.textContent = vbCurrentVerb[5] || '';
+    } else if (vbActiveQuestionType === 'present') {
+      if (promptEl) promptEl.textContent = '¿Cuál es el PRESENTE (Infinitivo) de...?';
+      if (verbPresEl) verbPresEl.textContent = vbCurrentVerb[1];
+      if (verbTransEl) verbTransEl.textContent = vbCurrentVerb[5] || '';
+    } else {
+      if (promptEl) promptEl.textContent = '¿Cómo se traduce al INGLÉS...?';
+      if (verbPresEl) verbPresEl.textContent = vbCurrentVerb[5] || '';
+      if (verbTransEl) verbTransEl.textContent = ''; 
+    }
+  }
+
+  // 5. Render Response Format UI
+  const typingWrap = document.getElementById('vb-input-wrapper');
+  const optionsGrid = document.getElementById('vb-options-container');
+
+  if (vbActiveQuestionFormat === 'typing') {
+    if (optionsGrid) optionsGrid.style.display = 'none';
+    if (typingWrap) typingWrap.style.display = 'block';
+
+    const inputEl = document.getElementById('vb-input');
+    if (inputEl) {
+      inputEl.value = '';
+      let placeholderText = 'Escribí aquí...';
+      if (vbActiveQuestionType === 'past') placeholderText = 'Escribí el pasado simple...';
+      if (vbActiveQuestionType === 'present') placeholderText = 'Escribí el infinitivo...';
+      if (vbActiveQuestionType === 'translation') placeholderText = 'Escribí el verbo en inglés...';
+      inputEl.placeholder = placeholderText;
+
+      // Auto-focus input
+      setTimeout(() => inputEl.focus(), 50);
+    }
+  } else {
+    // Options Format
+    if (typingWrap) typingWrap.style.display = 'none';
+    if (optionsGrid) {
+      optionsGrid.style.display = 'grid';
+      optionsGrid.innerHTML = ''; // Clear previous buttons
+      
+      // Get correct value based on question type
+      let correctVal = getCorrectAnswerForActiveType();
+      
+      let allOpts = [];
+      if (vbCurrentGrammar) {
+        // Grammar options are already defined in the dataset
+        allOpts = [...vbCurrentGrammar.opts];
+        // Don't shuffle grammar opts as some might have "All of the above" etc, or we can shuffle if we want.
+        // Actually, let's shuffle them just in case, but keep it simple:
+        allOpts.sort(() => Math.random() - 0.5);
+      } else {
+        // Generate distractors for verbs
+        const distractors = generateVbDistractors(correctVal, vbActiveQuestionType);
+        // Combine and shuffle
+        allOpts = [correctVal, ...distractors].sort(() => Math.random() - 0.5);
+      }
+      
+      // Render option buttons
+      allOpts.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'vb-option-btn';
+        btn.textContent = opt;
+        btn.onclick = () => checkVbOptionAnswer(opt);
+        optionsGrid.appendChild(btn);
+      });
+    }
+  }
+
+  // 6. Setup Individual Timer (only in Sudden Death)
+  if (vbGameMode === 'sudden-death') {
+    vbTimeLeft = vbMaxTime * 1000;
+    const timerBar = document.getElementById('vb-timer-bar');
+    if (timerBar) {
+      timerBar.style.width = '100%';
+      timerBar.style.backgroundColor = 'var(--accent)';
+      timerBar.style.boxShadow = '0 0 10px var(--accent)';
+    }
+    startSuddenDeathIndividualTimer();
+  }
+}
+
+function getCorrectAnswerForActiveType() {
+  if (vbCurrentGrammar) {
+    return vbCurrentGrammar.opts[vbCurrentGrammar.correct];
+  }
+  if (vbActiveQuestionType === 'past') {
+    return vbCurrentVerb[1]; // Simple past conjugation
+  } else if (vbActiveQuestionType === 'present') {
+    return vbCurrentVerb[0]; // Infinitive present form
+  } else if (vbActiveQuestionType === 'translation') {
+    return vbCurrentVerb[5]; // Translation
+  }
+  return vbCurrentVerb[0];
+}
+
+function generateVbDistractors(correctVal, type) {
+  const distractors = [];
+  const fieldIndex = type === 'past' ? 1 : 0; // Past simple is field 1, Infinitive is field 0
+  
+  // Pick unique candidate forms
+  const candidates = irregularVerbs
+    .map(v => v[fieldIndex])
+    .filter(val => val && val.toLowerCase() !== correctVal.toLowerCase());
+  
+  const uniqueCandidates = [...new Set(candidates)];
+  while (distractors.length < 3 && uniqueCandidates.length > 0) {
+    const idx = Math.floor(Math.random() * uniqueCandidates.length);
+    const chosen = uniqueCandidates.splice(idx, 1)[0];
+    distractors.push(chosen);
+  }
+  
+  return distractors;
+}
+
+function startSuddenDeathIndividualTimer() {
+  if (vbTimer) {
+    clearInterval(vbTimer);
+  }
+
+  const timerBar = document.getElementById('vb-timer-bar');
+
+  vbTimer = setInterval(() => {
+    vbTimeLeft -= VB_INTERVAL;
+    
+    if (vbTimeLeft <= 0) {
+      clearInterval(vbTimer);
+      vbTimer = null;
+      if (timerBar) timerBar.style.width = '0%';
+      endVerbBlast(true); // Sudden death over by individual timeout
+      return;
+    }
+
+    const pct = (vbTimeLeft / (vbMaxTime * 1000)) * 100;
+    if (timerBar) {
+      timerBar.style.width = pct + '%';
+      
+      // Color coding shifts
+      if (pct > 50) {
+        timerBar.style.backgroundColor = 'var(--accent)';
+        timerBar.style.boxShadow = '0 0 10px var(--accent)';
+      } else if (pct > 20) {
+        timerBar.style.backgroundColor = 'var(--accent4)';
+        timerBar.style.boxShadow = '0 0 10px var(--accent4)';
+      } else {
+        timerBar.style.backgroundColor = 'var(--accent3)';
+        timerBar.style.boxShadow = '0 0 10px var(--accent3)';
+      }
+    }
+  }, VB_INTERVAL);
+}
+
+function handleVbInputKey(e) {
+  if (e.key === 'Enter') {
+    const inputEl = document.getElementById('vb-input');
+    const val = inputEl ? inputEl.value : '';
+    processVbSubmission(val);
+  }
+}
+
+function checkVbOptionAnswer(selectedOpt) {
+  processVbSubmission(selectedOpt);
+}
+
+function processVbSubmission(userInputVal) {
+  // Stop individual timer if Sudden Death
+  if (vbGameMode === 'sudden-death' && vbTimer) {
+    clearInterval(vbTimer);
+    vbTimer = null;
+  }
+
+  const cleanInput = userInputVal.trim().toLowerCase();
+  let correctVal = getCorrectAnswerForActiveType();
+
+  // Smart split for slash answers (e.g. was/were matches if user writes either one)
+  const possibleAnswers = correctVal.toLowerCase().split('/').map(a => a.trim());
+  const isCorrect = possibleAnswers.includes(cleanInput);
+
+  const overlay = document.getElementById('vb-flash-overlay');
+
+  if (isCorrect) {
+    // Correct Answer Visual Flash
+    if (overlay) {
+      overlay.className = 'vb-flash-overlay correct-flash-active';
+      setTimeout(() => { overlay.className = 'vb-flash-overlay'; }, 200);
+    }
+
+    // Increment points
+    vbStreak++;
+    document.getElementById('vb-streak-val').textContent = vbStreak;
+
+    // Load next verb immediately after transition
+    setTimeout(nextVerbBlast, 200);
+  } else {
+    // Incorrect Answer Visual Flash
+    if (overlay) {
+      overlay.className = 'vb-flash-overlay wrong-flash-active';
+      setTimeout(() => { overlay.className = 'vb-flash-overlay'; }, 200);
+    }
+
+    if (vbGameMode === 'sudden-death') {
+      // Sudden Death: Mistake ends the game immediately
+      setTimeout(() => {
+        endVerbBlast(false, userInputVal);
+      }, 200);
+    } else {
+      // Time Attack: Mistake subtracts 2 seconds and skips
+      const penaltyEl = document.getElementById('vb-penalty-float');
+      if (penaltyEl) {
+        penaltyEl.style.display = 'block';
+        void penaltyEl.offsetWidth; // force layout reflow to trigger animation
+        setTimeout(() => { penaltyEl.style.display = 'none'; }, 800);
+      }
+
+      vbTotalTimeLeft = Math.max(0, vbTotalTimeLeft - 1000); // subtract 1 second
+
+      // Skip to next question immediately
+      setTimeout(nextVerbBlast, 200);
+    }
+  }
+}
+
+function endVerbBlast(isTimeout, wrongAnswer = '') {
+  clearVbTimers();
+
+  const timerIcon = document.getElementById('vb-timer-icon');
+  if (timerIcon) {
+    timerIcon.style.display = 'flex';
+    const timerBar = document.getElementById('vb-timer-bar');
+    if (timerBar && timerBar.style.width) {
+      timerIcon.style.left = timerBar.style.width;
+    } else {
+      timerIcon.style.left = '0%';
+    }
+
+    if (vbGameMode === 'time-attack') {
+      timerIcon.innerHTML = `<svg width="100%" height="100%" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect x="4" y="2" width="8" height="2" fill="#e0e0e0"/><rect x="3" y="4" width="10" height="7" fill="#e0e0e0"/><rect x="4" y="11" width="8" height="2" fill="#e0e0e0"/><rect x="6" y="13" width="4" height="1" fill="#e0e0e0"/><rect x="4" y="5" width="2" height="2" fill="#111111"/><rect x="10" y="5" width="2" height="2" fill="#111111"/><rect x="7" y="3" width="2" height="2" fill="#cc0000"/><rect x="4" y="8" width="2" height="1" fill="#cc0000"/><rect x="10" y="8" width="2" height="1" fill="#cc0000"/><rect x="7" y="11" width="2" height="1" fill="#111111"/><rect x="5" y="10" width="1" height="1" fill="#111111"/><rect x="10" y="10" width="1" height="1" fill="#111111"/></svg>`;
+    } else {
+      timerIcon.innerHTML = `<svg width="100%" height="100%" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect x="7" y="1" width="2" height="2" fill="#ff9900"/><rect x="3" y="3" width="2" height="2" fill="#ff4400"/><rect x="11" y="3" width="2" height="2" fill="#ff4400"/><rect x="6" y="5" width="4" height="4" fill="#ffff00"/><rect x="2" y="7" width="2" height="2" fill="#ff9900"/><rect x="12" y="7" width="2" height="2" fill="#ff9900"/><rect x="4" y="10" width="2" height="2" fill="#ff0000"/><rect x="10" y="10" width="2" height="2" fill="#ff0000"/><rect x="7" y="12" width="2" height="2" fill="#ff9900"/><rect x="7" y="6" width="2" height="2" fill="#ffffff"/></svg>`;
+    }
+  }
+
+  // Select key and scores according to mode
+  const recordKey = vbGameMode === 'sudden-death' ? 'guia_ingles_vb_record' : 'guia_ingles_vb_timeattack_record';
+  const record = Number(localStorage.getItem(recordKey) || 0);
+  let isNewRecord = false;
+
+  if (vbStreak > record) {
+    localStorage.setItem(recordKey, vbStreak);
+    isNewRecord = true;
+    triggerConfetti();
+  }
+
+  // Update Game Over score labels
+  const scoreLbl = document.getElementById('vb-over-score-lbl');
+  if (scoreLbl) {
+    scoreLbl.textContent = vbGameMode === 'sudden-death' ? 'Racha Alcanzada' : 'Aciertos Logrados';
+  }
+
+  document.getElementById('vb-over-streak').textContent = vbStreak;
+  document.getElementById('vb-over-record').textContent = isNewRecord ? vbStreak : record;
+
+  const newRecordBanner = document.getElementById('vb-over-new-record');
+  if (newRecordBanner) {
+    newRecordBanner.style.display = isNewRecord ? 'inline-block' : 'none';
+  }
+
+  // Update icons and titles for Time Attack Game Over
+  const overIcon = document.getElementById('vb-over-icon');
+  const overTitle = document.getElementById('vb-over-title');
+  if (vbGameMode === 'time-attack') {
+    if (overIcon) overIcon.textContent = '⏱️';
+    if (overTitle) overTitle.textContent = '¡TIEMPO AGOTADO!';
+  } else {
+    if (overIcon) overIcon.textContent = '💥';
+    if (overTitle) overTitle.textContent = 'FIN DE LA RÁFAGA';
+  }
+
+  // Render error/failure details
+  const errorDetailsEl = document.getElementById('vb-error-details');
+  if (errorDetailsEl && (vbCurrentVerb || vbCurrentGrammar)) {
+    if (vbGameMode === 'sudden-death') {
+      let failureMsg = isTimeout 
+        ? '¡Se acabó el tiempo! ⏰ Te demoraste demasiado.' 
+        : '¡Respuesta incorrecta! ❌';
+
+      let correctVal = getCorrectAnswerForActiveType();
+      
+      let promptTitle = 'Pregunta:';
+      let promptVal = '';
+      if (vbCurrentGrammar) {
+        promptVal = `<span class="vb-error-val" style="color:var(--text); font-size:0.9rem;">[${vbCurrentGrammar.cat}] ${vbCurrentGrammar.q}</span>`;
+      } else {
+        promptTitle = vbActiveQuestionType === 'translation' ? 'Verbo en inglés:' : 'Significado:';
+        promptVal = `<span class="vb-error-val" style="color:var(--text);">${vbActiveQuestionType === 'past' ? `Pasado de "${vbCurrentVerb[0]}"` : vbActiveQuestionType === 'present' ? `Presente de "${vbCurrentVerb[1]}"` : `Traducción de "${vbCurrentVerb[5]}"`}</span>`;
+      }
+
+      let extraInfo = '';
+      if (vbCurrentGrammar) {
+        extraInfo = `
+        <div class="vb-error-row" style="margin-top: 0.8rem; border-top: 1px dashed var(--border); padding-top: 0.6rem;">
+          <span class="vb-error-label" style="display:block; margin-bottom: 2px;">Explicación:</span>
+          <span style="font-family:var(--body); color:var(--text); font-size:0.9rem;">${vbCurrentGrammar.exp || ''}</span>
+        </div>`;
+      } else {
+        extraInfo = `
+        <div class="vb-error-row" style="margin-top: 0.8rem; border-top: 1px dashed var(--border); padding-top: 0.6rem;">
+          <span class="vb-error-label" style="display:block; margin-bottom: 2px;">Pronunciación del infinitivo:</span>
+          <span style="font-family:var(--mono); color:var(--accent2); font-size:0.85rem;">${vbCurrentVerb[2] || ''}</span>
+        </div>
+        <div class="vb-error-row" style="margin-top: 0.4rem;">
+          <span class="vb-error-label" style="display:block; margin-bottom: 2px;">Ejemplo:</span>
+          <span style="font-style:italic; color:var(--text-muted); font-size:0.85rem;">"${vbCurrentVerb[3] || ''}"</span>
+        </div>`;
+      }
+
+      errorDetailsEl.innerHTML = `
+        <div class="vb-error-title">
+          ${getIcon('alert-circle', 18)} ${failureMsg}
+        </div>
+        <div class="vb-error-row">
+          <span class="vb-error-label">${promptTitle}</span>
+          ${promptVal}
+        </div>
+        <div class="vb-error-row">
+          <span class="vb-error-label">Tu respuesta:</span>
+          <span class="vb-error-val" style="color:var(--accent3);">${isTimeout ? 'Ninguna (Sin tiempo)' : (wrongAnswer || 'Vacío')}</span>
+        </div>
+        <div class="vb-error-row">
+          <span class="vb-error-label">Correcto:</span>
+          <span class="vb-error-val" style="color:var(--accent); font-size: 1.1rem; text-decoration: underline;">${correctVal}</span>
+        </div>
+        ${extraInfo}
+      `;
+    } else {
+      // Time Attack results details
+      let lastQuestionInfo = '';
+      if (vbCurrentGrammar) {
+        lastQuestionInfo = `
+          <span style="font-weight:bold; color:var(--text); display:block; margin-bottom: 4px;">Última pregunta en pantalla:</span>
+          • Tema: <strong>${vbCurrentGrammar.cat}</strong><br>
+          • Pregunta: ${vbCurrentGrammar.q}<br>
+          • Respuesta: <strong>${getCorrectAnswerForActiveType()}</strong>
+        `;
+      } else {
+        lastQuestionInfo = `
+          <span style="font-weight:bold; color:var(--text); display:block; margin-bottom: 4px;">Último verbo en pantalla:</span>
+          • Infinitivo: <strong>${vbCurrentVerb[0]}</strong> (${vbCurrentVerb[5] || ''})<br>
+          • Pasado: <strong>${vbCurrentVerb[1]}</strong><br>
+          • Pronunciación: <span style="font-family:var(--mono);">${vbCurrentVerb[2] || ''}</span>
+        `;
+      }
+
+      errorDetailsEl.innerHTML = `
+        <div class="vb-error-title" style="color:var(--accent2);">
+          ${getIcon('trophy', 18)} ¡Sesión Finalizada!
+        </div>
+        <p style="margin-bottom: 0.8rem; line-height: 1.5;">Lograste un total de <strong>${vbStreak}</strong> aciertos en 60 segundos.</p>
+        <div style="border-top:1px dashed var(--border); padding-top:0.8rem; font-size:0.85rem; color:var(--text-muted);">
+          ${lastQuestionInfo}
+        </div>
+      `;
+    }
+  }
+
+  document.getElementById('vb-game-screen').style.display = 'none';
+  document.getElementById('vb-game-screen').classList.remove('active');
+  
+  document.getElementById('vb-over-screen').style.display = 'block';
+  document.getElementById('vb-over-screen').classList.add('active');
+}
+
+function exitVerbBlast() {
+  clearVbTimers();
+  initVerbBlast();
+}
+
 // ---- NAV ----
 function showSection(id, updateHash = true) {
   const targetSec = document.getElementById(id);
   if (!targetSec) return;
+
+  // Initialize Ráfaga de Verbos if entering that section
+  if (id === 'blast') {
+    initVerbBlast();
+  } else {
+    // If leaving blast, clear all timers just in case
+    clearVbTimers();
+  }
 
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -1596,8 +2724,47 @@ window.addEventListener('hashchange', () => {
 function toggleMode() {
   document.body.classList.toggle('light-mode');
   const btn = document.querySelector('.toggle-mode');
-  btn.textContent = document.body.classList.contains('light-mode') ? '🌙' : '☀️';
+  btn.innerHTML = document.body.classList.contains('light-mode') ? getIcon('moon') : getIcon('sun');
 }
+
+function triggerConfetti() {
+  const container = document.createElement('div');
+  container.className = 'confetti-container';
+  document.body.appendChild(container);
+
+  // Harmonious theme-aligned colors (accent, accent2, accent3, accent4, etc.)
+  const colors = ['#00ff88', '#00bfff', '#ff6b6b', '#ffd93d', '#a78bfa', '#ff00ff'];
+
+  for (let i = 0; i < 90; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+
+    const left = Math.random() * 100;
+    const delay = Math.random() * 2.2; // Staggered start times
+    const duration = 2.2 + Math.random() * 1.8; // Falling speed variations
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const size = 6 + Math.random() * 8; // Size range 6px to 14px
+    const isRound = Math.random() > 0.4; // Circular and rectangular pieces
+
+    piece.style.left = `${left}%`;
+    piece.style.animationDelay = `${delay}s`;
+    piece.style.animationDuration = `${duration}s`;
+    piece.style.backgroundColor = color;
+    piece.style.width = `${size}px`;
+    piece.style.height = `${size}px`;
+    if (isRound) {
+      piece.style.borderRadius = '50%';
+    }
+
+    container.appendChild(piece);
+  }
+
+  // Cleanup after all animations have ended
+  setTimeout(() => {
+    container.remove();
+  }, 4500);
+}
+
 
 // ---- INIT ----
 renderTopics();
