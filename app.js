@@ -1666,10 +1666,24 @@ function renderQuiz() {
     const pct = Math.round((score / currentQuizData.length) * 100);
 
     // Guardar y comprobar el récord histórico
-    const previousRecord = Number(localStorage.getItem('guia_ingles_quiz_record') || -1);
+    const previousRecordRaw = localStorage.getItem('guia_ingles_quiz_record');
+    let previousRecord = -1;
+    if (previousRecordRaw) {
+      try {
+        previousRecord = JSON.parse(previousRecordRaw).pct;
+      } catch(e) {
+        previousRecord = Number(previousRecordRaw) || -1;
+      }
+    }
+    
     let newRecordSet = false;
     if (pct > previousRecord) {
-      localStorage.setItem('guia_ingles_quiz_record', pct);
+      localStorage.setItem('guia_ingles_quiz_record', JSON.stringify({
+        pct: pct,
+        correct: score,
+        incorrect: currentQuizData.length - score,
+        total: currentQuizData.length
+      }));
       newRecordSet = true;
       initStats(); // Actualizar estadísticas en la pantalla principal
     }
@@ -2796,15 +2810,48 @@ function initStats() {
   if (statVerbs) statVerbs.textContent = irregularVerbs.length;
 
   // Cargar y mostrar el record histórico
-  const record = localStorage.getItem('guia_ingles_quiz_record');
-  const recordNotice = document.getElementById('quizRecordNotice');
-  const statRecord = document.getElementById('stat-quiz-record');
-  if (record !== null && recordNotice && statRecord) {
-    statRecord.textContent = record + '%';
-    recordNotice.style.display = 'block';
-  } else if (recordNotice) {
-    recordNotice.style.display = 'none';
+  const recordRaw = localStorage.getItem('guia_ingles_quiz_record');
+  const recordCard = document.getElementById('record-card');
+  const recordTitle = document.getElementById('record-title');
+  const recordCorrect = document.getElementById('record-correct');
+  const recordIncorrect = document.getElementById('record-incorrect');
+  
+  if (recordRaw && recordCard) {
+    try {
+      const data = JSON.parse(recordRaw);
+      if (recordTitle) recordTitle.textContent = `${data.pct}%`;
+      if (recordCorrect) recordCorrect.textContent = data.correct;
+      if (recordIncorrect) recordIncorrect.textContent = data.incorrect;
+      recordCard.style.display = 'flex';
+    } catch (e) {
+      // Formato viejo (solo un número)
+      if (recordTitle) recordTitle.textContent = `${recordRaw}%`;
+      if (recordCorrect) recordCorrect.textContent = '-';
+      if (recordIncorrect) recordIncorrect.textContent = '-';
+      recordCard.style.display = 'flex';
+    }
+  } else if (recordCard) {
+    if (recordTitle) recordTitle.textContent = `0%`;
+    if (recordCorrect) recordCorrect.textContent = '0';
+    if (recordIncorrect) recordIncorrect.textContent = '0';
+    recordCard.style.display = 'flex';
   }
 }
 
+function initDailyVerb() {
+  const title = document.getElementById('daily-verb-title');
+  const desc = document.getElementById('daily-verb-desc');
+  if (!title || !desc || typeof irregularVerbs === 'undefined' || irregularVerbs.length === 0) return;
+  
+  // Use today's date to pick a consistent random verb for the day
+  const today = new Date();
+  const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+  const index = seed % irregularVerbs.length;
+  const verb = irregularVerbs[index];
+  
+  title.textContent = verb[0].charAt(0).toUpperCase() + verb[0].slice(1);
+  desc.innerHTML = `Past: ${verb[1]} &bull; ${verb[5]}`;
+}
+
 initStats();
+initDailyVerb();
