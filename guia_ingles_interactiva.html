@@ -28,14 +28,17 @@
       <button class="nav-btn" onclick="showSection('flashcards')">Flashcards</button>
       <button class="nav-btn" onclick="showSection('verbs')">Vocabulario 🔤</button>
     </nav>
-    <button class="toggle-mode" onclick="toggleMode()" title="Cambiar modo">
-      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="4" />
-        <path
-          d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-      </svg>
-    </button>
+    <div style="display: flex; gap: 1rem; align-items: center;">
+      <div id="networkStatusDot" title="Conectado" style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent);"></div>
+      <button class="toggle-mode" onclick="toggleMode()" title="Cambiar modo">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+        </svg>
+      </button>
+    </div>
   </header>
 
   <!-- HOME -->
@@ -43,7 +46,7 @@
     <div class="hero">
       <div class="hero-tag">INGLÉS 1 & 2 → INGLÉS TÉCNICO TI</div>
 
-      <h1 style="font-family: var(--tech); letter-spacing: -1px;"><span class="matrix-glitch">ByteLanguage<span class="hl">.exe</span><span class="blink" style="color: var(--accent);">_</span></span><br><span style="font-size: 0.45em; font-family: var(--sans); letter-spacing: 0; text-transform: none; color: var(--text-muted); font-weight: 500;">Tu guía de repaso técnico</span></h1>
+      <h1 style="font-family: var(--tech); letter-spacing: -1px;"><span class="matrix-glitch" id="main-hero-title" data-text="ByteLanguage.exe_">ByteLanguage<span class="hl">.exe</span><span class="blink" style="color: var(--accent);">_</span></span><br><span style="font-size: 0.45em; font-family: var(--sans); letter-spacing: 0; text-transform: none; color: var(--text-muted); font-weight: 500;">Tu guía de repaso técnico</span></h1>
       <p>Tu plataforma centralizada para dominar el Inglés General y el Inglés Técnico de TI. Gramática, vocabulario, flashcards y quizzes.</p>
       <div class="stats-row">
         <div class="stat-chip"><b id="stat-topics">0</b> temas cubiertos</div>
@@ -51,9 +54,7 @@
         <div class="stat-chip"><b id="stat-quiz">0</b> preguntas de quiz</div>
         <div class="stat-chip"><b id="stat-verbs">0</b> verbos irregulares</div>
       </div>
-      <div class="offline-notice" id="offlineNotice" style="display:none;">
-        <span id="offlineNoticeText">Detectando estado de red...</span>
-      </div>
+      <!-- Eliminated offline-notice banner -->
 
       <!-- TARJETAS DE ACCESO RÁPIDO (ACTIVIDADES) -->
       <div class="quick-access-grid">
@@ -412,22 +413,23 @@
 
   <script>
     function updateNetworkStatus() {
-      const notice = document.getElementById('offlineNotice');
-      const text = document.getElementById('offlineNoticeText');
-      if (!notice || !text) return;
-
+      const dot = document.getElementById('networkStatusDot');
+      
       if (navigator.onLine) {
-        notice.style.background = 'rgba(0, 191, 255, 0.08)';
-        notice.style.borderColor = 'rgba(0, 191, 255, 0.2)';
-        notice.style.color = 'var(--accent2)';
-        text.innerHTML = '<span style="display:inline-block; width:8px; height:8px; background:var(--accent); border-radius:50%; margin-right:6px; box-shadow:0 0 8px var(--accent); vertical-align:1px;"></span> <strong>Conectado</strong> — Guía completamente disponible offline';
+        if (dot) {
+          dot.style.background = 'var(--accent)';
+          dot.style.boxShadow = '0 0 8px var(--accent)';
+          dot.title = 'Conectado';
+        }
+        document.body.classList.remove('is-offline');
       } else {
-        notice.style.background = 'rgba(255, 107, 107, 0.08)';
-        notice.style.borderColor = 'rgba(255, 107, 107, 0.2)';
-        notice.style.color = 'var(--accent3)';
-        text.innerHTML = '<span style="display:inline-block; width:8px; height:8px; background:var(--accent3); border-radius:50%; margin-right:6px; box-shadow:0 0 8px var(--accent3); vertical-align:1px;"></span> <strong>Sin conexión (Offline)</strong> — Ejecutando copia local cacheada';
+        if (dot) {
+          dot.style.background = 'var(--accent3)';
+          dot.style.boxShadow = '0 0 8px var(--accent3)';
+          dot.title = 'Sin conexión (Offline) - Guía 100% disponible';
+        }
+        document.body.classList.add('is-offline');
       }
-      notice.style.display = 'block';
     }
 
     window.addEventListener('online', updateNetworkStatus);
@@ -443,6 +445,35 @@
           .catch(err => console.warn('Error registrando Service Worker:', err));
       });
     }
+
+    // Animación de bienvenida Matrix (Scramble) al cargar la página
+    window.addEventListener('DOMContentLoaded', () => {
+      const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ";
+      const titleEl = document.getElementById('main-hero-title');
+      if (!titleEl) return;
+      
+      const originalHTML = 'ByteLanguage<span class="hl">.exe</span><span class="blink" style="color: var(--accent);">_</span>';
+      const targetText = titleEl.getAttribute('data-text');
+      
+      let iteration = 0;
+      let scrambleInterval = setInterval(() => {
+        titleEl.innerText = targetText
+          .split("")
+          .map((letter, index) => {
+            if(index < iteration) {
+              return targetText[index];
+            }
+            return letters[Math.floor(Math.random() * letters.length)];
+          })
+          .join("");
+        
+        if(iteration >= targetText.length){
+          clearInterval(scrambleInterval);
+          titleEl.innerHTML = originalHTML;
+        }
+        iteration += 1 / 5; // Más lento (antes era 1/3)
+      }, 40); // Intervalo ligeramente mayor (antes era 30)
+    });
   </script>
   <script src="app.js"></script>
 </body>

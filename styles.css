@@ -267,6 +267,26 @@ nav {
   animation: matrixGlowGlitch 3.5s infinite;
 }
 
+/* ESTADO SIN CONEXIÓN (OFFLINE) - EFECTO CONGELADO */
+body.is-offline .matrix-glitch {
+  animation: none !important;
+  text-shadow: 4px 0 var(--accent), -4px 0 #ff00c8 !important;
+  transform: translate(2px, 1px) skewX(5deg) !important;
+}
+
+body.is-offline .blink {
+  animation: none !important;
+  opacity: 1 !important;
+  color: #ff00c8 !important;
+}
+
+body.is-offline .hero-tag {
+  animation-play-state: paused !important;
+  border-color: #ff00c8 !important;
+  color: #ff00c8 !important;
+}
+/* FIN ESTADO SIN CONEXIÓN */
+
 @keyframes matrixGlowGlitch {
   0%, 91%, 98%, 100% {
     text-shadow: 0 0 5px rgba(0, 255, 136, 0.2);
