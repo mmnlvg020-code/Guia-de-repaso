@@ -1,9 +1,14 @@
-const CACHE_NAME = 'guia-ingles-cache-v60';
+const CACHE_NAME = 'guia-ingles-cache-v61';
 const FILES_TO_CACHE = [
-  'guia_ingles_interactiva.html',
+  'index.html',
   'styles.css',
   'app.js',
-  'service-worker.js'
+  'service-worker.js',
+  'data/topics.js',
+  'data/flashcards.js',
+  'data/quiz.js',
+  'data/verbs.js',
+  'data/exercises.js'
 ];
 
 self.addEventListener('install', event => {
@@ -46,7 +51,7 @@ self.addEventListener('fetch', event => {
         })
         .catch(() => {
           if (event.request.mode === 'navigate') {
-            return caches.match('guia_ingles_interactiva.html');
+            return caches.match('index.html');
           }
         });
     })
