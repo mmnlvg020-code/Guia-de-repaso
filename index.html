@@ -267,9 +267,12 @@
     <div class="section-sub">Busca y explora verbos y términos técnicos</div>
     <button class="grammar-back-btn" style="display:inline-flex; align-items:center; gap:0.5rem; margin-bottom:1.5rem;" onclick="showSection('home')">← Volver al inicio</button>
 
-    <div class="verbs-controls" style="display:flex; gap:0.5rem; margin-bottom:1rem;" id="verbControls">
+    <div class="verbs-controls" style="display:flex; gap:0.5rem; margin-bottom:1rem; position:relative;" id="verbControls">
       <input class="verbs-search" type="text" placeholder="Buscar vocabulario... (ej: network, to buy)"
-        oninput="handleVerbSearch()" id="verbSearch" style="flex:1;">
+        oninput="handleVerbSearch()" id="verbSearch" style="flex:1; padding-right: 2.5rem;">
+      <button id="clearVerbSearchBtn" style="display:none; position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--text-muted); cursor:pointer; padding:0.2rem;" onclick="clearVerbSearch()" title="Limpiar búsqueda">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
     </div>
 
     <div id="verbBackBar" class="verb-back-bar" style="display:none;">

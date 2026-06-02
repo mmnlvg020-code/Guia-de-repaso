@@ -619,7 +619,21 @@ function selectVerbCategory(cat) {
 function handleVerbSearch() {
   selectedVerbCategory = null;
   expandedVerbIndex = -1;
+  const searchInput = document.getElementById('verbSearch');
+  const clearBtn = document.getElementById('clearVerbSearchBtn');
+  if (searchInput && clearBtn) {
+    clearBtn.style.display = searchInput.value.length > 0 ? 'block' : 'none';
+  }
   renderVerbs();
+}
+
+function clearVerbSearch() {
+  const searchInput = document.getElementById('verbSearch');
+  if (searchInput) {
+    searchInput.value = '';
+    handleVerbSearch();
+    searchInput.focus();
+  }
 }
 
 function renderVerbControls() {
