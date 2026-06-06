@@ -1,6 +1,23 @@
+/**
+ * ==============================================================================
+ * ARCHIVO PRINCIPAL DE LÓGICA (APP.JS)
+ * ==============================================================================
+ * Este archivo contiene toda la lógica interactiva de la Guía de Inglés.
+ * Funciona como el "cerebro" de la página web (Single Page Application - SPA).
+ * 
+ * Responsabilidades de este archivo:
+ * 1. Controlar la navegación (cambios de pantalla sin recargar la página).
+ * 2. Cargar y mostrar los datos (Gramática, Vocabulario, Quiz) guardados en data/.
+ * 3. Manejar la lógica de los juegos y la evaluación (puntajes, tiempos, vidas).
+ * 4. Gestionar funcionalidades especiales como el Modo Oscuro y la voz sintética (TTS).
+ * ==============================================================================
+ */
+
 // ============================================================
-// ICONS & HELPER
+// 1. ICONOS SVG Y FUNCIONES DE AYUDA (HELPERS)
 // ============================================================
+// Diccionario que almacena el código fuente de todos los iconos visuales.
+// Usar SVG directamente en el código ahorra descargas de imágenes externas.
 const SVG_ICONS = {
   // Navigation Icons
   home: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
@@ -51,6 +68,12 @@ const SVG_ICONS = {
   volume: `<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`
 };
 
+/**
+ * getIcon(name, size, strokeWidth)
+ * Busca un icono por su nombre en el diccionario SVG_ICONS.
+ * Si recibe parámetros de tamaño (size) o grosor (strokeWidth), usa "expresiones regulares" 
+ * para modificar el código SVG antes de devolverlo y así adaptarlo visualmente.
+ */
 function getIcon(name, size = null, strokeWidth = null) {
   let markup = SVG_ICONS[name] || '';
   if (!markup) return '';
@@ -73,11 +96,18 @@ function getIcon(name, size = null, strokeWidth = null) {
 
 
 // ============================================================
-// RENDER
+// 2. LÓGICA DE LA SECCIÓN DE GRAMÁTICA
 // ============================================================
 
+// Guarda el índice (número) del tema de gramática que el usuario está leyendo actualmente.
+// Empieza en -1 indicando que no hay ningún tema abierto todavía.
 let activeTopicIndex = -1;
 
+/**
+ * getCourseBadgeClass(course)
+ * Revisa a qué nivel/curso pertenece un tema (Inglés 1, Inglés 2, etc.)
+ * y devuelve el nombre de la clase CSS que le da su color característico a la etiqueta.
+ */
 function getCourseBadgeClass(course) {
   if (course.includes('Técnico')) return 'badge-tech';
   if (course.includes('1 & 2') || (course.includes('1') && course.includes('2'))) return 'badge-shared';
@@ -86,31 +116,62 @@ function getCourseBadgeClass(course) {
   return 'badge-1';
 }
 
+/**
+ * renderTopics()
+ * Dibuja la lista lateral de temas de gramática en la pantalla.
+ * Toma los datos del archivo 'data/topics.js' y los inyecta dinámicamente
+ * como elementos HTML <li> en el contenedor de la izquierda.
+ */
 function renderTopics() {
+  // Buscamos el elemento HTML (ul) donde se van a inyectar los temas de la lista lateral
   const listContainer = document.getElementById('grammarTopicList');
-  if (!listContainer) return;
+  if (!listContainer) return; // Si no existe (estamos en otra página), salimos de la función
 
+  // Recorremos el array 'topics' (que viene de data/topics.js)
+  // map() convierte cada objeto de tema (t) en un bloque de código HTML (un <li>)
   listContainer.innerHTML = topics.map((t, i) => `
     <li class="grammar-list-item ${activeTopicIndex === i ? 'active' : ''}" onclick="selectTopic(${i})">
+      <!-- Icono del tema: le damos un color de fondo translúcido (22 en Hex) basado en su color principal -->
       <div class="topic-icon-small" style="background:${t.color}22; color:${t.color}">${getIcon(t.icon)}</div>
+      
+      <!-- Contenedor del título y la etiqueta (badge) -->
       <div class="topic-list-info">
         <span class="topic-list-title">${t.title}</span>
+        <!-- Aquí llamamos a getCourseBadgeClass para saber de qué color pintar la etiqueta (Inglés 1, Inglés 2, etc.) -->
         <span class="topic-badge ${getCourseBadgeClass(t.course)}">${t.course}</span>
       </div>
     </li>
-  `).join('');
+  `).join(''); // .join('') une todo el array de HTMLs en un solo gran texto para inyectarlo
 }
 
+/**
+ * selectTopic(index)
+ * Se ejecuta cuando el usuario hace clic en un tema de la lista lateral.
+ * Abre el panel principal derecho (Master-Detail) mostrando la teoría, tablas y analogías de ese tema.
+ * @param {number} index - La posición del tema dentro de la lista de datos (topics).
+ */
 function selectTopic(index) {
+  // Actualizamos el índice global para saber qué tema está abierto
   activeTopicIndex = index;
+  
+  // Volvemos a dibujar la lista lateral para que el tema clickeado se marque como "activo" (resaltado)
   renderTopics();
 
+  // Buscamos el contenedor principal derecho donde va la teoría
   const contentArea = document.getElementById('grammarContentArea');
+  
+  // Extraemos los datos del tema seleccionado
   const t = topics[index];
 
+  // Inyectamos todo el HTML dinámico de la teoría
   contentArea.innerHTML = `
+    <!-- Botón visible solo en móviles para volver a la lista lateral -->
     <button class="grammar-back-btn" onclick="closeTopicDetail()">← Volver a la lista</button>
+    
+    <!-- Contenedor principal con animación (fade-in) -->
     <div class="topic-detail fade-in">
+      
+      <!-- Cabecera: Icono grande, Título y Etiqueta -->
       <div class="topic-detail-header">
         <div class="topic-icon-large" style="background:${t.color}22; color:${t.color}">${getIcon(t.icon)}</div>
         <div>
@@ -119,12 +180,15 @@ function selectTopic(index) {
         </div>
       </div>
       
+      <!-- Cuerpo del tema: Descripción y Fórmula -->
       <div class="topic-detail-body">
         <p class="topic-desc">${t.desc}</p>
         <div class="formula">${t.formula}</div>
         
+        <!-- Bloque de Ejemplos -->
         <h4 class="detail-subtitle">Ejemplos</h4>
         <div class="examples">
+          <!-- Recorremos los ejemplos y ponemos +, -, o ? dependiendo del tipo -->
           ${t.examples.map(e => `
             <div class="ex-row">
               <span class="ex-label ${e.type}">${e.type === 'pos' ? '+' : e.type === 'neg' ? '−' : e.type === 'q' ? '?' : '🔑'}</span>
@@ -133,11 +197,13 @@ function selectTopic(index) {
           `).join('')}
         </div>
         
+        <!-- Si el tema tiene una tabla (t.table existe), la dibujamos -->
         ${t.table ? `
           <h4 class="detail-subtitle">Tabla de Referencia</h4>
           <table class="ref-table">
             <thead><tr>${t.table.headers.map(h => `<th>${h}</th>`).join('')}</tr></thead>
             <tbody>${t.table.rows.map(r => `<tr>${r.map(c => {
+    // Caso especial: Si una celda es "How often", inyectamos un Tooltip interactivo
     if (c === 'How often') {
       return `<td>
                   <span class="tooltip-wrapper">
@@ -162,6 +228,7 @@ function selectTopic(index) {
   }).join('')}</tr>`).join('')}</tbody>
           </table>` : ''}
 
+        <!-- Si el tema tiene una analogía (t.analogy existe), dibujamos su recuadro -->
         ${t.analogy ? `
           <div class="analogy-block">
             <div class="analogy-emoji">${getIcon(t.analogy.emoji)}</div>
@@ -174,10 +241,17 @@ function selectTopic(index) {
     </div>
   `;
 
+  // Le agregamos la clase 'detail-open' al contenedor principal.
+  // En pantallas chicas, esto oculta la lista y muestra el panel derecho.
   const layout = document.querySelector('.grammar-book-layout');
   if (layout) layout.classList.add('detail-open');
 }
 
+/**
+ * closeTopicDetail()
+ * Cierra la vista de detalle del tema de gramática y vuelve a mostrar el estado vacío
+ * (el mensaje de "Elegí un tema del menú lateral") en el panel principal.
+ */
 function closeTopicDetail() {
   const layout = document.querySelector('.grammar-book-layout');
   if (layout) layout.classList.remove('detail-open');
@@ -215,12 +289,24 @@ function closeTopicDetail() {
   `;
 }
 
-// ---- FLASHCARDS ----
+// ============================================================
+// 3. LÓGICA DE LAS FLASHCARDS (TARJETAS DE MEMORIA)
+// ============================================================
+
+// Variables de estado para las flashcards:
+// 'activeCategory' guarda el filtro actual (ej. "Vocabulario IT").
 let activeCategory = 'all';
+// 'categories' extrae dinámicamente los temas disponibles sin repetir (usando Set).
 const categories = ['all', ...new Set(flashcardsData.map(f => f.cat))];
+// 'isShuffled' indica si las cartas están en orden aleatorio o no.
 let isShuffled = false;
 let currentShuffledCards = [];
 
+/**
+ * renderFlashcardControls()
+ * Dibuja los botones de la parte superior de las flashcards:
+ * El menú desplegable (select) para filtrar por categoría y el botón de "Barajar".
+ */
 function renderFlashcardControls() {
   const ctrl = document.getElementById('fcControls');
   ctrl.innerHTML = `
@@ -239,6 +325,11 @@ function renderFlashcardControls() {
   `;
 }
 
+/**
+ * shuffleFlashcards()
+ * Toma la lista actual de cartas (filtradas o completas), las desordena 
+ * aleatoriamente usando Math.random(), y vuelve a dibujarlas en pantalla.
+ */
 function shuffleFlashcards() {
   const filtered = activeCategory === 'all' ? flashcardsData : flashcardsData.filter(f => f.cat === activeCategory);
   currentShuffledCards = [...filtered].sort(() => Math.random() - 0.5);
@@ -246,6 +337,11 @@ function shuffleFlashcards() {
   renderFlashcards();
 }
 
+/**
+ * filterCards(cat)
+ * Se ejecuta al cambiar la opción en el menú desplegable.
+ * Cambia la categoría activa, quita el modo "barajado" y vuelve a renderizar.
+ */
 function filterCards(cat) {
   activeCategory = cat;
   isShuffled = false;
@@ -253,6 +349,12 @@ function filterCards(cat) {
   renderFlashcards();
 }
 
+/**
+ * renderFlashcards()
+ * Se encarga de dibujar físicamente (inyectar HTML) cada tarjeta en la pantalla.
+ * Aplica filtros, modo barajado, y detecta si el texto está en español o inglés 
+ * para decidir si debe mostrar o no el botón de pronunciación (altavoz).
+ */
 function renderFlashcards() {
   const grid = document.getElementById('flashcardsGrid');
   let filtered = activeCategory === 'all' ? flashcardsData : flashcardsData.filter(f => f.cat === activeCategory);
@@ -292,13 +394,23 @@ function renderFlashcards() {
   }).join('');
 }
 
-// ---- QUIZ ----
-let quizActiveCategory = 'all';
-const quizCategories = ['all', ...new Set(quizData.map(q => q.cat))];
-let currentQ = 0, score = 0, answered = false;
-let currentQuizData = [];
-let quizUserHistory = [];
+// ============================================================
+// 4. LÓGICA DEL QUIZ (EVALUACIÓN)
+// ============================================================
 
+// Variables de estado del Quiz:
+let quizActiveCategory = 'all'; // Categoría seleccionada
+const quizCategories = ['all', ...new Set(quizData.map(q => q.cat))];
+let currentQ = 0; // Pregunta actual (índice numérico)
+let score = 0; // Puntaje actual del usuario
+let answered = false; // Indica si la pregunta actual ya fue respondida (evita doble clic)
+let currentQuizData = []; // Array temporal con las preguntas a evaluar
+let quizUserHistory = []; // Guarda qué contestó el usuario para mostrar el resumen de errores
+
+/**
+ * renderQuizControls()
+ * Muestra el selector de categoría del Quiz en la pantalla.
+ */
 function renderQuizControls() {
   const ctrl = document.getElementById('quizControls');
   if (ctrl) {
@@ -314,11 +426,21 @@ function renderQuizControls() {
   }
 }
 
+/**
+ * filterQuiz(cat)
+ * Disparado al elegir una categoría nueva. Lanza un Quiz desde cero con ese tema.
+ */
 function filterQuiz(cat) {
   quizActiveCategory = cat;
   initQuiz();
 }
 
+/**
+ * initQuiz()
+ * Inicializa o resetea todo el Quiz.
+ * Se encarga de cargar las preguntas, mezclarlas (shuffle), limitarlas a un máximo de 20
+ * y poner todos los contadores en 0.
+ */
 function initQuiz() {
   // Reiniciamos todos los contadores al comenzar un nuevo quiz.
   renderQuizControls();
@@ -605,10 +727,17 @@ function selectOption(idx) {
   document.getElementById('quizContainer').appendChild(nextBtn);
 }
 
-// ---- VERBS ----
-let expandedVerbIndex = -1;
-let selectedVerbCategory = null;
+// ============================================================
+// 5. LÓGICA DE VOCABULARIO (VERBOS)
+// ============================================================
 
+let expandedVerbIndex = -1; // Índice del verbo cuyo acordeón está abierto (-1 = ninguno)
+let selectedVerbCategory = null; // Categoría temática elegida (ej. "Ciencia", "Deportes")
+
+/**
+ * selectVerbCategory(cat)
+ * Abre una categoría de verbos específica, oculta el buscador y muestra la lista filtrada.
+ */
 function selectVerbCategory(cat) {
   selectedVerbCategory = cat;
   expandedVerbIndex = -1;
@@ -616,6 +745,11 @@ function selectVerbCategory(cat) {
   renderVerbs();
 }
 
+/**
+ * handleVerbSearch()
+ * Se ejecuta cada vez que el usuario escribe en el buscador de verbos.
+ * Muestra/oculta el botón "X" y vuelve a renderizar la lista buscando coincidencias.
+ */
 function handleVerbSearch() {
   selectedVerbCategory = null;
   expandedVerbIndex = -1;
@@ -627,19 +761,30 @@ function handleVerbSearch() {
   renderVerbs();
 }
 
+/**
+ * clearVerbSearch()
+ * Limpia el texto del buscador y devuelve al usuario a la vista de categorías.
+ */
 function clearVerbSearch() {
   const searchInput = document.getElementById('verbSearch');
   if (searchInput) {
     searchInput.value = '';
     handleVerbSearch();
-    searchInput.focus();
+    searchInput.focus(); // Mantiene el teclado abierto en móviles
   }
 }
 
 function renderVerbControls() {
-  // Not needed anymore, HTML is static for search input
+  // Ya no se usa dinámicamente, el HTML del buscador es estático ahora.
 }
 
+/**
+ * renderVerbs()
+ * Dibuja la pantalla de verbos en base a tres modos posibles:
+ * 1. Modo Búsqueda (escribiendo texto)
+ * 2. Modo Cuadrícula de Categorías (por defecto)
+ * 3. Modo Lista (una categoría elegida)
+ */
 function renderVerbs() {
   const searchVal = document.getElementById('verbSearch').value.toLowerCase();
   const body = document.getElementById('verbsBody');
@@ -696,6 +841,11 @@ function renderVerbs() {
   `;
 }
 
+/**
+ * buildVerbsAccordion(filtered)
+ * Genera el código HTML interactivo de cada verbo (el acordeón que se despliega).
+ * Inserta los botones de Text-to-Speech (audio) y el ejemplo.
+ */
 function buildVerbsAccordion(filtered) {
   if (filtered.length === 0) {
     return `<div class="verb-empty">No se encontró ningún término</div>`;
@@ -1433,7 +1583,15 @@ function exitVerbBlast() {
   initVerbBlast();
 }
 
-// ---- NAV ----
+// ============================================================
+// 6. NAVEGACIÓN Y ENRUTAMIENTO (NAV)
+// ============================================================
+
+/**
+ * showSection(id, updateHash)
+ * Oculta todas las secciones de la página y muestra solo la que tiene el 'id' indicado.
+ * También gestiona la inicialización de los juegos al entrar a sus pantallas.
+ */
 function showSection(id, updateHash = true) {
   const targetSec = document.getElementById(id);
   if (!targetSec) return;
@@ -1472,13 +1630,18 @@ function showSection(id, updateHash = true) {
 
 // Escuchar cambios de hash para navegación histórica
 
-// ==========================================
-// REFERENT EXERCISE LOGIC
-// ==========================================
+// ============================================================
+// 7. LÓGICA DEL EJERCICIO "BUSCAR EL REFERENTE"
+// ============================================================
 
-let refCurrentQ = 0, refScore = 0;
-let refCurrentData = [];
+let refCurrentQ = 0; // Pregunta actual del ejercicio de referentes
+let refScore = 0; // Puntaje actual
+let refCurrentData = []; // Preguntas aleatorias para la sesión
 
+/**
+ * initReferentEx()
+ * Prepara e inicia el juego de Referentes. Elige 10 preguntas al azar.
+ */
 function initReferentEx() {
   refCurrentData = [...referentData].sort(() => Math.random() - 0.5).slice(0, 10);
   refCurrentQ = 0;
@@ -1574,13 +1737,18 @@ function advanceReferent() {
   }
 }
 
-// ==========================================
-// SYNONYM & ANTONYM EXERCISE LOGIC
-// ==========================================
+// ============================================================
+// 8. LÓGICA DEL EJERCICIO "SINÓNIMOS Y ANTÓNIMOS"
+// ============================================================
 
-let synCurrentQ = 0, synScore = 0;
-let synCurrentData = [];
+let synCurrentQ = 0; // Pregunta actual del ejercicio de sinónimos
+let synScore = 0; // Puntaje actual
+let synCurrentData = []; // Preguntas aleatorias para la sesión
 
+/**
+ * initSynonymEx()
+ * Prepara e inicia el juego de Sinónimos/Antónimos. Elige 10 preguntas al azar.
+ */
 function initSynonymEx() {
   synCurrentData = [...synonymData].sort(() => Math.random() - 0.5).slice(0, 10);
   synCurrentQ = 0;

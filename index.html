@@ -1,36 +1,80 @@
 <!DOCTYPE html>
 <html lang="es">
+<!-- 
+  ==============================================================================
+  ARCHIVO PRINCIPAL DE VISTA (INDEX.HTML)
+  ==============================================================================
+  Este archivo define toda la estructura y el contenido visual (DOM) de la Guía de Inglés.
+  Al ser una Single Page Application (SPA), todas las "pantallas" coexisten en este archivo
+  y se muestran u ocultan mediante JavaScript (app.js).
+  
+  Estructura Principal:
+  1. <head>: Metadatos, fuentes y enlaces a estilos CSS.
+  2. <header>: Barra de navegación estática en la parte superior.
+  3. <div class="section">: Cada uno de estos bloques representa una "pantalla" (Inicio, Gramática, etc.)
+  ==============================================================================
+-->
 
 <head>
+  <!-- Codificación de caracteres para aceptar tildes y ñ -->
   <meta charset="UTF-8">
+  <!-- Configuración para que se vea bien en dispositivos móviles (Responsive) -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Título que aparece en la pestaña del navegador -->
   <title>ByteLanguage.exe - Inglés Técnico</title>
+  
+  <!-- Importación de fuentes desde Google Fonts para el estilo "hacker/tech" -->
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;700&family=Syne:wght@700;800&family=Share+Tech+Mono&family=JetBrains+Mono:wght@400;700&family=VT323&display=swap"
     rel="stylesheet">
+    
+  <!-- Vinculación de la hoja de estilos principal (styles.css) -->
   <link rel="stylesheet" href="styles.css">
 
 </head>
 
 <body>
 
-  <!-- Esferas de influencia opuestas de fondo (Muy tenues) -->
+  <!-- 
+    ======================================================================
+    ESFERAS DE FONDO (Diseño visual)
+    Estas son las dos esferas brillantes que aparecen difuminadas en el fondo.
+    Se controlan puramente con CSS (.glow-spheres)
+    ====================================================================== 
+  -->
   <div class="glow-spheres">
     <div class="sphere sphere-green"></div>
     <div class="sphere sphere-blue"></div>
   </div>
 
+  <!-- 
+    ======================================================================
+    BARRA DE NAVEGACIÓN SUPERIOR (Header)
+    ====================================================================== 
+  -->
   <header>
+    <!-- Logo principal con animación de parpadeo en el guión bajo (_) -->
     <div class="logo">ByteLanguage<span class="hl">.exe</span><span class="blink">_</span></div>
+    <!-- 
+      Botones de navegación principal (para PC/Tablets).
+      En móviles estos botones se ocultan y se muestra la barra inferior.
+      Cada botón ejecuta la función showSection() de app.js para cambiar de pantalla.
+    -->
     <nav>
       <button class="nav-btn active" onclick="showSection('home')">Inicio</button>
       <button class="nav-btn" onclick="showSection('grammar')">Gramática</button>
       <button class="nav-btn" onclick="showSection('flashcards')">Flashcards</button>
       <button class="nav-btn" onclick="showSection('verbs')">Vocabulario 🔤</button>
     </nav>
+
+    <!-- Controles de estado y configuración (derecha del Header) -->
     <div style="display: flex; gap: 1rem; align-items: center;">
+      <!-- Punto verde de estado (Offline/Online), controlado por el Service Worker -->
       <div id="networkStatusDot" title="Conectado" style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent);"></div>
+      
+      <!-- Botón para alternar entre Tema Claro y Tema Oscuro -->
       <button class="toggle-mode" onclick="toggleMode()" title="Cambiar modo">
+        <!-- Icono inicial (Luna o Sol), se reemplaza en JS -->
         <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="4" />
@@ -41,22 +85,34 @@
     </div>
   </header>
 
-  <!-- HOME -->
+  <!-- 
+    ======================================================================
+    SECCIÓN 1: INICIO (HOME)
+    Es la pantalla principal (Dashboard) que ve el usuario al entrar.
+    ====================================================================== 
+  -->
   <div id="home" class="section active">
     <div class="hero">
       <div class="hero-tag">INGLÉS 1 & 2 → INGLÉS TÉCNICO TI</div>
 
+      <!-- Título principal con efecto Glitch (matriz hacker) -->
       <h1 style="font-family: var(--tech); letter-spacing: -1px;"><span class="matrix-glitch" id="main-hero-title" data-text="ByteLanguage.exe_">ByteLanguage<span class="hl">.exe</span><span class="blink" style="color: var(--accent);">_</span></span><br><span style="font-size: 0.45em; font-family: var(--sans); letter-spacing: 0; text-transform: none; color: var(--text-muted); font-weight: 500;">Tu guía de repaso técnico</span></h1>
       <p>Tu plataforma centralizada para dominar el Inglés General y el Inglés Técnico de TI. Gramática, vocabulario, flashcards y quizzes.</p>
+      
+      <!-- Fila de Estadísticas Rápidas (Se rellenan automáticamente desde app.js al iniciar) -->
       <div class="stats-row">
         <div class="stat-chip"><b id="stat-topics">0</b> temas cubiertos</div>
         <div class="stat-chip"><b id="stat-flashcards">0</b> flashcards</div>
         <div class="stat-chip"><b id="stat-quiz">0</b> preguntas de quiz</div>
         <div class="stat-chip"><b id="stat-verbs">0</b> verbos irregulares</div>
       </div>
-      <!-- Eliminated offline-notice banner -->
 
-      <!-- TARJETAS DE ACCESO RÁPIDO (ACTIVIDADES) -->
+      <!-- 
+        =========================================================
+        CUADRÍCULA DE ACCESO RÁPIDO Y MINIJUEGOS
+        Contiene accesos directos al "Verbo del día", Quiz, etc.
+        ========================================================= 
+      -->
       <div class="quick-access-grid">
         <div class="qa-card" id="daily-verb-card" style="cursor: default; height: 130px;">
           <div class="qa-category">VERBO DEL DÍA</div>
@@ -146,14 +202,23 @@
     </div>
   </div>
 
-  <!-- GRAMMAR -->
+  <!-- 
+    ======================================================================
+    SECCIÓN 2: GRAMÁTICA (GRAMMAR)
+    Muestra la lista de temas a la izquierda y el contenido a la derecha.
+    ====================================================================== 
+  -->
   <div id="grammar" class="section">
     <div class="section-title">Gramática</div>
     <div class="section-sub">Seleccioná un tema de la lista para leerlo en modo concentración</div>
     <button class="grammar-back-btn" style="display:inline-flex; align-items:center; gap:0.5rem; margin-bottom:1.5rem;" onclick="showSection('home')">← Volver al inicio</button>
 
+    <!-- Layout Master-Detail (Lista lateral + Panel principal) -->
     <div class="grammar-book-layout">
+      
+      <!-- Panel Lateral (Izquierda) -->
       <div class="grammar-sidebar">
+        <!-- Leyenda de colores explicativa que queda pegada arriba (sticky) -->
         <div class="grammar-legend"
           style="position: sticky; top: 0; z-index: 10; padding: 1rem; background: var(--surface); border-bottom: 1px solid var(--border); font-size: 0.8rem; margin: 0; border-radius: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
           <strong style="display:block; margin-bottom: 0.5rem; color: var(--text-muted);">
@@ -181,9 +246,14 @@
                 style="color:var(--text-muted); font-size:0.75rem;">CUC</span></div>
           </div>
         </div>
+        
+        <!-- Aquí app.js (renderTopics) inyecta la lista de temas (<li>) -->
         <ul id="grammarTopicList"></ul>
       </div>
+
+      <!-- Panel Principal (Derecha) -->
       <div class="grammar-content" id="grammarContentArea">
+        <!-- Pantalla vacía inicial antes de seleccionar un tema -->
         <div class="grammar-empty-state">
           <span class="empty-icon">
             <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64" fill="none"
@@ -198,24 +268,38 @@
     </div>
   </div>
 
-  <!-- FLASHCARDS -->
+  <!-- 
+    ======================================================================
+    SECCIÓN 3: FLASHCARDS (Tarjetas de Memoria)
+    ====================================================================== 
+  -->
   <div id="flashcards" class="section">
     <div class="section-title">Flashcards</div>
     <div class="section-sub">Tocá cada tarjeta para ver la respuesta</div>
     <button class="grammar-back-btn" style="display:inline-flex; align-items:center; gap:0.5rem; margin-bottom:1.5rem;" onclick="showSection('home')">← Volver al inicio</button>
+    
+    <!-- Controles (Filtros y Barajar) se inyectan acá vía app.js -->
     <div class="fc-controls" id="fcControls"></div>
+    <!-- Cuadrícula donde caen todas las tarjetas animadas -->
     <div class="flashcards-grid" id="flashcardsGrid"></div>
   </div>
 
-  <!-- QUIZ -->
+  <!-- 
+    ======================================================================
+    SECCIÓN 4: QUIZ (Examen de Opción Múltiple)
+    ====================================================================== 
+  -->
   <div id="quiz" class="section">
     <div class="section-title">Quiz</div>
     <div class="section-sub">Poné a prueba lo que sabés</div>
     <button class="grammar-back-btn" style="display:inline-flex; align-items:center; gap:0.5rem; margin-bottom:1.5rem;" onclick="showSection('home')">← Volver al inicio</button>
+    
     <div class="quiz-controls" id="quizControls">
-      <!-- Filter injected by JS -->
+      <!-- Filtro inyectado por JS -->
     </div>
+    
     <div class="quiz-wrapper">
+      <!-- Cabecera del Quiz (Contador, Barra de Progreso y Puntaje) -->
       <div class="quiz-header">
         <span class="quiz-count" id="quizCount">1 / 20</span>
         <div class="quiz-progress-bar">
@@ -223,11 +307,16 @@
         </div>
         <span class="quiz-score-badge" id="quizScore">✓ 0</span>
       </div>
+      <!-- Aquí cae la tarjeta dinámica de la pregunta actual (vía JS) -->
       <div id="quizContainer"></div>
     </div>
   </div>
 
-  <!-- REFERENT EXERCISE -->
+  <!-- 
+    ======================================================================
+    SECCIÓN 5: MINIJUEGO - BUSCAR EL REFERENTE
+    ====================================================================== 
+  -->
   <div id="referent-ex" class="section">
     <div class="section-title">Buscar el Referente</div>
     <div class="section-sub">Encontrá a qué palabra o idea apunta el pronombre subrayado.</div>
@@ -240,11 +329,16 @@
         </div>
         <span class="quiz-score-badge" id="refScore">✓ 0</span>
       </div>
+      <!-- Pregunta dinámica inyectada vía JS -->
       <div id="referentContainer"></div>
     </div>
   </div>
 
-  <!-- SYNONYM/ANTONYM EXERCISE -->
+  <!-- 
+    ======================================================================
+    SECCIÓN 6: MINIJUEGO - SINÓNIMOS Y ANTÓNIMOS
+    ====================================================================== 
+  -->
   <div id="synonym-ex" class="section">
     <div class="section-title">Sinónimos y Antónimos</div>
     <div class="section-sub">Ampliá tu vocabulario técnico identificando la relación correcta.</div>
@@ -257,15 +351,22 @@
         </div>
         <span class="quiz-score-badge" id="synScore">✓ 0</span>
       </div>
+      <!-- Pregunta dinámica inyectada vía JS -->
       <div id="synonymContainer"></div>
     </div>
   </div>
 
-  <!-- VOCABULARY SECTION -->
+  <!-- 
+    ======================================================================
+    SECCIÓN 7: BIBLIOTECA DE VOCABULARIO (VERBOS)
+    ====================================================================== 
+  -->
   <div id="verbs" class="section">
     <div class="section-title">Biblioteca de Vocabulario</div>
     <div class="section-sub">Busca y explora verbos y términos técnicos</div>
     <button class="grammar-back-btn" style="display:inline-flex; align-items:center; gap:0.5rem; margin-bottom:1.5rem;" onclick="showSection('home')">← Volver al inicio</button>
+
+    <!-- Barra de búsqueda superior -->
 
     <div class="verbs-controls" style="display:flex; gap:0.5rem; margin-bottom:1rem; position:relative;" id="verbControls">
       <input class="verbs-search" type="text" placeholder="Buscar vocabulario... (ej: network, to buy)"
@@ -280,14 +381,20 @@
       <span class="verb-cat-label"></span>
     </div>
 
+    <!-- Contenedor dinámico principal donde se dibujan las categorías o la lista filtrada -->
     <div class="verbs-accordion-wrap" id="verbsBody">
-      <!-- Verbs or Categories will be injected here -->
+      <!-- Los verbos o las categorías se inyectan acá vía JS -->
     </div>
   </div>
 
-  <!-- GRAMMAR BLAST (RÁFAGA DE GRAMÁTICA) -->
+  <!-- 
+    ======================================================================
+    SECCIÓN 8: MODO RÁFAGA (VERB BLAST)
+    Juego interactivo con múltiples pantallas (Configuración, Juego, Resultado).
+    ====================================================================== 
+  -->
   <div id="blast" class="section">
-    <!-- GPU Accelerated Flash Overlays -->
+    <!-- Capas de efectos visuales aceleradas por hardware (Pantallazos de error/acierto) -->
     <div class="vb-flash-overlay" id="vb-flash-overlay"></div>
     <div id="vb-penalty-float" class="vb-penalty-float" style="display:none;">-1s</div>
 
@@ -295,7 +402,7 @@
     <div class="section-sub" id="vb-section-subtitle">Gramática, verbos y reflejos a máxima velocidad</div>
     <button class="grammar-back-btn" style="display:inline-flex; align-items:center; gap:0.5rem; margin-bottom:1.5rem;" onclick="showSection('home')">← Volver al inicio</button>
 
-    <!-- START SCREEN -->
+    <!-- [PANTALLA 1] Menú de configuración inicial -->
     <div id="vb-start-screen" class="vb-screen active fade-in">
       <div class="vb-card vb-glass">
         <div class="vb-hero-icon">⚡</div>
@@ -367,14 +474,15 @@
       </div>
     </div>
 
-    <!-- GAME ACTIVE SCREEN -->
+    <!-- [PANTALLA 2] Juego Activo (Pantalla principal mientras se juega) -->
     <div id="vb-game-screen" class="vb-screen fade-in" style="display:none;">
-      <!-- Timer bar container -->
+      <!-- Barra de tiempo (visual) que se va achicando -->
       <div class="vb-timer-wrap">
         <div id="vb-timer-bar" class="vb-timer-bar"></div>
         <div id="vb-timer-icon" class="vb-timer-icon" style="display:none;"></div>
       </div>
 
+      <!-- Cabecera del juego: Racha actual y tiempo numérico -->
       <div class="vb-game-header">
         <div class="vb-streak" id="vb-streak-counter">
           <span class="vb-streak-icon" id="vb-streak-icon-lbl">🔥</span> <span id="vb-streak-text-lbl">Racha</span>:
@@ -397,19 +505,20 @@
           <div class="vb-mobile-tip" style="margin-top: 0.8rem;">Presioná Enter para enviar</div>
         </div>
 
-        <!-- Options format (buttons) -->
+        <!-- Diseño alternativo 2: Botones de opciones (Inyectados por JS) -->
         <div class="vb-options-grid" id="vb-options-container" style="display:none;">
           <!-- Options will be injected by JS -->
         </div>
       </div>
     </div>
 
-    <!-- GAME OVER SCREEN -->
+    <!-- [PANTALLA 3] Resultados (Game Over) -->
     <div id="vb-over-screen" class="vb-screen fade-in" style="display:none;">
       <div class="vb-card vb-glass">
         <div class="vb-game-over-icon" id="vb-over-icon">💥</div>
         <h2 class="vb-game-over-title" id="vb-over-title">FIN DE LA RÁFAGA</h2>
 
+        <!-- Banner motivacional si se rompe el récord -->
         <div id="vb-over-new-record" class="vb-new-record-banner" style="display:none;">
           🏆 ¡NUEVO RÉCORD PERSONAL!
         </div>
@@ -441,6 +550,18 @@
       </div>
     </div>
   </div>
+
+  <!-- 
+    ======================================================================
+    FOOTER (Créditos)
+    ====================================================================== 
+  -->
+  <footer class="app-footer">
+    <div class="footer-content">
+      <p>Desarrollado por <strong style="color: var(--accent);">Emmanuel Vega</strong></p>
+      <p class="footer-sub">ByteLanguage.exe &copy; 2026</p>
+    </div>
+  </footer>
 
   <div class="mobile-nav">
     <button class="mob-btn active" onclick="showSection('home')">

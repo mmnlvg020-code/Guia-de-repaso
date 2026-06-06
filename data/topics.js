@@ -1,5 +1,73 @@
 const topics = [
   {
+    icon: 'user', color: '#a78bfa', course: 'Inglés 1',
+    title: 'Verb "To Be" (Ser / Estar)',
+    desc: 'El verbo principal del inglés. Se usa para descripciones, edades, ubicaciones y estados. Ojo: ¡En inglés la edad se ES (I am 20), no se TIENE!',
+    formula: 'I am | He/She/It is | We/You/They are',
+    analogy: { emoji: 'user', text: 'Piensa en el verbo To Be como un "Espejo" o un "GPS". Refleja QUIÉN eres (I am John), CÓMO estás (I am tired) o DÓNDE estás (I am in the office). No es una acción de movimiento, es una foto de tu estado actual.' },
+    examples: [
+      { type: 'pos', text: 'I am a programmer. (Profesión)' },
+      { type: 'pos', text: 'She is 25 years old. (Edad - Siempre con To Be)' },
+      { type: 'neg', text: 'We are not (aren\'t) ready.' },
+      { type: 'q', text: 'Are you from Argentina? - Yes, I am.' },
+    ],
+    table: {
+      headers: ['Sujeto', 'Afirmativo', 'Negativo (Corto)'],
+      rows: [
+        ['I', 'am (\'m)', 'am not'],
+        ['He / She / It', 'is (\'s)', 'isn\'t'],
+        ['We / You / They', 'are (\'re)', 'aren\'t'],
+      ]
+    }
+  },
+  {
+    icon: 'tag', color: '#ff6b6b', course: 'Inglés 1',
+    title: 'Possessive Adjectives & Pronouns',
+    desc: 'Palabras para indicar de quién es algo. Los adjetivos posesivos van ANTES del objeto. Los pronombres posesivos reemplazan al objeto.',
+    formula: 'Possessive Adjective + Noun | Possessive Pronoun (solo)',
+    analogy: { emoji: 'key', text: 'Adjetivo = Etiqueta con tu nombre pegada al objeto ("This is MY laptop"). Pronombre = Título de propiedad que guardas cuando el objeto ya es obvio ("This laptop is MINE").' },
+    examples: [
+      { type: 'pos', text: 'This is my computer. (Adjetivo)' },
+      { type: 'pos', text: 'This computer is mine. (Pronombre)' },
+      { type: 'neg', text: 'That is not his jacket. It is hers.' },
+      { type: 'q', text: 'Whose phone is this? (¿De quién es?)' },
+    ],
+    table: {
+      headers: ['Sujeto', 'Adjetivo (mi, tu...)', 'Pronombre (mío, tuyo...)'],
+      rows: [
+        ['I', 'my (my book)', 'mine (it is mine)'],
+        ['You', 'your (your car)', 'yours (it is yours)'],
+        ['He', 'his (his house)', 'his (it is his)'],
+        ['She', 'her (her phone)', 'hers (it is hers)'],
+        ['We', 'our (our team)', 'ours (it is ours)'],
+        ['They', 'their (their data)', 'theirs (it is theirs)'],
+      ]
+    }
+  },
+  {
+    icon: 'book', color: '#00ff88', course: 'Inglés 1',
+    title: 'Countable vs Uncountable & Quantifiers',
+    desc: 'Los sustantivos contables se pueden contar con números (1 manzana). Los incontables son líquidos, polvos o conceptos abstractos y no tienen plural.',
+    formula: 'How many + contables | How much + incontables',
+    analogy: { emoji: 'coffee', text: 'Imagina que se te cae al piso. Si puedes recogerlo contando las piezas rápido (manzanas, lápices) = Countable. Si tienes que barrerlo o trapearlo (agua, arroz, azúcar, dinero) = Uncountable.' },
+    examples: [
+      { type: 'pos', text: 'I have THREE computers. (Contable)' },
+      { type: 'pos', text: 'I need SOME water. (Incontable)' },
+      { type: 'q', text: 'HOW MANY apples do you want?' },
+      { type: 'q', text: 'HOW MUCH money do you have?' },
+    ],
+    table: {
+      headers: ['Cuantificador', 'Uso principal', 'Ejemplo'],
+      rows: [
+        ['Some', 'Afirmativas (Ambos)', 'I have some books / some water.'],
+        ['Any', 'Preguntas/Negativas (Ambos)', 'Do you have any money? / I don\'t have any.'],
+        ['Many', 'Contables (Muchos)', 'There are many cars.'],
+        ['Much', 'Incontables (Mucho)', 'There isn\'t much time.'],
+        ['A lot of', 'Ambos (Mucho/s)', 'A lot of friends / coffee.'],
+      ]
+    }
+  },
+  {
     icon: 'book', color: '#ffd93d', course: 'Inglés 1',
     title: 'Artículos: A / AN / THE',
     desc: 'A/AN = indefinido (cualquiera). THE = específico o único.',
@@ -544,14 +612,26 @@ const topics = [
   {
     icon: 'repeat', color: '#00bfff', course: 'Inglés Técnico',
     title: 'Prefixes & Suffixes (Affixation)',
-    desc: 'Letras que se agregan al principio (prefijo) o al final (sufijo) de una palabra base para cambiar su significado o su clase gramatical.',
+    desc: 'Letras que se agregan al principio o al final de una palabra base para cambiar radicalmente su significado o su categoría gramatical (ej. de verbo a sustantivo). Es la clave principal para leer manuales técnicos sin traductor.',
     formula: 'Prefix + Root + Suffix',
-    analogy: { emoji: 'package', text: 'Pensá en los afijos como accesorios que le ponés a un personaje de un juego. Un prefijo "un-" cambia el bando del personaje (lo hace negativo). Un sufijo "-er" le da una profesión (program -> programmer).' },
+    analogy: { emoji: 'package', text: 'Pensá en los afijos como "mods" o accesorios que le ponés a un personaje en un videojuego. Un prefijo "un-" le cambia el bando al personaje (lo hace negativo). Un sufijo "-er" le da una profesión (program -> programmer). Si aprendes las reglas, puedes adivinar cientos de palabras nuevas.' },
     examples: [
-      { type: 'pos', text: 'Prefix re- (otra vez): reboot, reconnect.' },
-      { type: 'pos', text: 'Prefix un-/in- (negativo): uninstall, invalid.' },
-      { type: 'pos', text: 'Suffix -er/-or (persona/cosa que hace la acción): server, developer.' },
-      { type: 'pos', text: 'Suffix -ly (adverbio, manera): automatically, securely.' }
-    ]
+      { type: 'pos', text: 'Prefix re- (otra vez): re-boot, re-connect, re-install' },
+      { type: 'pos', text: 'Prefix un-/dis-/in- (negativo / opuesto): un-install, dis-connect, in-valid' },
+      { type: 'kw', text: 'Los SUFIJOS te dicen qué TIPO de palabra es (Sustantivo, Adjetivo, etc.).' }
+    ],
+    table: {
+      headers: ['Afijo', 'Tipo/Significado', 'Ejemplos Técnicos'],
+      rows: [
+        ['-tion / -sion', 'Crea SUSTANTIVOS (acción o proceso)', 'connection, installation, configuration'],
+        ['-ment', 'Crea SUSTANTIVOS (resultado de una acción)', 'development, deployment, management'],
+        ['-er / -or', 'Crea SUSTANTIVOS (persona o cosa que hace algo)', 'server, developer, processor, administrator'],
+        ['-able / -ible', 'Crea ADJETIVOS (que se puede hacer)', 'executable, portable, flexible, scalable'],
+        ['-ive', 'Crea ADJETIVOS (tendencia a algo)', 'responsive, active, preventive'],
+        ['-ly', 'Crea ADVERBIOS (la manera en que se hace)', 'automatically, securely, locally'],
+        ['pre- / post-', 'PREFIJOS de tiempo (antes / después)', 'pre-processor, post-mortem'],
+        ['mis-', 'PREFIJOS de error (mal hecho)', 'misconfiguration, mismatch, misalign']
+      ]
+    }
   }
 ];

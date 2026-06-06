@@ -453,4 +453,56 @@ const quizData = [
     opts: ['Un tipo de malware', 'Software integrado permanentemente en hardware', 'Un sistema operativo móvil', 'Un tipo de red WiFi'],
     correct: 1, exp: 'Firmware = software de bajo nivel incrustado en el hardware (ej: BIOS de una PC, software de un router).'
   },
+  // ── NUEVO: INGLÉS 1 (VERB TO BE, POSSESSIVES, COUNTABLES) ──
+  {
+    cat: 'Verb To Be', q: '"I ___ a software developer."',
+    opts: ['is', 'are', 'am', 'be'],
+    correct: 2, exp: 'Sujeto I → Verb to be: am'
+  },
+  {
+    cat: 'Verb To Be', q: '"They ___ from Argentina. They are from Mexico."',
+    opts: ['are', 'is', "aren't", "isn't"],
+    correct: 2, exp: 'Negativo plural para They → aren\'t'
+  },
+  {
+    cat: 'Posesivos', q: '"___ laptop is broken." (La laptop de él)',
+    opts: ['He', 'Him', 'His', 'Her'],
+    correct: 2, exp: 'Adjetivo posesivo para él → His. (His laptop)'
+  },
+  {
+    cat: 'Posesivos', q: '"This book isn\'t mine. Is it ___?"',
+    opts: ['your', 'you', 'yours', 'our'],
+    correct: 2, exp: 'Pronombre posesivo sin sustantivo después → yours. (¿Es tuyo?)'
+  },
+  {
+    cat: 'Contables/Incont.', q: '"___ time do we have left?"',
+    opts: ['How many', 'How much', 'Any', 'Many'],
+    correct: 1, exp: 'El tiempo es incontable en inglés → How much'
+  },
+  {
+    cat: 'Contables/Incont.', q: '"I don\'t have ___ questions."',
+    opts: ['some', 'any', 'much', 'a'],
+    correct: 1, exp: 'En oraciones negativas e interrogativas plurales se usa "any".'
+  },
+  // ── NUEVO: PREFIJOS Y SUFIJOS ──
+  {
+    cat: 'Afijos', q: 'Si agregas el prefijo "un-" a "install" (uninstall), ¿qué significa?',
+    opts: ['Instalar otra vez', 'Desinstalar / lo opuesto', 'Instalación', 'El que instala'],
+    correct: 1, exp: 'El prefijo un- (igual que dis-) indica la acción opuesta o negación.'
+  },
+  {
+    cat: 'Afijos', q: '¿Qué sufijo usarías para convertir el verbo "connect" en un sustantivo?',
+    opts: ['-able', '-ive', '-ly', '-tion'],
+    correct: 3, exp: 'El sufijo -tion crea sustantivos de acción (connection).'
+  },
+  {
+    cat: 'Afijos', q: '"Automatically" y "securely" son palabras que indican la manera en que se hace algo. Son:',
+    opts: ['Sustantivos', 'Adjetivos', 'Adverbios', 'Verbos'],
+    correct: 2, exp: 'El sufijo -ly generalmente crea Adverbios (equivalente a "-mente" en español).'
+  },
+  {
+    cat: 'Afijos', q: 'El sufijo "-er" en "developer" o "server" indica:',
+    opts: ['El resultado de una acción', 'La persona o cosa que hace la acción', 'El opuesto de la acción', 'Una acción repetida'],
+    correct: 1, exp: 'El sufijo -er / -or significa "el que hace" algo. Develop (desarrollar) -> Developer (desarrollador).'
+  }
 ];

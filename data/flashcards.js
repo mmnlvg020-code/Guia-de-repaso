@@ -73,4 +73,21 @@ const flashcardsData = [
   { cat: 'IT Vocab', q: '¿Qué significa "deploy"?', a: 'Desplegar/publicar una aplicación', hint: 'We deploy the app to production every Friday.' },
   { cat: 'IT Vocab', q: '¿Qué significa "bandwidth"?', a: 'Ancho de banda (capacidad de transferencia de datos)', hint: 'More bandwidth = faster downloads.' },
   { cat: 'IT Vocab', q: '¿Qué significa "firmware"?', a: 'Software integrado permanentemente en un hardware', hint: 'Router firmware controls its basic operations.' },
+  // ── NUEVO: INGLÉS 1 (VERB TO BE, POSSESSIVES, COUNTABLES) ──
+  { cat: 'Verb To Be', q: '¿Cuál es el verbo To Be para "I"?', a: 'am', hint: 'I ___ a programmer.' },
+  { cat: 'Verb To Be', q: '¿Cuál es el verbo To Be para "She/He/It"?', a: 'is', hint: 'She ___ 25 years old.' },
+  { cat: 'Verb To Be', q: '¿Cuál es el verbo To Be para "We/You/They"?', a: 'are', hint: 'They ___ ready.' },
+  { cat: 'Verb To Be', q: 'En inglés, ¿la edad se "tiene" (have) o se "es" (be)?', a: 'Se ES (Verb To Be)', hint: 'I am 20 years old.' },
+  { cat: 'Posesivos', q: 'Adjetivo posesivo para "I" (mi/mis)', a: 'my', hint: 'This is ___ laptop.' },
+  { cat: 'Posesivos', q: 'Adjetivo posesivo para "She" (su de ella)', a: 'her', hint: '___ name is Sarah.' },
+  { cat: 'Posesivos', q: 'Pronombre posesivo para "You" (tuyo)', a: 'yours', hint: 'This book is ___.' },
+  { cat: 'Contables/Incont.', q: '¿"Water" es contable o incontable?', a: 'Incontable', hint: 'Los líquidos no se cuentan con números directos.' },
+  { cat: 'Contables/Incont.', q: '¿Qué usas para preguntar por cantidad INCONTABLE (ej. tiempo, dinero)?', a: 'How much', hint: '___ money do you have?' },
+  { cat: 'Contables/Incont.', q: '¿Qué usas para preguntar por cantidad CONTABLE (ej. manzanas, autos)?', a: 'How many', hint: '___ apples do you want?' },
+  // ── NUEVO: PREFIJOS Y SUFIJOS ──
+  { cat: 'Afijos', q: '¿Qué significa el prefijo "re-" (ej. reboot)?', a: 'Otra vez / de nuevo', hint: 'Reboot = volver a iniciar.' },
+  { cat: 'Afijos', q: '¿Qué significan los prefijos "un-", "dis-", "in-"?', a: 'Negación / lo opuesto', hint: 'Uninstall = desinstalar.' },
+  { cat: 'Afijos', q: '¿Qué tipo de palabra crean los sufijos "-tion" o "-ment"?', a: 'Sustantivos', hint: 'Installation, development.' },
+  { cat: 'Afijos', q: '¿Qué tipo de palabra crea el sufijo "-able" (ej. scalable)?', a: 'Adjetivos', hint: 'Que se puede hacer (escalable).' },
+  { cat: 'Afijos', q: '¿Qué indica el sufijo "-er" o "-or" (ej. server, developer)?', a: 'Persona o cosa que hace la acción', hint: 'Programmer = el que programa.' },
 ];

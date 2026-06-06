@@ -1,32 +1,50 @@
+﻿/* ==============================================================================
+ * HOJA DE ESTILOS PRINCIPAL (STYLES.CSS)
+ * ==============================================================================
+ * Este archivo controla toda la apariencia visual de la aplicaciÃ³n.
+ * 
+ * ARQUITECTURA DEL ARCHIVO:
+ * 1. Variables CSS (:root): Colores, fuentes y medidas globales.
+ * 2. Temas (Tema Claro/Oscuro): Sobrescritura de variables.
+ * 3. Reset y Base: Estilos generales del 'body' y tipografÃ­a.
+ * 4. Componentes Globales: Header, NavegaciÃ³n, Botones.
+ * 5. Layouts EspecÃ­ficos: Inicio, GramÃ¡tica, Flashcards, Quiz.
+ * 6. Animaciones (@keyframes): Transiciones fluidas.
+ * 7. Media Queries (Responsive): AdaptaciÃ³n a celulares y tablets.
+ * ============================================================================== */
+
+/* ---- 1. VARIABLES GLOBALES (Tema Oscuro por defecto) ---- */
 :root {
-  --bg: #0d0d0f;
-  --surface: #16161a;
-  --surface2: #1e1e24;
-  --border: #2a2a35;
-  --accent: #00ff88;
-  --accent2: #00bfff;
-  --accent3: #ff6b6b;
-  --accent4: #ffd93d;
-  --text: #e8e8f0;
-  --text-muted: #6b6b80;
-  --mono: 'Space Mono', monospace;
-  --sans: 'DM Sans', sans-serif;
-  --display: 'Syne', sans-serif;
-  --tech: 'Share Tech Mono', monospace;
-  --radius: 12px;
-  --mode: dark;
+  --bg: #0d0d0f;          /* Fondo principal oscuro */
+  --surface: #16161a;     /* Color de tarjetas y contenedores (primer nivel) */
+  --surface2: #1e1e24;    /* Color de tarjetas elevadas (segundo nivel) */
+  --border: #2a2a35;      /* Color de las lÃ­neas separadoras y bordes */
+  --accent: #00ff88;      /* Verde neÃ³n principal */
+  --accent2: #00bfff;     /* Azul neÃ³n secundario */
+  --accent3: #ff6b6b;     /* Rojo (para errores o antÃ³nimos) */
+  --accent4: #ffd93d;     /* Amarillo (para advertencias o sinÃ³nimos) */
+  --text: #e8e8f0;        /* Texto principal (blanco roto) */
+  --text-muted: #6b6b80;  /* Texto secundario (grisÃ¡ceo) */
+  --mono: 'Space Mono', monospace;          /* Fuente para cÃ³digo o nÃºmeros */
+  --sans: 'DM Sans', sans-serif;            /* Fuente principal de lectura */
+  --display: 'Syne', sans-serif;            /* Fuente gruesa para TÃ­tulos grandes */
+  --tech: 'Share Tech Mono', monospace;     /* Fuente estilo hacker */
+  --radius: 12px;         /* Curvatura general de las esquinas */
+  --mode: dark;           /* Variable auxiliar para saber el estado */
 }
 
+/* ---- 2. TEMA CLARO (Sobrescritura de Variables) ---- */
+/* Cuando el body tiene la clase 'light-mode', estas variables reemplazan a las de :root */
 .light-mode {
-  --bg: #f0f0f7;
-  --surface: #ffffff;
-  --surface2: #e8e8f2;
-  --border: #d0d0e0;
-  --accent: #00bfff;
+  --bg: #f0f0f7;          /* Fondo gris clarito */
+  --surface: #ffffff;     /* Tarjetas blancas */
+  --surface2: #e8e8f2;    /* Cajas destacadas gris claro */
+  --border: #d0d0e0;      /* Bordes mÃ¡s oscuros para contraste */
+  --accent: #00bfff;      /* Se cambia el verde por azul para mejor visibilidad en blanco */
   --accent2: #00aaff;
-  --accent3: #cc3333;
-  --accent4: #cc9900;
-  --text: #1a1a2e;
+  --accent3: #cc3333;     /* Rojo mÃ¡s oscuro */
+  --accent4: #cc9900;     /* Amarillo mÃ¡s oscuro */
+  --text: #1a1a2e;        /* Texto principal casi negro */
   --text-muted: #6b6b80;
 }
 
@@ -52,6 +70,10 @@
   border: 1px solid rgba(0, 191, 255, 0.3);
 }
 
+/* ==========================================================================
+   3. RESET Y BASE (Estilos Globales)
+   Resetea mÃ¡rgenes y configura el comportamiento general del body.
+   ========================================================================== */
 * {
   margin: 0;
   padding: 0;
@@ -77,7 +99,10 @@ body {
   overflow-x: clip;
 }
 
-/* ---- GLOW SPHERES ---- */
+/* ==========================================================================
+   4. EFECTOS VISUALES GLOBALES (GLOW SPHERES)
+   Esferas animadas que quedan fijas en el fondo de toda la aplicaciÃ³n.
+   ========================================================================== */
 .glow-spheres {
   position: fixed;
   top: 0;
@@ -86,7 +111,7 @@ body {
   height: 100vh;
   height: 100dvh;
   z-index: -2;
-  /* Detrás de todo */
+  /* DetrÃ¡s de todo */
   pointer-events: none;
   overflow: hidden;
 }
@@ -126,7 +151,10 @@ body {
   }
 }
 
-/* ---- HEADER ---- */
+/* ==========================================================================
+   5. NAVEGACIÃ“N Y COMPONENTES SUPERIORES (HEADER)
+   Barra pegajosa (sticky) superior con efecto cristal (backdrop-filter).
+   ========================================================================== */
 header {
   position: sticky;
   top: 0;
@@ -281,7 +309,7 @@ nav {
   animation: matrixGlowGlitch 3.5s infinite;
 }
 
-/* ESTADO SIN CONEXIÓN (OFFLINE) - EFECTO CONGELADO */
+/* ESTADO SIN CONEXIÃ“N (OFFLINE) - EFECTO CONGELADO */
 body.is-offline .matrix-glitch {
   animation: none !important;
   text-shadow: 4px 0 var(--accent), -4px 0 #ff00c8 !important;
@@ -300,7 +328,7 @@ body.is-offline .hero-tag {
   color: #ff00c8 !important;
 }
 
-/* FIN ESTADO SIN CONEXIÓN */
+/* FIN ESTADO SIN CONEXIÃ“N */
 
 @keyframes matrixGlowGlitch {
 
@@ -461,7 +489,7 @@ body.is-offline .hero-tag {
 
 .qa-action {
   font-family: var(--mono);
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   color: var(--text-muted);
   display: flex;
   align-items: center;
@@ -526,7 +554,7 @@ body.is-offline .hero-tag {
 
 .section-sub {
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   margin-bottom: 2rem;
 }
 
@@ -739,7 +767,7 @@ body.is-offline .hero-tag {
 /* Formula box */
 .formula {
   font-family: var(--mono);
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   background: var(--surface2);
   border-left: 3px solid var(--accent);
   padding: 0.5rem 0.8rem;
@@ -876,7 +904,7 @@ body.is-offline .hero-tag {
 }
 
 .analogy-text {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   line-height: 1.7;
   color: var(--text);
   margin: 0;
@@ -969,7 +997,7 @@ body.is-offline .hero-tag {
 }
 
 .fc-question {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 600;
   line-height: 1.4;
 }
@@ -1059,7 +1087,7 @@ body.is-offline .hero-tag {
 
 .quiz-score-badge {
   font-family: var(--mono);
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   background: var(--surface2);
   padding: 0.3rem 0.7rem;
   border-radius: 6px;
@@ -1139,7 +1167,7 @@ body.is-offline .hero-tag {
   border-radius: 8px;
   padding: 0.9rem 1.2rem;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   transition: border-color 0.18s, background 0.18s, transform 0.12s;
   text-align: left;
   color: var(--text);
@@ -1260,7 +1288,7 @@ body.is-offline .hero-tag {
   border-radius: 8px;
   font-family: var(--sans);
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   cursor: pointer;
   display: none;
   margin-top: 0.8rem;
@@ -1368,7 +1396,7 @@ body.is-offline .hero-tag {
   padding: 0.7rem 1rem;
   color: var(--text);
   font-family: var(--sans);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   margin-bottom: 1rem;
   outline: none;
   transition: border-color 0.2s;
@@ -1386,7 +1414,7 @@ body.is-offline .hero-tag {
   margin: 0 auto;
 }
 
-/* Back bar for verb category view — stays above the scrollable list */
+/* Back bar for verb category view â€” stays above the scrollable list */
 .verb-back-bar {
   display: flex;
   align-items: center;
@@ -2208,7 +2236,7 @@ svg.icon {
 }
 
 /* ============================================================
-   RÁFAGA DE VERBOS (VERB BLAST) STYLES
+   RÃFAGA DE VERBOS (VERB BLAST) STYLES
    ============================================================ */
 
 /* GPU Accelerated Feedback Flash Overlay */
@@ -2344,7 +2372,7 @@ svg.icon {
 /* Difficulty Selector */
 .vb-difficulty-title {
   font-family: var(--sans);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: bold;
   color: var(--text);
   margin-bottom: 0.8rem;
@@ -2381,7 +2409,7 @@ svg.icon {
 
 .vb-diff-btn .diff-time {
   font-family: var(--mono);
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   color: var(--text-muted);
   opacity: 0.8;
 }
@@ -2415,7 +2443,7 @@ svg.icon {
   font-family: var(--sans);
   font-size: 1.05rem;
   font-weight: bold;
-  padding: 1rem 2rem;
+  padding: 0.6rem 1.5rem;
   border-radius: var(--radius);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -2504,7 +2532,7 @@ svg.icon {
   margin-bottom: 1.2rem;
 }
 
-/* Llama de racha / badge neón */
+/* Llama de racha / badge neÃ³n */
 .vb-streak {
   background: rgba(0, 255, 136, 0.08);
   border: 1px solid rgba(0, 255, 136, 0.2);
@@ -2512,7 +2540,7 @@ svg.icon {
   padding: 0.5rem 1.2rem;
   border-radius: 30px;
   font-family: var(--mono);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: bold;
   box-shadow: 0 0 15px rgba(0, 255, 136, 0.15);
   animation: pulseStreak 1.5s infinite alternate ease-in-out;
@@ -2596,7 +2624,7 @@ svg.icon {
 
 .vb-mobile-tip {
   font-family: var(--sans);
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   color: var(--text-muted);
   opacity: 0.7;
 }
@@ -2670,7 +2698,7 @@ svg.icon {
 
 .vb-result-label {
   font-family: var(--sans);
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   color: var(--text-muted);
   text-transform: uppercase;
 }
@@ -2690,7 +2718,7 @@ svg.icon {
   text-align: left;
   max-width: 480px;
   margin: 0 auto 2.5rem;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   line-height: 1.6;
 }
 
@@ -2888,7 +2916,7 @@ svg.icon {
   padding: 0.5rem 1.2rem;
   border-radius: 30px;
   font-family: var(--mono);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: bold;
   margin-left: 0.5rem;
   box-shadow: 0 0 15px rgba(255, 107, 107, 0.15);
@@ -2922,3 +2950,30 @@ svg.icon {
   }
 
   100% {}
+/* ==========================================================================
+   FOOTER (CRÉDITOS)
+   ========================================================================== */
+.app-footer {
+  text-align: center;
+  padding: 3rem 1rem 6rem 1rem; /* Mucho padding abajo para que no lo tape la nav móvil */
+  color: var(--text-muted);
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.footer-content {
+  background: var(--surface2);
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.footer-sub {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  margin-top: 0.3rem;
+  letter-spacing: 1px;
+}
