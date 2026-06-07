@@ -504,5 +504,57 @@ const quizData = [
     cat: 'Afijos', q: 'El sufijo "-er" en "developer" o "server" indica:',
     opts: ['El resultado de una acción', 'La persona o cosa que hace la acción', 'El opuesto de la acción', 'Una acción repetida'],
     correct: 1, exp: 'El sufijo -er / -or significa "el que hace" algo. Develop (desarrollar) -> Developer (desarrollador).'
+  },
+  // ── NUEVO: PLURALES, NOUN PHRASES, CONNECTORS ──
+  {
+    cat: 'Plurales', q: '¿Cuál es el plural de "city"?',
+    opts: ['citys', 'cities', 'cityes', 'citeis'],
+    correct: 1, exp: 'Consonante + y → y cambia por ies: cities.'
+  },
+  {
+    cat: 'Plurales', q: '¿Cuál es el plural irregular de "man"?',
+    opts: ['mans', 'men', 'mens', 'manies'],
+    correct: 1, exp: 'Irregular: man → men.'
+  },
+  {
+    cat: 'Plurales', q: '¿Cuál es el plural de "watch"?',
+    opts: ['watchs', 'watches', 'watchies', 'watch'],
+    correct: 1, exp: 'Sustantivos que terminan en -ch agregan -es: watches.'
+  },
+  {
+    cat: 'Noun Phrases', q: 'En la frase "A high-speed wireless network router", ¿cuál es el Head Noun (sustantivo principal)?',
+    opts: ['high-speed', 'wireless', 'network', 'router'],
+    correct: 3, exp: 'El núcleo (Head Noun) siempre va al final en inglés. Todo lo anterior funciona como un modificador ("empaque").'
+  },
+  {
+    cat: 'Noun Phrases', q: 'Traduce "Database management system" usando la regla técnica:',
+    opts: ['Base de datos para el sistema de gestión', 'Sistema de gestión de base de datos', 'Gestión de sistema de base de datos', 'Sistema de base de datos de gestión'],
+    correct: 1, exp: 'Se lee de atrás hacia adelante: System (Sistema) de management (gestión) de database (base de datos).'
+  },
+  {
+    cat: 'Connectors', q: '"The system crashed. ___, data was lost." ¿Qué conector de EFECTO encaja mejor?',
+    opts: ['However', 'Because', 'Therefore', 'First'],
+    correct: 2, exp: '"Therefore" (por lo tanto) indica el resultado lógico/efecto directo del fallo.'
+  },
+  {
+    cat: 'Connectors', q: '"It is secure; ___, it is slow." ¿Qué conector de CONTRASTE encaja mejor?',
+    opts: ['Therefore', 'Due to', 'However', 'Then'],
+    correct: 2, exp: '"However" (sin embargo) indica un contraste o cambio de idea. (Es seguro, pero es lento).'
+  },
+  {
+    cat: 'Connectors', q: '"___, reboot the PC. Then, check the IP." ¿Qué conector de SECUENCIA encaja mejor?',
+    opts: ['However', 'First', 'Because', 'Therefore'],
+    correct: 1, exp: '"First" (primero) marca el inicio de una secuencia de pasos.'
+  },
+  // ── NUEVO: READING STRATEGIES ──
+  {
+    cat: 'Reading', q: '¿Qué es una "Topic Sentence" en un párrafo técnico?',
+    opts: ['La última oración', 'La oración principal que define de qué trata el párrafo', 'Una oración de ejemplo', 'Un conector lógico'],
+    correct: 1, exp: 'La Topic Sentence (usualmente la primera oración) indica la idea principal. Todo lo que sigue son detalles de soporte.'
+  },
+  {
+    cat: 'Reading', q: 'En preguntas de True/False, ¿qué indican palabras absolutas como "always", "never" o "only"?',
+    opts: ['Que es un conector', 'Que la oración suele ser flexible', 'Una restricción absoluta (útil para detectar si es False si el texto decía "sometimes")', 'Que es la Topic Sentence'],
+    correct: 2, exp: 'Los modificadores absolutos (all, every, never, none) suelen hacer que una afirmación sea Falsa si el texto original era más flexible.'
   }
 ];

@@ -90,4 +90,24 @@ const flashcardsData = [
   { cat: 'Afijos', q: '¿Qué tipo de palabra crean los sufijos "-tion" o "-ment"?', a: 'Sustantivos', hint: 'Installation, development.' },
   { cat: 'Afijos', q: '¿Qué tipo de palabra crea el sufijo "-able" (ej. scalable)?', a: 'Adjetivos', hint: 'Que se puede hacer (escalable).' },
   { cat: 'Afijos', q: '¿Qué indica el sufijo "-er" o "-or" (ej. server, developer)?', a: 'Persona o cosa que hace la acción', hint: 'Programmer = el que programa.' },
+  // ── NUEVO: PLURALES, NOUN PHRASES, CONNECTORS ──
+  { cat: 'Plurales', q: '¿Plural de los sustantivos que terminan en s, x, z, sh, ch?', a: 'Se agrega -es', hint: 'Ejemplo: bus → buses, watch → watches.' },
+  { cat: 'Plurales', q: '¿Plural de los sustantivos que terminan en consonante + y?', a: 'Se cambia a -ies', hint: 'Ejemplo: city → cities.' },
+  { cat: 'Plurales', q: '¿Plural irregular de "man" y "child"?', a: 'men / children', hint: 'Son irregulares, no usan -s ni -es.' },
+  { cat: 'Noun Phrases', q: 'En la frase "a wireless network device", ¿cuál es el Head Noun?', a: 'device', hint: 'El objeto principal de la frase siempre va al final.' },
+  { cat: 'Noun Phrases', q: '¿En qué orden se suele traducir una Noun Phrase en español?', a: 'De atrás hacia adelante', hint: 'Security (2) threats (1) = Amenazas de seguridad.' },
+  { cat: 'Connectors', q: '¿Qué función cumple el conector "Therefore"?', a: 'Indica resultado / efecto (por lo tanto)', hint: 'Ejemplo: The system crashed. Therefore, data was lost.' },
+  { cat: 'Connectors', q: '¿Qué función cumple el conector "However"?', a: 'Indica contraste (sin embargo)', hint: 'Es seguro. However, es lento.' },
+  { cat: 'Connectors', q: '¿Para qué sirven los conectores "First", "Then", "Next"?', a: 'Indican secuencia (primero, luego, después)', hint: 'Paso 1, Paso 2. First, reboot the PC. Then...' },
+  // ── NUEVO: PRESENT CONTINUOUS & WH-QUESTIONS ──
+  { cat: 'Present Continuous', q: '¿Cómo se forma el Present Continuous afirmativo?', a: 'Sujeto + am/is/are + verbo-ing', hint: 'Acciones en progreso: She is studying.' },
+  { cat: 'Present Continuous', q: '¿Para qué más se usa el Present Continuous además de "ahora mismo"?', a: 'Planes futuros cercanos confirmados', hint: 'I am working tomorrow.' },
+  { cat: 'WH-Questions', q: '¿Qué pregunta "Where"?', a: 'Lugar (dónde)', hint: 'Where does she live?' },
+  { cat: 'WH-Questions', q: '¿Qué pregunta "Why"?', a: 'Razón / Motivo (por qué)', hint: 'Why are you late?' },
+  { cat: 'WH-Questions', q: '¿Qué pregunta "When"?', a: 'Tiempo / Cuándo', hint: 'When did they arrive?' },
+  // ── NUEVO: READING STRATEGIES ──
+  { cat: 'Reading', q: '¿Qué es una Topic Sentence?', a: 'La oración que define la idea principal del párrafo', hint: 'Casi siempre es la primera oración.' },
+  { cat: 'Reading', q: '¿Qué indican las palabras "always", "never", "only" en un examen de True/False?', a: 'Restricciones absolutas', hint: 'Suelen hacer que una opción sea falsa si el texto original usa palabras como "sometimes".' },
+  { cat: 'Reading', q: '¿En qué consiste la técnica de "Skimming"?', a: 'Leer por encima para captar la idea general', hint: 'Skim = Idea General.' },
+  { cat: 'Reading', q: '¿En qué consiste la técnica de "Scanning"?', a: 'Buscar visualmente datos específicos (números, nombres)', hint: 'Scan = Dato Específico (como hacer Ctrl+F).' }
 ];

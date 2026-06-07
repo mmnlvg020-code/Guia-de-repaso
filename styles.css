@@ -1,4 +1,4 @@
-﻿/* ==============================================================================
+/* ==============================================================================
  * HOJA DE ESTILOS PRINCIPAL (STYLES.CSS)
  * ==============================================================================
  * Este archivo controla toda la apariencia visual de la aplicaciÃ³n.
@@ -2965,15 +2965,41 @@ svg.icon {
 .footer-content {
   background: var(--surface2);
   display: inline-block;
-  padding: 0.6rem 1.5rem;
+  padding: 0.3rem 1rem; /* Padding mucho más pequeño */
   border-radius: 50px;
   border: 1px solid var(--border);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Sombra más sutil */
+  opacity: 0.7; /* Más disimulado */
+  transition: opacity 0.3s ease;
 }
 
-.footer-sub {
+.footer-content:hover {
+  opacity: 1;
+}
+
+.footer-text {
   font-family: var(--mono);
-  font-size: 0.65rem;
-  margin-top: 0.3rem;
-  letter-spacing: 1px;
+  font-size: 0.65rem; /* Fuente reducida */
+  margin: 0;
+  letter-spacing: 0.5px;
+  cursor: default;
+}
+
+.footer-text .hover-text {
+  display: none;
+}
+
+.footer-content:hover .default-text {
+  display: none;
+}
+
+.footer-content:hover .hover-text {
+  display: inline;
+  animation: fadeIn 0.3s ease;
+}
+
+@media (max-width: 600px) {
+  .footer-text {
+    font-size: 0.55rem; /* Mucho más pequeño en celular */
+  }
 }

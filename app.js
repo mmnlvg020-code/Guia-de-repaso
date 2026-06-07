@@ -87,14 +87,20 @@ function getIcon(name, size = null, strokeWidth = null) {
 }
 
 // ============================================================
-// DATA
+// DATA & HELPERS
 // ============================================================
 
-
-
-
-
-
+/**
+ * Fisher-Yates Shuffle: Algoritmo para aleatoriedad real.
+ * Reemplaza el defectuoso .sort(() => Math.random() - 0.5)
+ */
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
 // ============================================================
 // 2. LÓGICA DE LA SECCIÓN DE GRAMÁTICA
 // ============================================================
@@ -332,7 +338,7 @@ function renderFlashcardControls() {
  */
 function shuffleFlashcards() {
   const filtered = activeCategory === 'all' ? flashcardsData : flashcardsData.filter(f => f.cat === activeCategory);
-  currentShuffledCards = [...filtered].sort(() => Math.random() - 0.5);
+  currentShuffledCards = shuffleArray([...filtered]);
   isShuffled = true;
   renderFlashcards();
 }
@@ -450,7 +456,7 @@ function initQuiz() {
   const filtered = quizActiveCategory === 'all'
     ? quizData
     : quizData.filter(q => q.cat === quizActiveCategory);
-  currentQuizData = [...filtered].sort(() => Math.random() - 0.5).slice(0, 20);
+  currentQuizData = shuffleArray([...filtered]).slice(0, 20);
 
   // Reseteamos el estado global del quiz.
   currentQ = 0;
@@ -1256,12 +1262,12 @@ function nextVerbBlast() {
         allOpts = [...vbCurrentGrammar.opts];
         // Don't shuffle grammar opts as some might have "All of the above" etc, or we can shuffle if we want.
         // Actually, let's shuffle them just in case, but keep it simple:
-        allOpts.sort(() => Math.random() - 0.5);
+        shuffleArray(allOpts);
       } else {
         // Generate distractors for verbs
         const distractors = generateVbDistractors(correctVal, vbActiveQuestionType);
         // Combine and shuffle
-        allOpts = [correctVal, ...distractors].sort(() => Math.random() - 0.5);
+        allOpts = shuffleArray([correctVal, ...distractors]);
       }
 
       // Render option buttons
@@ -1643,7 +1649,7 @@ let refCurrentData = []; // Preguntas aleatorias para la sesión
  * Prepara e inicia el juego de Referentes. Elige 10 preguntas al azar.
  */
 function initReferentEx() {
-  refCurrentData = [...referentData].sort(() => Math.random() - 0.5).slice(0, 10);
+  refCurrentData = shuffleArray([...referentData]).slice(0, 10);
   refCurrentQ = 0;
   refScore = 0;
   renderReferent();
@@ -1680,7 +1686,7 @@ function renderReferent() {
   document.getElementById('refProgress').style.width = `${((refCurrentQ + 1) / refCurrentData.length) * 100}%`;
   document.getElementById('refScore').textContent = `✓ ${refScore}`;
 
-  const opts = [...q.options].sort(() => Math.random() - 0.5);
+  const opts = shuffleArray([...q.options]);
 
   container.innerHTML = `
     <div class="quiz-card fade-in">
@@ -1750,7 +1756,7 @@ let synCurrentData = []; // Preguntas aleatorias para la sesión
  * Prepara e inicia el juego de Sinónimos/Antónimos. Elige 10 preguntas al azar.
  */
 function initSynonymEx() {
-  synCurrentData = [...synonymData].sort(() => Math.random() - 0.5).slice(0, 10);
+  synCurrentData = shuffleArray([...synonymData]).slice(0, 10);
   synCurrentQ = 0;
   synScore = 0;
   renderSynonym();
@@ -1787,7 +1793,7 @@ function renderSynonym() {
   document.getElementById('synProgress').style.width = `${((synCurrentQ + 1) / synCurrentData.length) * 100}%`;
   document.getElementById('synScore').textContent = `✓ ${synScore}`;
 
-  const opts = [...q.options].sort(() => Math.random() - 0.5);
+  const opts = shuffleArray([...q.options]);
   const typeText = q.type === 'synonym' ? 'SINÓNIMO (Synonym)' : 'ANTÓNIMO (Antonym)';
   const typeColor = q.type === 'synonym' ? 'var(--accent)' : 'var(--accent3)';
 
